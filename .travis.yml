@@ -1,4 +1,8 @@
 language: csharp
 solution: Simple.Xml/Simple.Xml.sln
+install:
+  - nuget restore Simple.Xml/Simple.Xml.sln
+  - nuget install xunit.runners -Version 2.1.0 -OutputDirectory testrunner
 script:
   - xbuild /p:Configuration=Release Simple.Xml/Simple.Xml.sln
+  - mono ./testrunner/xunit.runners.2.1.0/tools/xunit.console.clr4.exe ./Simple.Xml/Simple.Xml.AcceptanceTests/bin/Release/Simple.Xml.AcceptanceTests.dll
