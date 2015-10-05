@@ -1,0 +1,4 @@
+language: csharp
+solution: src/Simple.Xml.sln
+script:
+  - xbuild /p:Configuration=Release src/Simple.Xml.sln
