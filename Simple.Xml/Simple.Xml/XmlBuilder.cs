@@ -4,7 +4,7 @@
     {
         public static dynamic Start()
         {
-            throw new System.NotImplementedException();
+            return new Element();
         }
     }
 }
