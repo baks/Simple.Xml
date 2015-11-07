@@ -1,10 +1,11 @@
-﻿namespace Simple.Xml
+﻿using System;
+
+namespace Simple.Xml
 {
-    public class XmlBuilder
+    public static class XmlBuilder
     {
-        public static dynamic Start()
-        {
-            return new Element();
-        }
+        public static Func<BaseElement, BaseElement> DecorateElement = element => element;
+
+        public static dynamic NewDocument => DecorateElement(new Document());
     }
 }

@@ -63,6 +63,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SimpleExpressionTranslationToXmlFacts.cs" />
+    <Compile Include="StringBuilderOutput.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
