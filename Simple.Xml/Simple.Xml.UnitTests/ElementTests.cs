@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using NSubstitute;
+using Ploeh.AutoFixture.Idioms;
+using Ploeh.AutoFixture.Xunit2;
 using Xunit;
 
 namespace Simple.Xml.UnitTests
@@ -11,6 +13,12 @@ namespace Simple.Xml.UnitTests
         private static readonly IElement UNUSED_PARENT = new NullObjectElement();
 
         private readonly Element sut = new Element(ANY_NAME, UNUSED_PARENT);
+
+        [Theory, AutoSubstituteData]
+        public void GuardCollaborators(GuardClauseAssertion guardClauseAssertion)
+        {
+            guardClauseAssertion.Verify(typeof (Element).GetConstructors());
+        }
 
         [Fact]
         public void VisitsVisitor()
