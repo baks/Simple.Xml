@@ -46,7 +46,6 @@
     <Compile Include="ForwardXmlStringProducer.cs" />
     <Compile Include="IElement.cs" />
     <Compile Include="IElementVisitor.cs" />
-    <Compile Include="IOutput.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="XmlBuilder.cs" />
   </ItemGroup>
