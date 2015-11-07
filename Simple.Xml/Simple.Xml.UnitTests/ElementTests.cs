@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using NSubstitute;
 using Ploeh.AutoFixture.Idioms;
-using Ploeh.AutoFixture.Xunit2;
 using Xunit;
 
 namespace Simple.Xml.UnitTests
@@ -23,7 +21,7 @@ namespace Simple.Xml.UnitTests
         [Fact]
         public void VisitsVisitor()
         {
-            var visitor = Substitute.For<IElementVisitor>();
+            var visitor = Substitute.For<IUpwardElementVisitor>();
             sut.Accept(visitor);
 
             visitor.Received(1).Visit(Arg.Any<string>(), Arg.Any<IElement>(), Arg.Any<IEnumerable<IElement>>());

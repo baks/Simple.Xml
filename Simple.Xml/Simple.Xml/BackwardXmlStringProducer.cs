@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Simple.Xml
 {
-    public class BackwardXmlStringProducer : IElementVisitor
+    public class BackwardXmlStringProducer : IUpwardElementVisitor
     {
         private readonly StringBuilder stringBuilder = new StringBuilder();
 

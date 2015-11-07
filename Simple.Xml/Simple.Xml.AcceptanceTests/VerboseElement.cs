@@ -98,7 +98,7 @@ namespace Simple.Xml.AcceptanceTests
             return baseElement.TryGetMember(binder, out result);
         }
 
-        public override void Accept(IElementVisitor visitor)
+        public override void Accept(IUpwardElementVisitor visitor)
         {
             baseElement.Accept(visitor);
         }

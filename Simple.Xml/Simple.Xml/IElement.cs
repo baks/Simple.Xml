@@ -2,7 +2,7 @@ namespace Simple.Xml
 {
     public interface IElement
     {
-        void Accept(IElementVisitor visitor);
+        void Accept(IUpwardElementVisitor visitor);
 
         string ToXml();
     }

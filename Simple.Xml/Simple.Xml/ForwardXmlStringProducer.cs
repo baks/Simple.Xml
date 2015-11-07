@@ -3,7 +3,7 @@ using System.Text;
 
 namespace Simple.Xml
 {
-    public class ForwardXmlStringProducer : IElementVisitor
+    public class ForwardXmlStringProducer : IUpwardElementVisitor
     {
         private readonly StringBuilder stringBuilder = new StringBuilder();
 

@@ -20,7 +20,7 @@ namespace Simple.Xml
             return true;
         }
 
-        public override void Accept(IElementVisitor visitor)
+        public override void Accept(IUpwardElementVisitor visitor)
         {
         }
 
