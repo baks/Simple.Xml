@@ -48,7 +48,6 @@
     <Compile Include="IElementVisitor.cs" />
     <Compile Include="IOutput.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="VerboseElement.cs" />
     <Compile Include="XmlBuilder.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
