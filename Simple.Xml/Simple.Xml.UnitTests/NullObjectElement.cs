@@ -6,6 +6,10 @@ namespace Simple.Xml.UnitTests
         {
         }
 
+        public void Accept(IDownwardElementVisitor visitor)
+        {
+        }
+
         public string ToXml()
         {
             return string.Empty;

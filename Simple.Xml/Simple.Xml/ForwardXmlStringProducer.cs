@@ -3,11 +3,11 @@ using System.Text;
 
 namespace Simple.Xml
 {
-    public class ForwardXmlStringProducer : IUpwardElementVisitor
+    public class ForwardXmlStringProducer : IDownwardElementVisitor
     {
         private readonly StringBuilder stringBuilder = new StringBuilder();
 
-        public void Visit(string name, IElement parent, IEnumerable<IElement> children)
+        public void Visit(string name, IEnumerable<IElement> children)
         {
             StartTag(name);
             foreach (var child in children)

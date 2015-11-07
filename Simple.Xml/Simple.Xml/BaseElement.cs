@@ -6,6 +6,8 @@ namespace Simple.Xml
     {
         public abstract void Accept(IUpwardElementVisitor visitor);
 
+        public abstract void Accept(IDownwardElementVisitor visitor);
+
         public abstract string ToXml();
     }
 }

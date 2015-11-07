@@ -103,6 +103,11 @@ namespace Simple.Xml.AcceptanceTests
             baseElement.Accept(visitor);
         }
 
+        public override void Accept(IDownwardElementVisitor visitor)
+        {
+            baseElement.Accept(visitor);
+        }
+
         public override string ToXml()
         {
             return baseElement.ToXml();

@@ -24,6 +24,11 @@ namespace Simple.Xml
         {
         }
 
+        public override void Accept(IDownwardElementVisitor visitor)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public override string ToXml()
         {
             var producer = new ForwardXmlStringProducer();
