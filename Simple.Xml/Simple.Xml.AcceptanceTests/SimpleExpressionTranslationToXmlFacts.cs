@@ -13,7 +13,7 @@ namespace Simple.Xml.AcceptanceTests
         public SimpleExpressionTranslationToXmlFacts(ITestOutputHelper testOutputHelper)
         {
             this.testOutputHelper = testOutputHelper;
-            //XmlBuilder.DecorateElement = element => new VerboseElement(new DynamicElement(element), output);
+            XmlBuilder.DecorateElement = element => new VerboseElement(element, output);
         }
 
         [Fact]

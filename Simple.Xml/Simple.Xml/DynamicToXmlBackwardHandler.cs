@@ -16,6 +16,18 @@ namespace Simple.Xml
             return dynamicElement.TryGetMember(binder, out result);
         }
 
+        public override bool TryInvokeMember(InvokeMemberBinder binder, object[] args, out object result)
+        {
+            var toXmlMethod = string.Equals("ToXml", binder.Name);
+            if (toXmlMethod)
+            {
+                result = ToXml();
+                return true;
+            }
+
+            return dynamicElement.TryInvokeMember(binder, args, out result);
+        }
+
         public override void Accept(IDynamicElementVisitor visitor) => dynamicElement.Accept(visitor);
 
         public string ToXml()

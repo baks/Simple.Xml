@@ -5,12 +5,12 @@ using System.Linq.Expressions;
 
 namespace Simple.Xml.AcceptanceTests
 {
-    public class VerboseElement : DynamicObject
+    public class VerboseElement : BaseDynamicElement
     {
-        private readonly DynamicElement baseElement;
+        private readonly BaseDynamicElement baseElement;
         private readonly IOutput output;
 
-        public VerboseElement(DynamicElement baseElement, IOutput output)
+        public VerboseElement(BaseDynamicElement baseElement, IOutput output)
         {
             if (baseElement == null)
             {
@@ -24,10 +24,12 @@ namespace Simple.Xml.AcceptanceTests
             this.output = output;
         }
 
+        public override void Accept(IDynamicElementVisitor visitor) => baseElement.Accept(visitor);
+
         public override IEnumerable<string> GetDynamicMemberNames()
         {
             output.Write("GetDynamicMemberNames");
-            return base.GetDynamicMemberNames();
+            return baseElement.GetDynamicMemberNames();
         }
 
         public override DynamicMetaObject GetMetaObject(Expression parameter)
@@ -39,57 +41,57 @@ namespace Simple.Xml.AcceptanceTests
         public override bool TryBinaryOperation(BinaryOperationBinder binder, object arg, out object result)
         {
             output.Write("TryBinaryOperation");
-            return base.TryBinaryOperation(binder, arg, out result);
+            return baseElement.TryBinaryOperation(binder, arg, out result);
         }
 
         public override bool TryConvert(ConvertBinder binder, out object result)
         {
             output.Write("TryConvert");
-            return base.TryConvert(binder, out result);
+            return baseElement.TryConvert(binder, out result);
         }
 
         public override bool TryCreateInstance(CreateInstanceBinder binder, object[] args, out object result)
         {
             output.Write("TryCreateInstance");
-            return base.TryCreateInstance(binder, args, out result);
+            return baseElement.TryCreateInstance(binder, args, out result);
         }
 
         public override bool TryGetIndex(GetIndexBinder binder, object[] indexes, out object result)
         {
             output.Write("TryGetIndex");
-            return base.TryGetIndex(binder, indexes, out result);
+            return baseElement.TryGetIndex(binder, indexes, out result);
         }
 
         public override bool TrySetIndex(SetIndexBinder binder, object[] indexes, object value)
         {
             output.Write("TrySetIndex");
-            return base.TrySetIndex(binder, indexes, value);
+            return baseElement.TrySetIndex(binder, indexes, value);
         }
 
         public override bool TryUnaryOperation(UnaryOperationBinder binder, out object result)
         {
             output.Write("TryUnaryOperation");
-            return base.TryUnaryOperation(binder, out result);
+            return baseElement.TryUnaryOperation(binder, out result);
         }
 
         public override bool TryInvoke(InvokeBinder binder, object[] args, out object result)
         {
             output.Write(string.Format("Try invoke with {0} arguments {1} and return type is {2}",
                 binder.CallInfo.ArgumentCount, string.Join(", ", binder.CallInfo.ArgumentNames), binder.ReturnType.FullName));
-            var res =  base.TryInvoke(binder, args, out result);
+            var res = baseElement.TryInvoke(binder, args, out result);
             return true;
         }
 
         public override bool TryInvokeMember(InvokeMemberBinder binder, object[] args, out object result)
         {
             output.Write(string.Format("TryInvokeMember for {0}", binder.Name));
-            return base.TryInvokeMember(binder, args, out result);
+            return baseElement.TryInvokeMember(binder, args, out result);
         }
 
         public override bool TrySetMember(SetMemberBinder binder, object value)
         {
             output.Write(string.Format("TrySetMember for {0}", binder.Name));
-            return base.TrySetMember(binder, value);
+            return baseElement.TrySetMember(binder, value);
         }
 
         public override bool TryGetMember(GetMemberBinder binder, out object result)

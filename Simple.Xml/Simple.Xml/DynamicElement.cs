@@ -18,7 +18,9 @@ namespace Simple.Xml
 
         public override bool TryGetMember(GetMemberBinder binder, out object result)
         {
-            result = new DynamicToXmlBackwardHandler(new DynamicElement(element.NewChild(binder.Name)));
+            result =
+                XmlBuilder.DecorateElement(
+                    new DynamicToXmlBackwardHandler(new DynamicElement(element.NewChild(binder.Name))));
             return true;
         }
 
