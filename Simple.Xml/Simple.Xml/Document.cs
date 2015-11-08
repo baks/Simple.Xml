@@ -16,8 +16,13 @@ namespace Simple.Xml
         {
             var element = XmlElement(binder.Name);
             elements.Add(element);
-            result = element;
+            result = new DynamicElement(element);
             return true;
+        }
+
+        public override void AddChild(IElement child)
+        {
+            throw new System.NotImplementedException();
         }
 
         public override void Accept(IUpwardElementVisitor visitor)
@@ -38,9 +43,10 @@ namespace Simple.Xml
                 element.Accept(producer);
             }
 
+
             return producer.ToString();
         }
 
-        private IElement XmlElement(string name) => XmlBuilder.DecorateElement(new Element(name, this));
+        private IElement XmlElement(string name) => new Element(name, this);
     }
 }

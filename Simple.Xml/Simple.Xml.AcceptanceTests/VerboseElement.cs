@@ -5,12 +5,12 @@ using System.Linq.Expressions;
 
 namespace Simple.Xml.AcceptanceTests
 {
-    public class VerboseElement : BaseElement
+    public class VerboseElement : DynamicObject
     {
-        private readonly BaseElement baseElement;
+        private readonly DynamicElement baseElement;
         private readonly IOutput output;
 
-        public VerboseElement(BaseElement baseElement, IOutput output)
+        public VerboseElement(DynamicElement baseElement, IOutput output)
         {
             if (baseElement == null)
             {
@@ -96,21 +96,6 @@ namespace Simple.Xml.AcceptanceTests
         {
             output.Write(string.Format("TryGetMember for {0}", binder.Name));
             return baseElement.TryGetMember(binder, out result);
-        }
-
-        public override void Accept(IUpwardElementVisitor visitor)
-        {
-            baseElement.Accept(visitor);
-        }
-
-        public override void Accept(IDownwardElementVisitor visitor)
-        {
-            baseElement.Accept(visitor);
-        }
-
-        public override string ToXml()
-        {
-            return baseElement.ToXml();
         }
     }
 }
