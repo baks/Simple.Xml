@@ -40,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BackwardXmlStringProducer.cs" />
+    <Compile Include="BaseDynamicElement.cs" />
     <Compile Include="DynamicBackwardXmlCreator.cs" />
     <Compile Include="DynamicForwardXmlStringProducer.cs" />
     <Compile Include="DynamicElement.cs" />

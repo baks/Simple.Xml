@@ -3,7 +3,7 @@ using System.Dynamic;
 
 namespace Simple.Xml
 {
-    public class DynamicElement : DynamicObject
+    public class DynamicElement : BaseDynamicElement
     {
         private readonly IElement element;
 
@@ -22,6 +22,6 @@ namespace Simple.Xml
             return true;
         }
 
-        public void Accept(IDynamicElementVisitor visitor) => visitor.Visit(element);
+        public override void Accept(IDynamicElementVisitor visitor) => visitor.Visit(element);
     }
 }
