@@ -7,6 +7,7 @@ namespace Simple.Xml
     {
         public static Func<DynamicObject, DynamicObject> DecorateElement = element => element;
 
-        public static dynamic NewDocument => DecorateElement(new Document(new RootElement()));
+        public static dynamic NewDocument
+            => DecorateElement(new DynamicForwardXmlStringProducer(new DynamicDocument(new RootElement())));
     }
 }

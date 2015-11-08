@@ -40,7 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BackwardXmlStringProducer.cs" />
-    <Compile Include="Document.cs" />
+    <Compile Include="DynamicDocument.cs" />
     <Compile Include="DynamicElement.cs" />
     <Compile Include="Element.cs" />
     <Compile Include="ForwardXmlStringProducer.cs" />
@@ -48,6 +48,7 @@
     <Compile Include="IElement.cs" />
     <Compile Include="IUpwardElementVisitor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RootElement.cs" />
     <Compile Include="XmlBuilder.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
