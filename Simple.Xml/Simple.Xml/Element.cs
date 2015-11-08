@@ -25,10 +25,11 @@ namespace Simple.Xml
             this.children = new List<IElement>();
         }
 
-        public override void Accept(IDownwardElementVisitor visitor)
-        {
-            visitor.Visit(this.name, this.children);
-        }
+        public void AddChild(IElement child) => children.Add(child);
+
+        public override void Accept(IDownwardElementVisitor visitor) => visitor.Visit(this.name, this.children);
+
+        public override void Accept(IUpwardElementVisitor visitor) => visitor.Visit(this.name, this.parent, this.children);
 
         public override string ToXml()
         {
@@ -43,11 +44,6 @@ namespace Simple.Xml
             children.Add(element);
             result = element;
             return true;
-        }
-
-        public override void Accept(IUpwardElementVisitor visitor)
-        {
-            visitor.Visit(this.name, this.parent, this.children);
         }
     }
 }

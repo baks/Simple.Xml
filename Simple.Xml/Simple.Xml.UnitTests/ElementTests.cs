@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using FluentAssertions;
 using NSubstitute;
 using Ploeh.AutoFixture.Idioms;
 using Xunit;
@@ -15,7 +17,7 @@ namespace Simple.Xml.UnitTests
         private readonly Element sut = new Element(ANY_NAME, UNUSED_PARENT);
 
         [Theory, AutoSubstituteData]
-        public void GuardCollaborators(GuardClauseAssertion guardClauseAssertion)
+        public void GuardsCollaborators(GuardClauseAssertion guardClauseAssertion)
         {
             guardClauseAssertion.Verify(typeof (Element).GetConstructors());
         }
@@ -25,23 +27,31 @@ namespace Simple.Xml.UnitTests
         {
             sut.Accept(upwardVisitor);
 
-            upwardVisitor.Received(1).Visit(Arg.Any<string>(), Arg.Any<IElement>(), Arg.Any<IEnumerable<IElement>>());
+            upwardVisitor.Received(1).Visit(AString, AnElement, AElementsEnumerable);
         }
 
         [Theory, AutoSubstituteData]
-        public void PassNameToUpwardVisitor(string name)
+        public void PassesNameToUpwardVisitor(string name)
         {
             ElementWithName(name).Accept(upwardVisitor);
 
-            AssertUpwardVisitorIsVisitedWith(name, Arg.Any<IElement>(), Arg.Any<IEnumerable<IElement>>());
+            AssertUpwardVisitorIsVisitedWith(name, AnElement, AElementsEnumerable);
         }
 
         [Theory, AutoSubstituteData]
-        public void PassParentToUpwardVisitor(IElement parent)
+        public void PassesParentToUpwardVisitor(IElement parent)
         {
             ElementWithParent(parent).Accept(upwardVisitor);
 
-            AssertUpwardVisitorIsVisitedWith(Arg.Any<string>(), parent, Arg.Any<IEnumerable<IElement>>());
+            AssertUpwardVisitorIsVisitedWith(AString, parent, AElementsEnumerable);
+        }
+
+        [Theory, AutoSubstituteData]
+        public void PassesChildrenToUpwardVisitor(IElement child)
+        {
+            ElementWithChild(child).Accept(upwardVisitor);
+
+            AssertUpwardVisitorIsVisitedWith(AString, AnElement, EnumerableWithElements(child));
         }
 
         private void AssertUpwardVisitorIsVisitedWith(string name, IElement parent, IEnumerable<IElement> children)
@@ -50,5 +60,22 @@ namespace Simple.Xml.UnitTests
         private static Element ElementWithName(string name) => new Element(name, UNUSED_PARENT);
 
         private static Element ElementWithParent(IElement parent) => new Element(ANY_NAME, parent);
+
+        private static Element ElementWithChild(IElement child)
+        {
+            var element = new Element(ANY_NAME, UNUSED_PARENT);
+            element.AddChild(child);
+
+            return element;
+        }
+
+        private static string AString => Arg.Any<string>();
+
+        private static IElement AnElement => Arg.Any<IElement>();
+
+        private static IEnumerable<IElement> AElementsEnumerable => Arg.Any<IEnumerable<IElement>>();
+
+        private static IEnumerable<IElement> EnumerableWithElements(IElement child)
+            => Arg.Is<IEnumerable<IElement>>(c => c.SequenceEqual(new [] {child}));
     }
 }
