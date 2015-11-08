@@ -46,11 +46,11 @@ namespace Simple.Xml.UnitTests
         }
 
         [Theory, AutoSubstituteData]
-        public void PassesChildrenToUpwardVisitor(IElement child)
+        public void PassesChildrenToUpwardVisitor(IEnumerable<IElement> children)
         {
-            ElementWithChild(child).Accept(upwardVisitor);
+            ElementWithChildren(children).Accept(upwardVisitor);
 
-            AssertUpwardVisitorIsVisitedWith(AName, AParent, EnumerableWithElements(child));
+            AssertUpwardVisitorIsVisitedWith(AName, AParent, EnumerableWithElements(children));
         }
 
         [Fact]
@@ -70,11 +70,11 @@ namespace Simple.Xml.UnitTests
         }
 
         [Theory, AutoSubstituteData]
-        public void PassesChildrenToDownwardVisitor(IElement child)
+        public void PassesChildrenToDownwardVisitor(IEnumerable<IElement> children)
         {
-            ElementWithChild(child).Accept(downwardVisitor);
+            ElementWithChildren(children).Accept(downwardVisitor);
 
-            AssertDownwardVisitorIsVisitedWith(AName, EnumerableWithElements(child));
+            AssertDownwardVisitorIsVisitedWith(AName, EnumerableWithElements(children));
         }
 
         private void AssertUpwardVisitorIsVisitedWith(string name, IElement parent, IEnumerable<IElement> children)
@@ -87,10 +87,14 @@ namespace Simple.Xml.UnitTests
 
         private static IElement ElementWithParent(IElement parent) => new Element(ANY_NAME, parent);
 
-        private static IElement ElementWithChild(IElement child)
+        private static IElement ElementWithChildren(IEnumerable<IElement> children)
         {
             var element = new Element(ANY_NAME, UNUSED_PARENT);
-            element.AddChild(child);
+
+            foreach (var child in children)
+            {
+                element.AddChild(child);
+            }
 
             return element;
         }
@@ -101,7 +105,7 @@ namespace Simple.Xml.UnitTests
 
         private static IEnumerable<IElement> AnElementsEnumerable => Arg.Any<IEnumerable<IElement>>();
 
-        private static IEnumerable<IElement> EnumerableWithElements(IElement child)
-            => Arg.Is<IEnumerable<IElement>>(c => c.SequenceEqual(new [] {child}));
+        private static IEnumerable<IElement> EnumerableWithElements(IEnumerable<IElement> children)
+            => Arg.Is<IEnumerable<IElement>>(c => c.SequenceEqual(children));
     }
 }
