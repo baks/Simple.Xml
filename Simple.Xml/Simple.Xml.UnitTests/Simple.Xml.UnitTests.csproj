@@ -91,6 +91,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AutoSubstituteData.cs" />
+    <Compile Include="DynamicElementTests.cs" />
     <Compile Include="ElementTests.cs" />
     <Compile Include="NullObjectElement.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

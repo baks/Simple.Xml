@@ -1,4 +1,5 @@
-﻿using System.Dynamic;
+﻿using System;
+using System.Dynamic;
 
 namespace Simple.Xml
 {
@@ -8,14 +9,16 @@ namespace Simple.Xml
 
         public DynamicElement(IElement element)
         {
+            if (element == null)
+            {
+                throw new ArgumentNullException(nameof(element));
+            }
             this.element = element;
         }
 
         public override bool TryGetMember(GetMemberBinder binder, out object result)
         {
-            var child = new Element(binder.Name, this.element);
-            element.AddChild(child);
-            result = new DynamicBackwardXmlStringProducer(new DynamicElement(child));
+            result = new DynamicBackwardXmlStringProducer(new DynamicElement(element.NewChild(binder.Name)));
             return true;
         }
 

@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using NSubstitute;
-using Ploeh.AutoFixture;
 using Xunit;
 
 namespace Simple.Xml.UnitTests
@@ -13,15 +12,12 @@ namespace Simple.Xml.UnitTests
         private readonly IUpwardElementVisitor upwardVisitor = Substitute.For<IUpwardElementVisitor>();
 
         [Theory, AutoSubstituteData]
-        public void PassesVisitorIntoAllChildren(IEnumerable<IElement> children)
+        public void PassesVisitorIntoAllChildren(IEnumerable<string> childrenNames)
         {
-            foreach (var child in children)
-            {
-                sut.AddChild(child);
-            }
+            childrenNames.Select(childName => sut.NewChild(childName)).ToList();
             sut.Accept(downwardVisitor);
 
-            AssertPassesDownwardVisitorToAllChildren(children);
+            AssertPassesDownwardVisitorToAllChildren(childrenNames);
         }
 
         [Fact]
@@ -32,11 +28,11 @@ namespace Simple.Xml.UnitTests
             upwardVisitor.DidNotReceive().Visit(AName, AParent, AnElementsEnumerable);   
         }
 
-        private void AssertPassesDownwardVisitorToAllChildren(IEnumerable<IElement> children)
+        private void AssertPassesDownwardVisitorToAllChildren(IEnumerable<string> childrenNames)
         {
-            foreach (var child in children)
+            foreach (var name in childrenNames)
             {
-                child.Received(1).Accept(downwardVisitor);
+                downwardVisitor.Received(1).Visit(name, AnElementsEnumerable);
             }
         }
 

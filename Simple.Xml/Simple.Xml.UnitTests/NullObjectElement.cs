@@ -2,8 +2,9 @@ namespace Simple.Xml.UnitTests
 {
     public class NullObjectElement : IElement
     {
-        public void AddChild(IElement child)
+        public IElement NewChild(string childName)
         {
+            return new NullObjectElement();
         }
 
         public void Accept(IUpwardElementVisitor visitor)

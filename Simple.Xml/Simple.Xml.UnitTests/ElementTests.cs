@@ -46,9 +46,10 @@ namespace Simple.Xml.UnitTests
         }
 
         [Theory, AutoSubstituteData]
-        public void PassesChildrenToUpwardVisitor(IEnumerable<IElement> children)
+        public void PassesChildrenToUpwardVisitor(IEnumerable<string> childrenNames)
         {
-            ElementWithChildren(children).Accept(upwardVisitor);
+            var children = childrenNames.Select(childName => sut.NewChild(childName)).ToList();
+            sut.Accept(upwardVisitor);
 
             AssertUpwardVisitorIsVisitedWith(AName, AParent, EnumerableWithElements(children));
         }
@@ -70,9 +71,10 @@ namespace Simple.Xml.UnitTests
         }
 
         [Theory, AutoSubstituteData]
-        public void PassesChildrenToDownwardVisitor(IEnumerable<IElement> children)
+        public void PassesChildrenToDownwardVisitor(IEnumerable<string> childrenNames)
         {
-            ElementWithChildren(children).Accept(downwardVisitor);
+            var children = childrenNames.Select(childName => sut.NewChild(childName)).ToList();
+            sut.Accept(downwardVisitor);
 
             AssertDownwardVisitorIsVisitedWith(AName, EnumerableWithElements(children));
         }
@@ -86,18 +88,6 @@ namespace Simple.Xml.UnitTests
         private static IElement ElementWithName(string name) => new Element(name, UNUSED_PARENT);
 
         private static IElement ElementWithParent(IElement parent) => new Element(ANY_NAME, parent);
-
-        private static IElement ElementWithChildren(IEnumerable<IElement> children)
-        {
-            var element = new Element(ANY_NAME, UNUSED_PARENT);
-
-            foreach (var child in children)
-            {
-                element.AddChild(child);
-            }
-
-            return element;
-        }
 
         private static string AName => Arg.Any<string>();
 

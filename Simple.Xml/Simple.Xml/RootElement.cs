@@ -11,7 +11,12 @@ namespace Simple.Xml
             children = new List<IElement>();
         }
 
-        public void AddChild(IElement child) => children.Add(child);
+        public IElement NewChild(string childName)
+        {
+            var child = new Element(childName, this);
+            children.Add(child);
+            return child;
+        } 
 
         public void Accept(IDownwardElementVisitor visitor)
         {

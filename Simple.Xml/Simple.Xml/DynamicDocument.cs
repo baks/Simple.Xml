@@ -13,9 +13,7 @@ namespace Simple.Xml
 
         public override bool TryGetMember(GetMemberBinder binder, out object result)
         {
-            var element = XmlElement(binder.Name);
-            topElement.AddChild(element);
-            result = new DynamicElement(element);
+            result = new DynamicElement(topElement.NewChild(binder.Name));
             return true;
         }
 

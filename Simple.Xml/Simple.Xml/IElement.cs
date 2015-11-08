@@ -2,7 +2,7 @@ namespace Simple.Xml
 {
     public interface IElement
     {
-        void AddChild(IElement child);
+        IElement NewChild(string childName);
 
         void Accept(IUpwardElementVisitor visitor);
 
