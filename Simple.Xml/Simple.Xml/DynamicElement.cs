@@ -23,6 +23,8 @@ namespace Simple.Xml
         }
 
         public void VisitElement(IUpwardElementVisitor visitor) => element.Accept(visitor);
+
+        public void VisitElement(IDownwardElementVisitor visitor) => element.Accept(visitor);
     }
 
     public class DynamicBackwardXmlStringProducer : DynamicObject
