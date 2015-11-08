@@ -4,7 +4,8 @@
 
 ### TO-DO list
 
-- [ ] Can generate XML from property access chains
+- [x] Can generate XML from property access chains
 - [ ] Can add new nodes when the same property chain is accessed
+- [ ] Can add content to node
 - [ ] Can add attributes 
 - [ ] Can specify namespaces
