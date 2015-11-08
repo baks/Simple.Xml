@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using NSubstitute;
 using Ploeh.AutoFixture.Idioms;
 using Xunit;
@@ -25,7 +26,7 @@ namespace Simple.Xml.UnitTests
         {
             sut.Accept(upwardVisitor);
 
-            upwardVisitor.Received(1).Visit(AString, AnElement, AElementsEnumerable);
+            upwardVisitor.Received(1).Visit(AName, AParent, AnElementsEnumerable);
         }
 
         [Theory, AutoSubstituteData]
@@ -33,7 +34,7 @@ namespace Simple.Xml.UnitTests
         {
             ElementWithName(name).Accept(upwardVisitor);
 
-            AssertUpwardVisitorIsVisitedWith(name, AnElement, AElementsEnumerable);
+            AssertUpwardVisitorIsVisitedWith(name, AParent, AnElementsEnumerable);
         }
 
         [Theory, AutoSubstituteData]
@@ -41,19 +42,46 @@ namespace Simple.Xml.UnitTests
         {
             ElementWithParent(parent).Accept(upwardVisitor);
 
-            AssertUpwardVisitorIsVisitedWith(AString, parent, AElementsEnumerable);
+            AssertUpwardVisitorIsVisitedWith(AName, parent, AnElementsEnumerable);
         }
 
-        /*[Theory, AutoSubstituteData]
-        public void PassesChildrenToUpwardVisitor(string childName)
+        [Theory, AutoSubstituteData]
+        public void PassesChildrenToUpwardVisitor(IElement child)
         {
-            ElementWithChild(childName).Accept(upwardVisitor);
+            ElementWithChild(child).Accept(upwardVisitor);
 
-            AssertUpwardVisitorIsVisitedWith(AString, AnElement, EnumerableWithElements(childName));
-        }*/
+            AssertUpwardVisitorIsVisitedWith(AName, AParent, EnumerableWithElements(child));
+        }
+
+        [Fact]
+        public void VisitsDownwardVisitor()
+        {
+            sut.Accept(downwardVisitor);
+
+            downwardVisitor.Received(1).Visit(AName, AnElementsEnumerable);
+        }
+
+        [Theory, AutoSubstituteData]
+        public void PassesNameToDownwardVisitor(string name)
+        {
+            ElementWithName(name).Accept(downwardVisitor);
+
+            AssertDownwardVisitorIsVisitedWith(name, AnElementsEnumerable);
+        }
+
+        [Theory, AutoSubstituteData]
+        public void PassesChildrenToDownwardVisitor(IElement child)
+        {
+            ElementWithChild(child).Accept(downwardVisitor);
+
+            AssertDownwardVisitorIsVisitedWith(AName, EnumerableWithElements(child));
+        }
 
         private void AssertUpwardVisitorIsVisitedWith(string name, IElement parent, IEnumerable<IElement> children)
             => upwardVisitor.Received().Visit(name, parent, children);
+
+        private void AssertDownwardVisitorIsVisitedWith(string name, IEnumerable<IElement> children)
+            => downwardVisitor.Received().Visit(name, children);
 
         private static IElement ElementWithName(string name) => new Element(name, UNUSED_PARENT);
 
@@ -67,13 +95,13 @@ namespace Simple.Xml.UnitTests
             return element;
         }
 
-        private static string AString => Arg.Any<string>();
+        private static string AName => Arg.Any<string>();
 
-        private static IElement AnElement => Arg.Any<IElement>();
+        private static IElement AParent => Arg.Any<IElement>();
 
-        private static IEnumerable<IElement> AElementsEnumerable => Arg.Any<IEnumerable<IElement>>();
+        private static IEnumerable<IElement> AnElementsEnumerable => Arg.Any<IEnumerable<IElement>>();
 
-        /*private static IEnumerable<IElement> EnumerableWithElements(string childName)
-            => Arg.Is<IEnumerable<IElement>>(c => c.SequenceEqual(new [] {child}));*/
+        private static IEnumerable<IElement> EnumerableWithElements(IElement child)
+            => Arg.Is<IEnumerable<IElement>>(c => c.SequenceEqual(new [] {child}));
     }
 }
