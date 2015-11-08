@@ -7,7 +7,5 @@ namespace Simple.Xml
         void Accept(IUpwardElementVisitor visitor);
 
         void Accept(IDownwardElementVisitor visitor);
-
-        string ToXml();
     }
 }

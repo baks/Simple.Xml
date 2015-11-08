@@ -34,7 +34,7 @@ namespace Simple.Xml
             throw new System.NotImplementedException();
         }
 
-        public override string ToXml()
+        public string ToXml()
         {
             var producer = new ForwardXmlStringProducer();
 

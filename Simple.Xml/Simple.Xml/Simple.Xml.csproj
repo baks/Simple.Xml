@@ -43,6 +43,7 @@
     <Compile Include="BaseElement.cs" />
     <Compile Include="Document.cs" />
     <Compile Include="DynamicElement.cs" />
+    <Compile Include="Element.cs" />
     <Compile Include="ForwardXmlStringProducer.cs" />
     <Compile Include="IDownwardElementVisitor.cs" />
     <Compile Include="IElement.cs" />
