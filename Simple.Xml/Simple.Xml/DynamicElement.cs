@@ -22,30 +22,6 @@ namespace Simple.Xml
             return true;
         }
 
-        public void VisitElement(IUpwardElementVisitor visitor) => element.Accept(visitor);
-
-        public void VisitElement(IDownwardElementVisitor visitor) => element.Accept(visitor);
-    }
-
-    public class DynamicBackwardXmlStringProducer : DynamicObject
-    {
-        private readonly DynamicElement dynamicElement;
-
-        public DynamicBackwardXmlStringProducer(DynamicElement dynamicElement)
-        {
-            this.dynamicElement = dynamicElement;
-        }
-
-        public override bool TryGetMember(GetMemberBinder binder, out object result)
-        {
-            return dynamicElement.TryGetMember(binder, out result);
-        }
-
-        public string ToXml()
-        {
-            var producer = new BackwardXmlStringProducer();
-            this.dynamicElement.VisitElement(producer);
-            return producer.ToString();
-        }
+        public void Accept(IDynamicElementVisitor visitor) => visitor.Visit(element);
     }
 }

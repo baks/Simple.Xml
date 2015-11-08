@@ -40,11 +40,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BackwardXmlStringProducer.cs" />
+    <Compile Include="DynamicBackwardXmlCreator.cs" />
     <Compile Include="DynamicForwardXmlStringProducer.cs" />
     <Compile Include="DynamicElement.cs" />
     <Compile Include="Element.cs" />
     <Compile Include="ForwardXmlStringProducer.cs" />
     <Compile Include="IDownwardElementVisitor.cs" />
+    <Compile Include="IDynamicElementVisitor.cs" />
     <Compile Include="IElement.cs" />
     <Compile Include="IUpwardElementVisitor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

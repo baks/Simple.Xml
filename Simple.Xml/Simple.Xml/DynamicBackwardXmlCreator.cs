@@ -2,11 +2,11 @@ using System.Dynamic;
 
 namespace Simple.Xml
 {
-    public class DynamicForwardXmlStringProducer : DynamicObject
+    public class DynamicBackwardXmlStringProducer : DynamicObject
     {
         private readonly DynamicElement dynamicElement;
 
-        public DynamicForwardXmlStringProducer(DynamicElement dynamicElement)
+        public DynamicBackwardXmlStringProducer(DynamicElement dynamicElement)
         {
             this.dynamicElement = dynamicElement;
         }
@@ -18,20 +18,19 @@ namespace Simple.Xml
 
         public string ToXml()
         {
-            var creator = new DynamicForwardXmlStringCreator();
+            var creator = new DynamicBackwardXmlCreator();
             this.dynamicElement.Accept(creator);
 
             return creator.ToString();
         }
     }
 
-    public class DynamicForwardXmlStringCreator : IDynamicElementVisitor
+    public class DynamicBackwardXmlCreator : IDynamicElementVisitor
     {
-        private ForwardXmlStringProducer producer;
-
+        private BackwardXmlStringProducer producer;
         public void Visit(IElement element)
         {
-            producer = new ForwardXmlStringProducer();
+            producer = new BackwardXmlStringProducer();
             element.Accept(producer);
         }
 
