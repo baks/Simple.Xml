@@ -30,4 +30,26 @@ namespace Simple.Xml
 
         public void Accept(IUpwardElementVisitor visitor) => visitor.Visit(this.name, this.parent, this.children);
     }
+
+    public class RootElement : IElement
+    {
+        private readonly List<IElement> children;
+
+        public RootElement()
+        {
+            children = new List<IElement>();
+        }
+
+        public void AddChild(IElement child) => children.Add(child);
+
+        public void Accept(IDownwardElementVisitor visitor)
+        {
+            foreach (var child in children)
+            {
+                child.Accept(visitor);
+            }
+        }
+
+        public void Accept(IUpwardElementVisitor visitor) { }
+    }
 }

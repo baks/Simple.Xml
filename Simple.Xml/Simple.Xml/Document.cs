@@ -1,52 +1,32 @@
-using System.Collections.Generic;
 using System.Dynamic;
 
 namespace Simple.Xml
 {
-    public class Document : BaseElement
+    public class Document : DynamicObject
     {
-        private readonly List<IElement> elements;
+        private readonly IElement topElement;
 
-        public Document()
+        public Document(IElement topElement)
         {
-            this.elements = new List<IElement>();
+            this.topElement = topElement;
         }
 
         public override bool TryGetMember(GetMemberBinder binder, out object result)
         {
             var element = XmlElement(binder.Name);
-            elements.Add(element);
+            topElement.AddChild(element);
             result = new DynamicElement(element);
             return true;
-        }
-
-        public override void AddChild(IElement child)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public override void Accept(IUpwardElementVisitor visitor)
-        {
-        }
-
-        public override void Accept(IDownwardElementVisitor visitor)
-        {
-            throw new System.NotImplementedException();
         }
 
         public string ToXml()
         {
             var producer = new ForwardXmlStringProducer();
 
-            foreach (var element in elements)
-            {
-                element.Accept(producer);
-            }
-
-
+            topElement.Accept(producer);
             return producer.ToString();
         }
 
-        private IElement XmlElement(string name) => new Element(name, this);
+        private IElement XmlElement(string name) => new Element(name, topElement);
     }
 }
