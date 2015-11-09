@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -9,6 +10,15 @@ namespace Simple.Xml
 
         public void Visit(string name, IEnumerable<IElement> children)
         {
+            if (string.IsNullOrEmpty(name))
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+            if (children == null)
+            {
+                throw new ArgumentNullException(nameof(children));
+            }
+
             StartTag(name);
             ChildrenTags(children);
             EndTag(name);
