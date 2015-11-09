@@ -7,8 +7,8 @@
     <ProjectGuid>{FBFB12E7-D97F-4BA0-81ED-A64B1BDE7CEA}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Simple.Xml</RootNamespace>
-    <AssemblyName>Simple.Xml</AssemblyName>
+    <RootNamespace>Simple.Xml.Structure</RootNamespace>
+    <AssemblyName>Simple.Xml.Structure</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

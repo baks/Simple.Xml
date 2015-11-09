@@ -7,8 +7,8 @@
     <ProjectGuid>{833637AE-4649-4016-9621-994626101334}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Simple.Xml.UnitTests</RootNamespace>
-    <AssemblyName>Simple.Xml.UnitTests</AssemblyName>
+    <RootNamespace>Simple.Xml.Structure.UnitTests</RootNamespace>
+    <AssemblyName>Simple.Xml.Structure.UnitTests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -107,9 +107,9 @@
       <Project>{CC8802B6-E45E-493E-BE5F-C7F57D466A16}</Project>
       <Name>Simple.Xml.Dynamic</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Simple.Xml\Simple.Xml.csproj">
+    <ProjectReference Include="..\Simple.Xml\Simple.Xml.Structure.csproj">
       <Project>{FBFB12E7-D97F-4BA0-81ED-A64B1BDE7CEA}</Project>
-      <Name>Simple.Xml</Name>
+      <Name>Simple.Xml.Structure</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

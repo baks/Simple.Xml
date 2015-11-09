@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simple.Xml", "Simple.Xml\Simple.Xml.csproj", "{FBFB12E7-D97F-4BA0-81ED-A64B1BDE7CEA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simple.Xml.Structure", "Simple.Xml\Simple.Xml.Structure.csproj", "{FBFB12E7-D97F-4BA0-81ED-A64B1BDE7CEA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simple.Xml.AcceptanceTests", "Simple.Xml.AcceptanceTests\Simple.Xml.AcceptanceTests.csproj", "{3E656EAB-DB29-4A0F-B84F-E90099178137}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simple.Xml.UnitTests", "Simple.Xml.UnitTests\Simple.Xml.UnitTests.csproj", "{833637AE-4649-4016-9621-994626101334}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simple.Xml.Structure.UnitTests", "Simple.Xml.UnitTests\Simple.Xml.Structure.UnitTests.csproj", "{833637AE-4649-4016-9621-994626101334}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simple.Xml.Dynamic", "Simple.Xml.Dynamic\Simple.Xml.Dynamic.csproj", "{CC8802B6-E45E-493E-BE5F-C7F57D466A16}"
 EndProject
