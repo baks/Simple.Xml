@@ -8,9 +8,11 @@ namespace Simple.Xml.UnitTests
     {
         private readonly IElement element;
         private readonly dynamic sut;
+        private readonly IDynamicElementVisitor visitor;
 
         public DynamicElementTests()
         {
+            visitor = Substitute.For<IDynamicElementVisitor>();
             element = Substitute.For<IElement>();
             sut = new DynamicElement(element);
         }
@@ -27,6 +29,22 @@ namespace Simple.Xml.UnitTests
             var p = sut.Head;
 
             element.Received(1).NewChild("Head");
+        }
+
+        [Fact]
+        public void AcceptsDynamicElementVisitor()
+        {
+            sut.Accept(visitor);
+
+            visitor.Received(1).Visit(Arg.Any<IElement>());
+        }
+
+        [Fact]
+        public void PassesElementToVisitor()
+        {
+            sut.Accept(visitor);
+
+            visitor.Received().Visit(element);
         }
     }
 }
