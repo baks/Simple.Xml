@@ -5,6 +5,7 @@ namespace Simple.Xml.Structure
 {
     public class BackwardXmlStringProducer : IUpwardElementVisitor
     {
+        private const int StartPosition = 0;
         private readonly StringBuilder stringBuilder = new StringBuilder();
 
         public void Visit(string name, IElement parent, IEnumerable<IElement> children)
@@ -21,12 +22,12 @@ namespace Simple.Xml.Structure
 
         private void StartTag(string tag)
         {
-            stringBuilder.Insert(0, "<" + tag + ">");
+            stringBuilder.Insert(StartPosition, $"<{tag}>");
         }
 
         private void EndTag(string tag)
         {
-            stringBuilder.Append("</" + tag + ">");
+            stringBuilder.Append($"</{tag}>");
         }
     }
 }
