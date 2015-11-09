@@ -1,5 +1,6 @@
 ﻿using NSubstitute;
 using Ploeh.AutoFixture.Idioms;
+using Simple.Xml.Dynamic;
 using Xunit;
 
 namespace Simple.Xml.UnitTests

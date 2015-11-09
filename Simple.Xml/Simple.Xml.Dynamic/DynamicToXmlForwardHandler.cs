@@ -1,12 +1,12 @@
 using System.Dynamic;
 
-namespace Simple.Xml
+namespace Simple.Xml.Dynamic
 {
-    public class DynamicToXmlBackwardHandler : BaseDynamicElement
+    public class DynamicToXmlForwardHandler : BaseDynamicElement
     {
         private readonly BaseDynamicElement dynamicElement;
 
-        public DynamicToXmlBackwardHandler(BaseDynamicElement dynamicElement)
+        public DynamicToXmlForwardHandler(BaseDynamicElement dynamicElement)
         {
             this.dynamicElement = dynamicElement;
         }
@@ -32,7 +32,7 @@ namespace Simple.Xml
 
         public string ToXml()
         {
-            var creator = new DynamicBackwardXmlCreator();
+            var creator = new DynamicForwardXmlStringCreator();
             this.dynamicElement.Accept(creator);
 
             return creator.ToString();

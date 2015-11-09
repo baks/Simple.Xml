@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simple.Xml.AcceptanceTests"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simple.Xml.UnitTests", "Simple.Xml.UnitTests\Simple.Xml.UnitTests.csproj", "{833637AE-4649-4016-9621-994626101334}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simple.Xml.Dynamic", "Simple.Xml.Dynamic\Simple.Xml.Dynamic.csproj", "{CC8802B6-E45E-493E-BE5F-C7F57D466A16}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{833637AE-4649-4016-9621-994626101334}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{833637AE-4649-4016-9621-994626101334}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{833637AE-4649-4016-9621-994626101334}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC8802B6-E45E-493E-BE5F-C7F57D466A16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC8802B6-E45E-493E-BE5F-C7F57D466A16}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC8802B6-E45E-493E-BE5F-C7F57D466A16}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC8802B6-E45E-493E-BE5F-C7F57D466A16}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

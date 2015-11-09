@@ -1,11 +1,12 @@
-namespace Simple.Xml
+namespace Simple.Xml.Dynamic
 {
-    public class DynamicBackwardXmlCreator : IDynamicElementVisitor
+    public class DynamicForwardXmlStringCreator : IDynamicElementVisitor
     {
-        private BackwardXmlStringProducer producer;
+        private ForwardXmlStringProducer producer;
+
         public void Visit(IElement element)
         {
-            producer = new BackwardXmlStringProducer();
+            producer = new ForwardXmlStringProducer();
             element.Accept(producer);
         }
 

@@ -1,7 +1,6 @@
-﻿using System;
-using System.Dynamic;
+using System;
 
-namespace Simple.Xml
+namespace Simple.Xml.Dynamic
 {
     public static class XmlBuilder
     {

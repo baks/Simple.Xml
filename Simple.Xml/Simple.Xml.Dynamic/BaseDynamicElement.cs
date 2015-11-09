@@ -1,7 +1,6 @@
 ﻿using System.Dynamic;
-using System.Linq.Expressions;
 
-namespace Simple.Xml
+namespace Simple.Xml.Dynamic
 {
     public abstract class BaseDynamicElement : DynamicObject
     {

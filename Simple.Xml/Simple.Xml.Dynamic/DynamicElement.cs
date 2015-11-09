@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Dynamic;
 
-namespace Simple.Xml
+namespace Simple.Xml.Dynamic
 {
     public class DynamicElement : BaseDynamicElement
     {

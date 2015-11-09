@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Simple.Xml.Dynamic;
 using Xunit;
 using Xunit.Abstractions;
 
