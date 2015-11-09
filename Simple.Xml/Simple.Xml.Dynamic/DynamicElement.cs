@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Dynamic;
+using Simple.Xml.Structure;
 
 namespace Simple.Xml.Dynamic
 {

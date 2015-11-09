@@ -1,4 +1,4 @@
-namespace Simple.Xml.UnitTests
+namespace Simple.Xml.Structure.UnitTests
 {
     public class NullObjectElement : IElement
     {

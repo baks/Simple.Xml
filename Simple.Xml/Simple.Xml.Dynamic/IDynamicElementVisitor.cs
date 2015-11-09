@@ -1,4 +1,6 @@
-﻿namespace Simple.Xml.Dynamic
+﻿using Simple.Xml.Structure;
+
+namespace Simple.Xml.Dynamic
 {
     public interface IDynamicElementVisitor
     {

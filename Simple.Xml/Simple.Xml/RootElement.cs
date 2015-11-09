@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Simple.Xml
+namespace Simple.Xml.Structure
 {
     public class RootElement : IElement
     {

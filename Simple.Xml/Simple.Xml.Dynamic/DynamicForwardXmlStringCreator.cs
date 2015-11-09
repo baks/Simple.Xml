@@ -1,3 +1,5 @@
+using Simple.Xml.Structure;
+
 namespace Simple.Xml.Dynamic
 {
     public class DynamicForwardXmlStringCreator : IDynamicElementVisitor

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Simple.Xml
+namespace Simple.Xml.Structure
 {
     public class Element : IElement
     {

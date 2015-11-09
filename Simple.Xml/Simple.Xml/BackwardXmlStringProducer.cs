@@ -1,9 +1,7 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Simple.Xml
+namespace Simple.Xml.Structure
 {
     public class BackwardXmlStringProducer : IUpwardElementVisitor
     {
