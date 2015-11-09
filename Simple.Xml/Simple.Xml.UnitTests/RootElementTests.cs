@@ -3,7 +3,7 @@ using System.Linq;
 using NSubstitute;
 using Xunit;
 
-namespace Simple.Xml.UnitTests
+namespace Simple.Xml.Structure.UnitTests
 {
     public class RootElementTests
     {

@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using NSubstitute;
 using Ploeh.AutoFixture.Idioms;
 using Xunit;
 
-namespace Simple.Xml.UnitTests
+namespace Simple.Xml.Structure.UnitTests
 {
     public class ForwardXmlStringProducerTests
     {

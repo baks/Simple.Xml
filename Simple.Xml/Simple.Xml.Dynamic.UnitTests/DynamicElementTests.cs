@@ -1,9 +1,8 @@
 ﻿using NSubstitute;
 using Ploeh.AutoFixture.Idioms;
-using Simple.Xml.Dynamic;
 using Xunit;
 
-namespace Simple.Xml.UnitTests
+namespace Simple.Xml.Dynamic.UnitTests
 {
     public class DynamicElementTests
     {

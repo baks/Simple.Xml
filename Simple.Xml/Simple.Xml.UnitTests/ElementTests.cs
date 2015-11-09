@@ -2,9 +2,10 @@
 using System.Linq;
 using NSubstitute;
 using Ploeh.AutoFixture.Idioms;
+using Simple.Xml.UnitTests;
 using Xunit;
 
-namespace Simple.Xml.UnitTests
+namespace Simple.Xml.Structure.UnitTests
 {
     public class ElementTests
     {

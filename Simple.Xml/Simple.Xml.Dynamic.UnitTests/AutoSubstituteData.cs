@@ -2,7 +2,7 @@
 using Ploeh.AutoFixture.AutoNSubstitute;
 using Ploeh.AutoFixture.Xunit2;
 
-namespace Simple.Xml.Structure.UnitTests
+namespace Simple.Xml.Dynamic.UnitTests
 {
     public class AutoSubstituteData : AutoDataAttribute
     {
