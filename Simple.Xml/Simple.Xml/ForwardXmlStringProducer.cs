@@ -10,10 +10,7 @@ namespace Simple.Xml
         public void Visit(string name, IEnumerable<IElement> children)
         {
             StartTag(name);
-            foreach (var child in children)
-            {
-                child.Accept(this);
-            }
+            ChildrenTags(children);
             EndTag(name);
         }
 
@@ -22,14 +19,22 @@ namespace Simple.Xml
             return stringBuilder.ToString();
         }
 
+        private void ChildrenTags(IEnumerable<IElement> children)
+        {
+            foreach (var child in children)
+            {
+                child.Accept(this);
+            }
+        }
+
         private void StartTag(string tag)
         {
-            stringBuilder.Append("<" + tag + ">");
+            stringBuilder.Append($"<{tag}>");
         }
 
         private void EndTag(string tag)
         {
-            stringBuilder.Append("</" + tag + ">");
+            stringBuilder.Append($"</{tag}>");
         }
     }
 }
