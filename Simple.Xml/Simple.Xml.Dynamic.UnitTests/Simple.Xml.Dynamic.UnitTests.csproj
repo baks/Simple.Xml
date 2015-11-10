@@ -84,6 +84,7 @@
   <ItemGroup>
     <Compile Include="AutoSubstituteData.cs" />
     <Compile Include="DynamicBackwardXmlCreatorTests.cs" />
+    <Compile Include="DynamicElementDecoratorTests.cs" />
     <Compile Include="DynamicElementTests.cs" />
     <Compile Include="DynamicForwardXmlStringCreatorTests.cs" />
     <Compile Include="DynamicToXmlBackwardHandlerTests.cs" />

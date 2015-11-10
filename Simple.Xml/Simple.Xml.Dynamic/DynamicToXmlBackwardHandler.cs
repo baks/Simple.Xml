@@ -2,18 +2,10 @@ using System.Dynamic;
 
 namespace Simple.Xml.Dynamic
 {
-    public class DynamicToXmlBackwardHandler : BaseDynamicElement
+    public class DynamicToXmlBackwardHandler : DynamicElementDecorator
     {
-        private readonly BaseDynamicElement dynamicElement;
-
-        public DynamicToXmlBackwardHandler(BaseDynamicElement dynamicElement)
+        public DynamicToXmlBackwardHandler(BaseDynamicElement dynamicElement) : base(dynamicElement)
         {
-            this.dynamicElement = dynamicElement;
-        }
-
-        public override bool TryGetMember(GetMemberBinder binder, out object result)
-        {
-            return dynamicElement.TryGetMember(binder, out result);
         }
 
         public override bool TryInvokeMember(InvokeMemberBinder binder, object[] args, out object result)
@@ -25,15 +17,13 @@ namespace Simple.Xml.Dynamic
                 return true;
             }
 
-            return dynamicElement.TryInvokeMember(binder, args, out result);
+            return base.TryInvokeMember(binder, args, out result);
         }
-
-        public override void Accept(IDynamicElementVisitor visitor) => dynamicElement.Accept(visitor);
 
         public string ToXml()
         {
             var creator = new DynamicBackwardXmlCreator();
-            this.dynamicElement.Accept(creator);
+            Accept(creator);
 
             return creator.ToString();
         }

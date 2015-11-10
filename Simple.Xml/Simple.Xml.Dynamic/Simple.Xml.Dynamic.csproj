@@ -42,6 +42,7 @@
     <Compile Include="BaseDynamicElement.cs" />
     <Compile Include="DynamicBackwardXmlCreator.cs" />
     <Compile Include="DynamicElement.cs" />
+    <Compile Include="DynamicElementDecorator.cs" />
     <Compile Include="DynamicForwardXmlStringCreator.cs" />
     <Compile Include="DynamicToXmlBackwardHandler.cs" />
     <Compile Include="DynamicToXmlForwardHandler.cs" />
