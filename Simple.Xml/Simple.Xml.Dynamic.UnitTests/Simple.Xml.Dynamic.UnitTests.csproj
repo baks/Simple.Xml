@@ -86,6 +86,7 @@
     <Compile Include="DynamicBackwardXmlCreatorTests.cs" />
     <Compile Include="DynamicElementTests.cs" />
     <Compile Include="DynamicForwardXmlStringCreatorTests.cs" />
+    <Compile Include="DynamicToXmlBackwardHandlerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

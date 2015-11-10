@@ -4,10 +4,10 @@ namespace Simple.Xml.Dynamic
 {
     public class DynamicBackwardXmlCreator : IDynamicElementVisitor
     {
-        private BackwardXmlStringProducer producer;
+        private readonly BackwardXmlStringProducer producer = new BackwardXmlStringProducer();
+
         public void Visit(IElement element)
         {
-            producer = new BackwardXmlStringProducer();
             element.Accept(producer);
         }
 
