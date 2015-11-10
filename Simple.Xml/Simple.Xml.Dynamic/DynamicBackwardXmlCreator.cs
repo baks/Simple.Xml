@@ -6,14 +6,8 @@ namespace Simple.Xml.Dynamic
     {
         private readonly BackwardXmlStringProducer producer = new BackwardXmlStringProducer();
 
-        public void Visit(IElement element)
-        {
-            element.Accept(producer);
-        }
+        public void Visit(IElement element) => element.Accept(producer);
 
-        public override string ToString()
-        {
-            return producer.ToString();
-        }
+        public override string ToString() => producer.ToString();
     }
 }

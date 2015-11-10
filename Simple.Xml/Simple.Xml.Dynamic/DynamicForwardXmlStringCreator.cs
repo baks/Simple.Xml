@@ -4,17 +4,10 @@ namespace Simple.Xml.Dynamic
 {
     public class DynamicForwardXmlStringCreator : IDynamicElementVisitor
     {
-        private ForwardXmlStringProducer producer;
+        private readonly ForwardXmlStringProducer producer = new ForwardXmlStringProducer();
 
-        public void Visit(IElement element)
-        {
-            producer = new ForwardXmlStringProducer();
-            element.Accept(producer);
-        }
+        public void Visit(IElement element) => element.Accept(producer);
 
-        public override string ToString()
-        {
-            return producer.ToString();
-        }
+        public override string ToString() => producer.ToString();
     }
 }
