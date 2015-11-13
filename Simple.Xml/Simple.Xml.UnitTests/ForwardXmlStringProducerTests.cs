@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using NSubstitute;
 using Ploeh.AutoFixture.Idioms;
 using Xunit;
@@ -31,7 +32,7 @@ namespace Simple.Xml.Structure.UnitTests
         [Theory, AutoSubstituteData]
         public void GuardsVisitPeers(GuardClauseAssertion guardClauseAssertion)
         {
-            guardClauseAssertion.Verify(typeof(ForwardXmlStringProducer).GetMethod("Visit"));
+            guardClauseAssertion.Verify(typeof(ForwardXmlStringProducer).GetMethods().Where(mi => string.Equals("Visit", mi.Name)));
         }
 
         [Fact]

@@ -54,6 +54,27 @@ namespace Simple.Xml.AcceptanceTests
 </Head>"), xml);
         }
 
+        [Fact]
+        public void ShouldAddContentToElement()
+        {
+            var doc = XmlBuilder.NewDocument;
+
+            var body = doc.Head.Body;
+            body.Div.P1 = "content";
+
+            var xml = doc.ToXml();
+
+            Assert.Equal(RemoveWhiteSpaces(@"<Head>
+    <Body>
+        <Div>
+            <P1>
+                content
+            </P1>
+        </Div>
+    </Body>
+</Head>"), xml);
+        }
+
         public void Dispose()
         {
             testOutputHelper.WriteLine(output.ToString());

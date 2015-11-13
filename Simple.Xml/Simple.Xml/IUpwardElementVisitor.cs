@@ -5,5 +5,7 @@ namespace Simple.Xml.Structure
     public interface IUpwardElementVisitor
     {
         void Visit(string name, IElement parent, IEnumerable<IElement> children);
+
+        void Visit(string content);
     }
 }

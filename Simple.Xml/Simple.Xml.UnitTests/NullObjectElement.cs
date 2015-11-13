@@ -2,6 +2,10 @@ namespace Simple.Xml.Structure.UnitTests
 {
     public class NullObjectElement : IElement
     {
+        public void AddChild(IElement child)
+        {
+        }
+
         public IElement NewChild(string childName)
         {
             return new NullObjectElement();

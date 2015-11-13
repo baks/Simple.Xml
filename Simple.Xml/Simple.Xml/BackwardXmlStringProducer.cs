@@ -15,6 +15,11 @@ namespace Simple.Xml.Structure
             parent.Accept(this);
         }
 
+        public void Visit(string content)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public override string ToString()
         {
             return stringBuilder.ToString();

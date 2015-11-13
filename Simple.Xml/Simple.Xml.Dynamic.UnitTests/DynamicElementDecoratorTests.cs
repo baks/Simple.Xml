@@ -30,13 +30,21 @@ namespace Simple.Xml.Dynamic.UnitTests
             decoratee.Received(1).Accept(aVisitor);
         }
 
-        [Theory, AutoSubstituteData]
+        [Fact]
         public void DelegatesTryGetMemberToDecoratee()
         {
             object result;
             sut.TryGetMember(null, out result);
 
             decoratee.Received(1).TryGetMember(Arg.Any<GetMemberBinder>(), out result);
+        }
+
+        [Theory, AutoSubstituteData]
+        public void DelegatesTrySetMemberToDecoratee(object anObject)
+        {
+            sut.TrySetMember(null, anObject);
+
+            decoratee.Received(1).TrySetMember(Arg.Any<SetMemberBinder>(), Arg.Any<object>());
         }
     }
 }

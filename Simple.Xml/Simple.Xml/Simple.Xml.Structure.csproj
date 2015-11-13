@@ -40,10 +40,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BackwardXmlStringProducer.cs" />
+    <Compile Include="ContentElement.cs" />
     <Compile Include="Element.cs" />
     <Compile Include="ForwardXmlStringProducer.cs" />
     <Compile Include="IDownwardElementVisitor.cs" />
     <Compile Include="IElement.cs" />
+    <Compile Include="IElementCollector.cs" />
     <Compile Include="IUpwardElementVisitor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RootElement.cs" />

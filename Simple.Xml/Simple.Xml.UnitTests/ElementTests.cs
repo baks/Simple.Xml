@@ -11,14 +11,31 @@ namespace Simple.Xml.Structure.UnitTests
         private static readonly string ANY_NAME = "any";
         private static readonly IElement UNUSED_PARENT = new NullObjectElement();
 
-        private readonly IUpwardElementVisitor upwardVisitor = Substitute.For<IUpwardElementVisitor>();
-        private readonly IDownwardElementVisitor downwardVisitor = Substitute.For<IDownwardElementVisitor>();
-        private readonly Element sut = new Element(ANY_NAME, UNUSED_PARENT);
+        private readonly IElementCollector collector;
+        private readonly IUpwardElementVisitor upwardVisitor;
+        private readonly IDownwardElementVisitor downwardVisitor;
+        private readonly Element sut;
+
+        public ElementTests()
+        {
+            collector = Substitute.For<IElementCollector>();
+            upwardVisitor = Substitute.For<IUpwardElementVisitor>();
+            downwardVisitor = Substitute.For<IDownwardElementVisitor>();
+            sut = new Element(ANY_NAME, UNUSED_PARENT, collector);
+    }
 
         [Theory, AutoSubstituteData]
         public void GuardsCollaborators(GuardClauseAssertion guardClauseAssertion)
         {
             guardClauseAssertion.Verify(typeof (Element).GetConstructors());
+        }
+
+        [Theory, AutoSubstituteData]
+        public void AddsChildToCollector(IElement aChild)
+        {
+            sut.AddChild(aChild);
+
+            collector.Received(1).AddElement(aChild);
         }
 
         [Fact]

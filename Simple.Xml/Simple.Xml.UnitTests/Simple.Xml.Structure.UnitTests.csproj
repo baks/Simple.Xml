@@ -92,6 +92,7 @@
   <ItemGroup>
     <Compile Include="AutoSubstituteData.cs" />
     <Compile Include="BackwardXmlStringProducerTests.cs" />
+    <Compile Include="ContentElementTests.cs" />
     <Compile Include="ElementTests.cs" />
     <Compile Include="ForwardXmlStringProducerTests.cs" />
     <Compile Include="NullObjectElement.cs" />

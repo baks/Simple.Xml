@@ -25,6 +25,12 @@ namespace Simple.Xml.Dynamic
             return true;
         }
 
+        public override bool TrySetMember(SetMemberBinder binder, object value)
+        {
+            element.AddChild(new ContentElement(binder.Name));
+            return true;
+        }
+
         public override void Accept(IDynamicElementVisitor visitor) => visitor.Visit(element);
     }
 }

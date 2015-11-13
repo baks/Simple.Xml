@@ -24,6 +24,15 @@ namespace Simple.Xml.Structure
             EndTag(name);
         }
 
+        public void Visit(string content)
+        {
+            if (content == null)
+            {
+                throw new ArgumentNullException(nameof(content));
+            }
+            throw new NotImplementedException();
+        }
+
         public override string ToString()
         {
             return stringBuilder.ToString();

@@ -32,6 +32,14 @@ namespace Simple.Xml.Dynamic.UnitTests
             element.Received(1).NewChild("Head");
         }
 
+        [Theory, AutoSubstituteData]
+        public void MemberAssignmentAddsContentToElementWithMemberName(string aContent)
+        {
+            sut.Head = aContent;
+
+            element.Received(1).AddChild(ContentElementWith(aContent));
+        }
+
         [Fact]
         public void AcceptsDynamicElementVisitor()
         {
