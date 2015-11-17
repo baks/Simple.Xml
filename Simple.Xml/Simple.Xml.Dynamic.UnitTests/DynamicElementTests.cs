@@ -1,7 +1,16 @@
-﻿using NSubstitute;
+﻿using System;
+using System.Diagnostics;
+using System.Linq;
+using FluentAssertions;
+using FluentAssertions.Execution;
+using NSubstitute;
+using NSubstitute.Core;
+using NSubstitute.Core.Arguments;
 using Ploeh.AutoFixture.Idioms;
 using Simple.Xml.Structure;
 using Xunit;
+using Xunit.Abstractions;
+using Xunit.Sdk;
 
 namespace Simple.Xml.Dynamic.UnitTests
 {
@@ -37,7 +46,7 @@ namespace Simple.Xml.Dynamic.UnitTests
         {
             sut.Head = aContent;
 
-            element.Received(1).AddChild(ContentElementWith(aContent));
+            element.Received(1).AddChild(AContentElementWith(aContent));
         }
 
         [Fact]
@@ -45,7 +54,7 @@ namespace Simple.Xml.Dynamic.UnitTests
         {
             sut.Accept(visitor);
 
-            visitor.Received(1).Visit(Arg.Any<IElement>());
+            visitor.Received(1).Visit(element);
         }
 
         [Fact]
@@ -54,6 +63,11 @@ namespace Simple.Xml.Dynamic.UnitTests
             sut.Accept(visitor);
 
             visitor.Received().Visit(element);
+        }
+
+        private IElement AContentElementWith(string aContent)
+        {
+            return Arg.Is<IElement>(el => el.Equals(new ContentElement(aContent)));
         }
     }
 }
