@@ -2,7 +2,7 @@
 
 namespace Simple.Xml.Structure
 {
-    public class ContentElement : IElement
+    public class ContentElement : IElement, IEquatable<IElement>, IEquatable<ContentElement>
     {
         private readonly string content;
 
@@ -33,6 +33,66 @@ namespace Simple.Xml.Structure
         public void Accept(IDownwardElementVisitor visitor)
         {
             visitor.Visit(content);
+        }
+
+        public bool Equals(ContentElement other)
+        {
+            if (ReferenceEquals(null, other))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, other))
+            {
+                return true;
+            }
+
+            return string.Equals(this.content, other.content, StringComparison.Ordinal);
+        }
+
+        public bool Equals(IElement other)
+        {
+            return CheckWhetherContentElementAndCheckEquableness(other);
+        }
+
+        public override bool Equals(object obj)
+        {
+            return CheckWhetherContentElementAndCheckEquableness(obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return content.GetHashCode();
+        }
+
+        private bool CheckWhetherContentElementAndCheckEquableness(object obj)
+        {
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+
+            if (obj.GetType() != typeof(ContentElement))
+            {
+                return false;
+            }
+
+            return this.Equals((ContentElement)obj);
+        }
+
+        public static bool operator ==(ContentElement contentElementA, ContentElement contentElementB)
+        {
+            return Equals(contentElementA, contentElementB);
+        }
+
+        public static bool operator !=(ContentElement contentElementA, ContentElement contentElementB)
+        {
+            return !Equals(contentElementA, contentElementB);
         }
     }
 }

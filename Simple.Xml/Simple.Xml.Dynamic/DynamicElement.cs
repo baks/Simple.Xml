@@ -27,7 +27,7 @@ namespace Simple.Xml.Dynamic
 
         public override bool TrySetMember(SetMemberBinder binder, object value)
         {
-            element.AddChild(new ContentElement(binder.Name));
+            element.AddChild(new ContentElement(value.ToString()));
             return true;
         }
 

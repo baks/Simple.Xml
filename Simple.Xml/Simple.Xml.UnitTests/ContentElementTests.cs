@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using EqualityTests;
 using NSubstitute;
 using Xunit;
 
@@ -30,6 +26,12 @@ namespace Simple.Xml.Structure.UnitTests
             sut.Accept(downwardVisitor);
 
             downwardVisitor.Received(1).Visit(aContent);
+        }
+
+        [Fact]
+        public void ImplementsValueEquality()
+        {
+            EqualityTestsFor<ContentElement>.Assert();
         }
     }
 }
