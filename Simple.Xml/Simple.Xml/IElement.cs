@@ -4,6 +4,8 @@ namespace Simple.Xml.Structure
     {
         void AddChild(IElement child);
 
+        void AddAttribute(Attribute attr);
+
         void Accept(IUpwardElementVisitor visitor);
 
         void Accept(IDownwardElementVisitor visitor);

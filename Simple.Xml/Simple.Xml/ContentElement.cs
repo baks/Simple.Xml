@@ -17,12 +17,10 @@ namespace Simple.Xml.Structure
 
         public void AddChild(IElement child)
         {
-            throw new System.NotImplementedException();
         }
 
-        public IElement NewChild(string childName)
+        public void AddAttribute(Attribute attr)
         {
-            throw new System.NotImplementedException();
         }
 
         public void Accept(IUpwardElementVisitor visitor)

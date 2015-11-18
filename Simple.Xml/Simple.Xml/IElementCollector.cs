@@ -6,6 +6,10 @@ namespace Simple.Xml.Structure
     {
         void AddElement(IElement child);
 
+        void AddAttribute(Attribute attr);
+
         IEnumerable<IElement> ChildrenFor(IElement element);
+
+        IEnumerable<Attribute> AttributesFor(IElement element);
     }
 }

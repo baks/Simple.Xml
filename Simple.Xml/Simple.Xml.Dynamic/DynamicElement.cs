@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Dynamic;
+using System.Linq;
 using Simple.Xml.Structure;
+using Attribute = Simple.Xml.Structure.Attribute;
 
 namespace Simple.Xml.Dynamic
 {
@@ -37,7 +40,14 @@ namespace Simple.Xml.Dynamic
         {
             var newElement = elementFactory.CreateElementWithNameForParent(binder.Name, element);
             element.AddChild(newElement);
-            newElement.AddChild(elementFactory.CreateElementWithContentForParent(value.ToString(), newElement));
+            if (value is Attributes)
+            {
+                ((Attributes)value).AddAttributesTo(newElement);
+            }
+            else
+            {
+                newElement.AddChild(elementFactory.CreateElementWithContentForParent(value.ToString(), newElement));
+            }
             return true;
         }
 

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Simple.Xml.Structure
@@ -8,7 +9,7 @@ namespace Simple.Xml.Structure
     {
         private readonly StringBuilder stringBuilder = new StringBuilder();
 
-        public void Visit(string name, IEnumerable<IElement> children)
+        public void Visit(string name, IEnumerable<IElement> children, IEnumerable<Attribute> attributes)
         {
             if (string.IsNullOrEmpty(name))
             {
@@ -18,8 +19,12 @@ namespace Simple.Xml.Structure
             {
                 throw new ArgumentNullException(nameof(children));
             }
+            if (attributes == null)
+            {
+                throw new ArgumentNullException(nameof(attributes));
+            }
 
-            StartTag(name);
+            StartTag(name, attributes);
             ChildrenTags(children);
             EndTag(name);
         }
@@ -46,9 +51,10 @@ namespace Simple.Xml.Structure
             }
         }
 
-        private void StartTag(string tag)
+        private void StartTag(string tag, IEnumerable<Attribute> attributes)
         {
-            stringBuilder.Append($"<{tag}>");
+            var attributesString = attributes.Any() ? " " + string.Join(" ", attributes): string.Empty;
+            stringBuilder.Append($"<{tag}{attributesString}>");
         }
 
         private void EndTag(string tag)

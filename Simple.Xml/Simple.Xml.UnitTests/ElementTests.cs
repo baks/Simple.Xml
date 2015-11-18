@@ -76,7 +76,7 @@ namespace Simple.Xml.Structure.UnitTests
         {
             sut.Accept(downwardVisitor);
 
-            downwardVisitor.Received(1).Visit(AName, AnElementsEnumerable);
+            downwardVisitor.Received(1).Visit(AName, AnElementsEnumerable, AnAttributesEnumerable);
         }
 
         [Theory, AutoSubstituteData]
@@ -84,7 +84,7 @@ namespace Simple.Xml.Structure.UnitTests
         {
             ElementWithName(name).Accept(downwardVisitor);
 
-            AssertDownwardVisitorIsVisitedWith(name, AnElementsEnumerable);
+            AssertDownwardVisitorIsVisitedWith(name, AnElementsEnumerable, AnAttributesEnumerable);
         }
 
         [Theory, AutoSubstituteData]
@@ -98,8 +98,8 @@ namespace Simple.Xml.Structure.UnitTests
         private void AssertUpwardVisitorIsVisitedWith(string name, IElement parent, IEnumerable<IElement> children)
             => upwardVisitor.Received().Visit(name, parent, children);
 
-        private void AssertDownwardVisitorIsVisitedWith(string name, IEnumerable<IElement> children)
-            => downwardVisitor.Received().Visit(name, children);
+        private void AssertDownwardVisitorIsVisitedWith(string name, IEnumerable<IElement> children, IEnumerable<Attribute> attributes)
+            => downwardVisitor.Received().Visit(name, children, attributes);
 
         private static IElement ElementWithName(string name) => new Element(name, UNUSED_PARENT, UNUSED_COLLECTOR);
 
@@ -110,5 +110,7 @@ namespace Simple.Xml.Structure.UnitTests
         private static IElement AParent => Arg.Any<IElement>();
 
         private static IEnumerable<IElement> AnElementsEnumerable => Arg.Any<IEnumerable<IElement>>();
+
+        private static IEnumerable<Attribute> AnAttributesEnumerable => Arg.Any<IEnumerable<Attribute>>();
     }
 }

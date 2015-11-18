@@ -10,12 +10,13 @@ namespace Simple.Xml.Structure.UnitTests
     public class ForwardXmlStringProducerTests
     {
         private static readonly IEnumerable<IElement> someChildren = Substitute.For<IEnumerable<IElement>>();
+        private static readonly IEnumerable<Attribute> someAttributes = Substitute.For<IEnumerable<Attribute>>();
         private readonly ForwardXmlStringProducer sut = new ForwardXmlStringProducer();
 
         [Theory, AutoSubstituteData]
         public void AddsTagWithVisitedNameToString(string name)
         {
-            sut.Visit(name, someChildren);
+            sut.Visit(name, someChildren, someAttributes);
 
             Assert.Equal($"<{name}></{name}>", sut.ToString());
         }
@@ -24,7 +25,7 @@ namespace Simple.Xml.Structure.UnitTests
         public void VisitsPassedChildren(string aName, IElement child)
         {
             var theChildren = new[] {child, child, child};
-            sut.Visit(aName, theChildren);
+            sut.Visit(aName, theChildren, someAttributes);
 
             child.Received(3).Accept(sut);
         }
@@ -40,7 +41,7 @@ namespace Simple.Xml.Structure.UnitTests
         {
             var emptyName = string.Empty;
 
-            Assert.Throws<ArgumentNullException>(() => sut.Visit(emptyName, someChildren));
+            Assert.Throws<ArgumentNullException>(() => sut.Visit(emptyName, someChildren, someAttributes));
         }
     }
 }

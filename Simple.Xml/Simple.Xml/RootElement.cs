@@ -22,12 +22,9 @@ namespace Simple.Xml.Structure
             collector.AddElement(child);
         }
 
-        public IElement NewChild(string childName)
+        public void AddAttribute(Attribute attr)
         {
-            var child = new Element(childName, this, new ElementCollector());
-            collector.AddElement(child);
-            return child;
-        } 
+        }
 
         public void Accept(IDownwardElementVisitor visitor)
         {

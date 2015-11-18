@@ -47,13 +47,15 @@ namespace Simple.Xml.Structure.UnitTests
         {
             foreach (var name in childrenNames)
             {
-                downwardVisitor.Received(1).Visit(name, AnElementsEnumerable);
+                downwardVisitor.Received(1).Visit(name, AnElementsEnumerable, AnAttributesEnumerable);
             }
         }
 
         private static string AName => Arg.Any<string>();
 
         private static IEnumerable<IElement> AnElementsEnumerable => Arg.Any<IEnumerable<IElement>>();
+
+        private static IEnumerable<Attribute> AnAttributesEnumerable => Arg.Any<IEnumerable<Attribute>>(); 
 
         private static IElement AParent => Arg.Any<IElement>();
     }

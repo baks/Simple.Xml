@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace Simple.Xml.Structure
 {
@@ -33,8 +32,15 @@ namespace Simple.Xml.Structure
             collector.AddElement(child);
         }
 
-        public void Accept(IDownwardElementVisitor visitor) => visitor.Visit(this.name, collector.ChildrenFor(this));
+        public void AddAttribute(Attribute attr)
+        {
+            collector.AddAttribute(attr);
+        }
 
-        public void Accept(IUpwardElementVisitor visitor) => visitor.Visit(this.name, this.parent, collector.ChildrenFor(this));
+        public void Accept(IDownwardElementVisitor visitor)
+            => visitor.Visit(this.name, collector.ChildrenFor(this), collector.AttributesFor(this));
+
+        public void Accept(IUpwardElementVisitor visitor)
+            => visitor.Visit(this.name, this.parent, collector.ChildrenFor(this));
     }
 }

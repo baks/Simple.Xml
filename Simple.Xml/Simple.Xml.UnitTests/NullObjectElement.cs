@@ -6,9 +6,8 @@ namespace Simple.Xml.Structure.UnitTests
         {
         }
 
-        public IElement NewChild(string childName)
+        public void AddAttribute(Attribute attr)
         {
-            return new NullObjectElement();
         }
 
         public void Accept(IUpwardElementVisitor visitor)
