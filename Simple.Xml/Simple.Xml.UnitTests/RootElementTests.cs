@@ -31,10 +31,8 @@ namespace Simple.Xml.Structure.UnitTests
         [Theory, AutoSubstituteData]
         public void PassesVisitorIntoAllChildren(IEnumerable<string> childrenNames)
         {
-            childrenNames.Select(childName => sut.NewChild(childName)).ToList();
             sut.Accept(downwardVisitor);
-
-            AssertPassesDownwardVisitorToAllChildren(childrenNames);
+            collector.Received(1).ChildrenFor(sut);
         }
 
         [Fact]

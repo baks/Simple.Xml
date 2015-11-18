@@ -30,7 +30,7 @@ namespace Simple.Xml.Structure
             {
                 throw new ArgumentNullException(nameof(content));
             }
-            throw new NotImplementedException();
+            stringBuilder.Append(content);
         }
 
         public override string ToString()

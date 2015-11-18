@@ -19,12 +19,14 @@ namespace Simple.Xml.Dynamic.UnitTests
         private readonly IElement element;
         private readonly dynamic sut;
         private readonly IDynamicElementVisitor visitor;
+        private readonly IElementFactory factory;
 
         public DynamicElementTests()
         {
             visitor = Substitute.For<IDynamicElementVisitor>();
             element = Substitute.For<IElement>();
-            sut = new DynamicElement(element);
+            factory = Substitute.For<IElementFactory>();
+            sut = new DynamicElement(element, factory);
         }
 
         [Theory, AutoSubstituteData]
@@ -38,7 +40,7 @@ namespace Simple.Xml.Dynamic.UnitTests
         {
             var p = sut.Head;
 
-            element.Received(1).NewChild("Head");
+            factory.Received(1).CreateElementWithNameForParent("Head", element);
         }
 
         [Theory, AutoSubstituteData]
@@ -46,7 +48,8 @@ namespace Simple.Xml.Dynamic.UnitTests
         {
             sut.Head = aContent;
 
-            element.Received(1).AddChild(AContentElementWith(aContent));
+            factory.Received(1).CreateElementWithNameForParent("Head", element);
+            factory.Received(1).CreateElementWithContentForParent(aContent, Arg.Any<IElement>());
         }
 
         [Fact]

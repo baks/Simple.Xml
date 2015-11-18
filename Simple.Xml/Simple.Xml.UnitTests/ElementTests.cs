@@ -10,6 +10,7 @@ namespace Simple.Xml.Structure.UnitTests
     {
         private static readonly string ANY_NAME = "any";
         private static readonly IElement UNUSED_PARENT = new NullObjectElement();
+        private static readonly IElementCollector UNUSED_COLLECTOR = Substitute.For<IElementCollector>();
 
         private readonly IElementCollector collector;
         private readonly IUpwardElementVisitor upwardVisitor;
@@ -65,10 +66,9 @@ namespace Simple.Xml.Structure.UnitTests
         [Theory, AutoSubstituteData]
         public void PassesChildrenToUpwardVisitor(IEnumerable<string> childrenNames)
         {
-            var children = childrenNames.Select(childName => sut.NewChild(childName)).ToList();
             sut.Accept(upwardVisitor);
 
-            AssertUpwardVisitorIsVisitedWith(AName, AParent, EnumerableWithElements(children));
+            collector.Received(1).ChildrenFor(sut);
         }
 
         [Fact]
@@ -90,10 +90,9 @@ namespace Simple.Xml.Structure.UnitTests
         [Theory, AutoSubstituteData]
         public void PassesChildrenToDownwardVisitor(IEnumerable<string> childrenNames)
         {
-            var children = childrenNames.Select(childName => sut.NewChild(childName)).ToList();
             sut.Accept(downwardVisitor);
 
-            AssertDownwardVisitorIsVisitedWith(AName, EnumerableWithElements(children));
+            collector.Received(1).ChildrenFor(sut);
         }
 
         private void AssertUpwardVisitorIsVisitedWith(string name, IElement parent, IEnumerable<IElement> children)
@@ -102,17 +101,14 @@ namespace Simple.Xml.Structure.UnitTests
         private void AssertDownwardVisitorIsVisitedWith(string name, IEnumerable<IElement> children)
             => downwardVisitor.Received().Visit(name, children);
 
-        private static IElement ElementWithName(string name) => new Element(name, UNUSED_PARENT);
+        private static IElement ElementWithName(string name) => new Element(name, UNUSED_PARENT, UNUSED_COLLECTOR);
 
-        private static IElement ElementWithParent(IElement parent) => new Element(ANY_NAME, parent);
+        private static IElement ElementWithParent(IElement parent) => new Element(ANY_NAME, parent, UNUSED_COLLECTOR);
 
         private static string AName => Arg.Any<string>();
 
         private static IElement AParent => Arg.Any<IElement>();
 
         private static IEnumerable<IElement> AnElementsEnumerable => Arg.Any<IEnumerable<IElement>>();
-
-        private static IEnumerable<IElement> EnumerableWithElements(IEnumerable<IElement> children)
-            => Arg.Is<IEnumerable<IElement>>(c => c.SequenceEqual(children));
     }
 }

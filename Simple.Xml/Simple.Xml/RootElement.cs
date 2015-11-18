@@ -8,12 +8,7 @@ namespace Simple.Xml.Structure
         private readonly IElementCollector collector;
         private readonly List<IElement> children;
 
-        public RootElement()
-        {
-            children = new List<IElement>();
-        }
-
-        public RootElement(IElementCollector collector) : this()
+        public RootElement(IElementCollector collector)
         {
             if (collector == null)
             {
@@ -29,14 +24,14 @@ namespace Simple.Xml.Structure
 
         public IElement NewChild(string childName)
         {
-            var child = new Element(childName, this);
-            children.Add(child);
+            var child = new Element(childName, this, new ElementCollector());
+            collector.AddElement(child);
             return child;
         } 
 
         public void Accept(IDownwardElementVisitor visitor)
         {
-            foreach (var child in children)
+            foreach (var child in collector.ChildrenFor(this))
             {
                 child.Accept(visitor);
             }

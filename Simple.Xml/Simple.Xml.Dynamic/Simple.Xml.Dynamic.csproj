@@ -46,7 +46,9 @@
     <Compile Include="DynamicForwardXmlStringCreator.cs" />
     <Compile Include="DynamicToXmlBackwardHandler.cs" />
     <Compile Include="DynamicToXmlForwardHandler.cs" />
+    <Compile Include="ElementFactory.cs" />
     <Compile Include="IDynamicElementVisitor.cs" />
+    <Compile Include="IElementFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="XmlBuilder.cs" />
   </ItemGroup>
