@@ -50,6 +50,7 @@
     <Compile Include="IElement.cs" />
     <Compile Include="IElementCollector.cs" />
     <Compile Include="IUpwardElementVisitor.cs" />
+    <Compile Include="IXmlBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RootElement.cs" />
   </ItemGroup>

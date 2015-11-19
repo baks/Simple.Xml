@@ -98,6 +98,7 @@ namespace Simple.Xml.AcceptanceTests
             testOutputHelper.WriteLine(output.ToString());
         }
 
-        private static string RemoveWhiteSpaces(string input) => new string(input.Where(c => !char.IsWhiteSpace(c)).ToArray());
+        private static string RemoveWhiteSpaces(string input)
+            => new string(input.Where(c => !char.IsWhiteSpace(c)).ToArray());
     }
 }

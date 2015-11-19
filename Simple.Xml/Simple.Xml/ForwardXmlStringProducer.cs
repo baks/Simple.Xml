@@ -7,7 +7,22 @@ namespace Simple.Xml.Structure
 {
     public class ForwardXmlStringProducer : IDownwardElementVisitor
     {
+        private readonly IXmlBuilder xmlBuilder;
         private readonly StringBuilder stringBuilder = new StringBuilder();
+
+        public ForwardXmlStringProducer()
+        {
+            
+        }
+
+        public ForwardXmlStringProducer(IXmlBuilder xmlBuilder)
+        {
+            if (xmlBuilder == null)
+            {
+                throw new ArgumentNullException(nameof(xmlBuilder));
+            }
+            this.xmlBuilder = xmlBuilder;
+        }
 
         public void Visit(string name, IEnumerable<IElement> children, IEnumerable<Attribute> attributes)
         {
@@ -27,6 +42,9 @@ namespace Simple.Xml.Structure
             StartTag(name, attributes);
             ChildrenTags(children);
             EndTag(name);
+
+            xmlBuilder.WriteStartTagFor(name);
+            xmlBuilder.WriteEndTag();
         }
 
         public void Visit(string content)
