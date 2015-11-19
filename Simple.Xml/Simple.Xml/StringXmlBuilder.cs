@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,8 +8,7 @@ namespace Simple.Xml.Structure
     public class StringXmlBuilder : IXmlBuilder
     {
         private readonly StringBuilder stringBuilder = new StringBuilder();
-
-        private Stack<string> tagsStack = new Stack<string>(); 
+        private readonly Stack<string> tagsStack = new Stack<string>(); 
 
         public void WriteStartTagFor(string name)
         {
@@ -18,11 +18,19 @@ namespace Simple.Xml.Structure
 
         public void WriteEndTag()
         {
+            if (tagsStack.Count == 0)
+            {
+                throw new InvalidOperationException("Cannot write end tag without start tag");
+            }
             EndTag(tagsStack.Pop());
         }
 
         public void WriteContent(string content)
         {
+            if (tagsStack.Count == 0)
+            {
+                throw new InvalidOperationException("Cannot write content when no element");
+            }
             stringBuilder.Append(content);
         }
 

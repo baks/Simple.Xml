@@ -101,6 +101,7 @@
     <Compile Include="NullObjectElement.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RootElementTests.cs" />
+    <Compile Include="StringXmlBuilderTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
