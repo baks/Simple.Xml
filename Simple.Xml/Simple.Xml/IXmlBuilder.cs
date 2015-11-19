@@ -4,5 +4,6 @@
     {
         void WriteStartTagFor(string name);
         void WriteEndTag();
+        void WriteContent(string content);
     }
 }

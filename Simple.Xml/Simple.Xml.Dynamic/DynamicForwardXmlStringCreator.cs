@@ -4,7 +4,7 @@ namespace Simple.Xml.Dynamic
 {
     public class DynamicForwardXmlStringCreator : IDynamicElementVisitor
     {
-        private readonly ForwardXmlStringProducer producer = new ForwardXmlStringProducer();
+        private readonly ForwardXmlStringProducer producer = new ForwardXmlStringProducer(new StringXmlBuilder());
 
         public void Visit(IElement element) => element.Accept(producer);
 

@@ -38,12 +38,20 @@ namespace Simple.Xml.Structure.UnitTests
         }
 
         [Theory, AutoSubstituteData]
+        public void WritesContent(string content)
+        {
+            sut.Visit(content);
+
+            xmlBuilder.Received(1).WriteContent(content);
+        }
+
+        /*[Theory, AutoSubstituteData]
         public void AddsTagWithVisitedNameToString(string name)
         {
             sut.Visit(name, EMPTY_CHILDREN, EMPTY_ATTRIBUTES);
 
             Assert.Equal($"<{name}></{name}>", sut.ToString());
-        }
+        }*/
 
         [Theory, AutoSubstituteData]
         public void VisitsPassedChildren(string aName, IElement child)

@@ -1,19 +1,11 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Simple.Xml.Structure
 {
     public class ForwardXmlStringProducer : IDownwardElementVisitor
     {
         private readonly IXmlBuilder xmlBuilder;
-        private readonly StringBuilder stringBuilder = new StringBuilder();
-
-        public ForwardXmlStringProducer()
-        {
-            
-        }
 
         public ForwardXmlStringProducer(IXmlBuilder xmlBuilder)
         {
@@ -39,11 +31,8 @@ namespace Simple.Xml.Structure
                 throw new ArgumentNullException(nameof(attributes));
             }
 
-            StartTag(name, attributes);
-            ChildrenTags(children);
-            EndTag(name);
-
             xmlBuilder.WriteStartTagFor(name);
+            ChildrenTags(children);
             xmlBuilder.WriteEndTag();
         }
 
@@ -53,12 +42,12 @@ namespace Simple.Xml.Structure
             {
                 throw new ArgumentNullException(nameof(content));
             }
-            stringBuilder.Append(content);
+            xmlBuilder.WriteContent(content);
         }
 
         public override string ToString()
         {
-            return stringBuilder.ToString();
+            return xmlBuilder.ToString();
         }
 
         private void ChildrenTags(IEnumerable<IElement> children)
@@ -67,17 +56,6 @@ namespace Simple.Xml.Structure
             {
                 child.Accept(this);
             }
-        }
-
-        private void StartTag(string tag, IEnumerable<Attribute> attributes)
-        {
-            var attributesString = attributes.Any() ? " " + string.Join(" ", attributes): string.Empty;
-            stringBuilder.Append($"<{tag}{attributesString}>");
-        }
-
-        private void EndTag(string tag)
-        {
-            stringBuilder.Append($"</{tag}>");
         }
     }
 }
