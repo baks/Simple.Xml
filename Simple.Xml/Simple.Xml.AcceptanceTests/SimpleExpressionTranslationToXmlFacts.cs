@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using Simple.Xml.Dynamic;
 using Simple.Xml.Structure;
 using Xunit;
@@ -7,15 +6,11 @@ using Xunit.Abstractions;
 
 namespace Simple.Xml.AcceptanceTests
 {
-    public class SimpleExpressionTranslationToXmlFacts : IDisposable
+    public class SimpleExpressionTranslationToXmlFacts : BaseTestFixtureWithOutput
     {
-        private readonly ITestOutputHelper testOutputHelper;
-        private readonly IOutput output = new StringBuilderOutput();
 
-        public SimpleExpressionTranslationToXmlFacts(ITestOutputHelper testOutputHelper)
+        public SimpleExpressionTranslationToXmlFacts(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
         {
-            this.testOutputHelper = testOutputHelper;
-            XmlBuilder.DecorateElement = element => new VerboseElement(element, output);
         }
 
         [Fact]
@@ -74,26 +69,6 @@ namespace Simple.Xml.AcceptanceTests
         </Div>
     </Body>
 </Head>", xml);
-        }
-
-        [Fact]
-        public void ShouldAddAttributesToElement()
-        {
-            var doc = XmlBuilder.NewDocument;
-
-            doc.Head.Body = new Attributes {{"name", "body"}, {"style", "top:456px"}};
-
-            var xml = doc.ToXml();
-
-            Assert.Equal(@"<Head>
-    <Body name=""body"" style=""top:456px"">
-    </Body>
-</Head>", xml);
-        }
-
-        public void Dispose()
-        {
-            testOutputHelper.WriteLine(output.ToString());
         }
 
         private static string RemoveWhiteSpaces(string input)
