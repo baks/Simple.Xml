@@ -6,7 +6,6 @@ namespace Simple.Xml.Structure
     public class RootElement : IElement
     {
         private readonly IElementCollector collector;
-        private readonly List<IElement> children;
 
         public RootElement(IElementCollector collector)
         {

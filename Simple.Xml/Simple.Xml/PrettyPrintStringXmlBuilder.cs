@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Text;
 
 namespace Simple.Xml.Structure
@@ -27,11 +28,11 @@ namespace Simple.Xml.Structure
             this.stringBuilder = stringBuilder;
         }
 
-        public void WriteStartTagFor(string name)
+        public void WriteStartTagFor(string name, IEnumerable<Attribute> attributes)
         {
             AppendLine();
             AppendIndent();
-            xmlBuilder.WriteStartTagFor(name);
+            xmlBuilder.WriteStartTagFor(name, attributes);
             IncreaseIndent();
         }
 

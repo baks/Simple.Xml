@@ -20,9 +20,9 @@ namespace Simple.Xml.Structure
             this.tagsStack = new Stack<string>();
         }
 
-        public void WriteStartTagFor(string name)
+        public void WriteStartTagFor(string name, IEnumerable<Attribute> attributes)
         {
-            StartTag(name, Enumerable.Empty<Attribute>());
+            StartTag(name, attributes);
             tagsStack.Push(name);
         }
 

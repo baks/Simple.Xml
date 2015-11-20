@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using Simple.Xml.Dynamic;
 using Simple.Xml.Structure;
@@ -86,8 +85,7 @@ namespace Simple.Xml.AcceptanceTests
 
             var xml = doc.ToXml();
 
-            Assert.Equal(@"
-<Head>
+            Assert.Equal(@"<Head>
     <Body name=""body"" style=""top:456px"">
     </Body>
 </Head>", xml);

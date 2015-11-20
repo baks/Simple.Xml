@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Simple.Xml.Structure
 {
@@ -31,7 +32,7 @@ namespace Simple.Xml.Structure
                 throw new ArgumentNullException(nameof(attributes));
             }
 
-            xmlBuilder.WriteStartTagFor(name);
+            xmlBuilder.WriteStartTagFor(name, attributes);
             ChildrenTags(children);
             xmlBuilder.WriteEndTag();
         }

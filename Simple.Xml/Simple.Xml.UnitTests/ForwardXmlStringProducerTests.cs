@@ -28,12 +28,26 @@ namespace Simple.Xml.Structure.UnitTests
         [Theory, AutoSubstituteData]
         public void WritesStartTagAndEndTag(string name)
         {
-            xmlBuilder.When(x => x.WriteStartTagFor(name)).Then("TagStarted");
+            xmlBuilder.WhenForAnyArgs(x => x.WriteStartTagFor(Arg.Any<string>(), Arg.Any<IEnumerable<Attribute>>()))
+                .Then("TagStarted");
             xmlBuilder.When(x => x.WriteEndTag()).Expect("TagStarted");
 
             sut.Visit(name, EMPTY_CHILDREN, EMPTY_ATTRIBUTES);
 
-            xmlBuilder.Received(1).WriteStartTagFor(name);
+            xmlBuilder.Received(1).WriteStartTagFor(name, EMPTY_ATTRIBUTES);
+            xmlBuilder.Received(1).WriteEndTag();
+        }
+
+        [Theory, AutoSubstituteData]
+        public void WritesAttributes(string anyName, IEnumerable<Attribute> attributes)
+        {
+            xmlBuilder.WhenForAnyArgs(x => x.WriteStartTagFor(Arg.Any<string>(), Arg.Any<IEnumerable<Attribute>>()))
+                .Then("TagStarted");
+            xmlBuilder.When(x => x.WriteEndTag()).Expect("TagStarted");
+
+            sut.Visit(anyName, EMPTY_CHILDREN, attributes);
+
+            xmlBuilder.Received(1).WriteStartTagFor(anyName, attributes);
             xmlBuilder.Received(1).WriteEndTag();
         }
 
