@@ -42,7 +42,7 @@ namespace Simple.Xml.AcceptanceTests
 
             var xml = doc.ToXml();
 
-            Assert.Equal(RemoveWhiteSpaces(@"<Head>
+            Assert.Equal(@"<Head>
     <Body>
         <Div>
             <P1>
@@ -53,7 +53,7 @@ namespace Simple.Xml.AcceptanceTests
             </P2>
         </Div>
     </Body>
-</Head>"), xml);
+</Head>", xml);
         }
 
         [Fact]
@@ -66,7 +66,7 @@ namespace Simple.Xml.AcceptanceTests
 
             var xml = doc.ToXml();
 
-            Assert.Equal(RemoveWhiteSpaces(@"<Head>
+            Assert.Equal(@"<Head>
     <Body>
         <Div>
             <P1>
@@ -74,7 +74,7 @@ namespace Simple.Xml.AcceptanceTests
             </P1>
         </Div>
     </Body>
-</Head>"), xml);
+</Head>", xml);
         }
 
         [Fact]
@@ -86,11 +86,11 @@ namespace Simple.Xml.AcceptanceTests
 
             var xml = doc.ToXml();
 
-            Assert.Equal(RemoveWhiteSpaces(@"
+            Assert.Equal(@"
 <Head>
     <Body name=""body"" style=""top:456px"">
     </Body>
-</Head>"), xml);
+</Head>", xml);
         }
 
         public void Dispose()

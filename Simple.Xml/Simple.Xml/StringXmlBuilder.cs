@@ -7,8 +7,18 @@ namespace Simple.Xml.Structure
 {
     public class StringXmlBuilder : IXmlBuilder
     {
-        private readonly StringBuilder stringBuilder = new StringBuilder();
-        private readonly Stack<string> tagsStack = new Stack<string>(); 
+        private readonly StringBuilder stringBuilder;
+        private readonly Stack<string> tagsStack;
+
+        public StringXmlBuilder(StringBuilder stringBuilder)
+        {
+            if (stringBuilder == null)
+            {
+                throw new ArgumentNullException(nameof(stringBuilder));
+            }
+            this.stringBuilder = stringBuilder;
+            this.tagsStack = new Stack<string>();
+        }
 
         public void WriteStartTagFor(string name)
         {

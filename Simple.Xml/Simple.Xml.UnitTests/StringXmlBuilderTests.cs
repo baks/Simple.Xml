@@ -1,12 +1,12 @@
 ﻿using System;
-using NSubstitute;
+using System.Text;
 using Xunit;
 
 namespace Simple.Xml.Structure.UnitTests
 {
     public class StringXmlBuilderTests
     {
-        private readonly StringXmlBuilder sut = new StringXmlBuilder();
+        private readonly StringXmlBuilder sut = new StringXmlBuilder(new StringBuilder());
 
         [Theory, AutoSubstituteData]
         public void AddsTagWithVisitedNameToString(string name)
