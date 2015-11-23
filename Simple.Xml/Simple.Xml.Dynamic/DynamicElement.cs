@@ -31,7 +31,7 @@ namespace Simple.Xml.Dynamic
             var newElement = elementFactory.CreateElementWithNameForParent(binder.Name, element);
             element.AddChild(newElement);
             result =
-                XmlBuilder.DecorateElement(
+                DynamicXmlBuilder.DecorateElement(
                     new DynamicToXmlBackwardHandler(new DynamicElement(newElement, elementFactory)));
             return true;
         }

@@ -14,7 +14,7 @@ namespace Simple.Xml.AcceptanceTests
         [Fact]
         public void ShouldAddAttributesToElement()
         {
-            var doc = XmlBuilder.NewDocument;
+            var doc = DynamicXmlBuilder.NewDocument;
 
             doc.Head.Body = new Attributes { { "name", "body" }, { "style", "top:456px" } };
 

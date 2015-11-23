@@ -2,17 +2,60 @@
 
 namespace Simple.Xml.Structure
 {
-    public class Element : IElement
+    public class ElementName
     {
         private readonly string name;
-        private readonly IElement parent;
-        private readonly IElementCollector collector;
 
-        public Element(string name, IElement parent, IElementCollector collector)
+        private string prefix;
+        private string tagName;
+
+        public ElementName(string name)
         {
             if (name == null)
             {
                 throw new ArgumentNullException(nameof(name));
+            }
+            this.name = name;
+            Parse();
+        }
+
+        public string Name()
+        {
+            return tagName;
+        }
+
+        public NamespacePrefix NamespacePrefix()
+        {
+            return string.IsNullOrEmpty(prefix)
+                ? Structure.NamespacePrefix.EmptyNamespacePrefix
+                : new NamespacePrefix(prefix);
+        }
+
+        private void Parse()
+        {
+            var splitted = name.Split('_');
+            if (splitted.Length > 1)
+            {
+                prefix = splitted[0];
+                tagName = splitted[1];
+            }
+            else
+            {
+                tagName = splitted[0];
+            }
+        }
+    }
+    public class Element : IElement
+    {
+        private readonly ElementName elementName;
+        private readonly IElement parent;
+        private readonly IElementCollector collector;
+
+        public Element(ElementName elementName, IElement parent, IElementCollector collector)
+        {
+            if (elementName == null)
+            {
+                throw new ArgumentNullException(nameof(elementName));
             }
             if (parent == null)
             {
@@ -22,7 +65,7 @@ namespace Simple.Xml.Structure
             {
                 throw new ArgumentNullException(nameof(collector));
             }
-            this.name = name;
+            this.elementName = elementName;
             this.parent = parent;
             this.collector = collector;
         }
@@ -38,9 +81,11 @@ namespace Simple.Xml.Structure
         }
 
         public void Accept(IDownwardElementVisitor visitor)
-            => visitor.Visit(this.name, collector.ChildrenFor(this), collector.AttributesFor(this));
+            =>
+                visitor.Visit(new Tag(elementName.Name(), elementName.NamespacePrefix(), collector.AttributesFor(this)),
+                    collector.ChildrenFor(this));
 
         public void Accept(IUpwardElementVisitor visitor)
-            => visitor.Visit(this.name, this.parent, collector.ChildrenFor(this));
+            => visitor.Visit(elementName.Name(), this.parent, collector.ChildrenFor(this));
     }
 }

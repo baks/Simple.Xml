@@ -8,9 +8,14 @@ namespace Simple.Xml.Structure.UnitTests
 {
     public class ElementTests
     {
-        private static readonly string ANY_NAME = "any";
         private static readonly IElement UNUSED_PARENT = new NullObjectElement();
         private static readonly IElementCollector UNUSED_COLLECTOR = Substitute.For<IElementCollector>();
+        private static string ANY_NAME => Arg.Any<string>();
+
+        private static ElementName ANY_ELEMENT_NAME => Arg.Any<ElementName>();
+        private static IElement ANY_PARENT => Arg.Any<IElement>();
+        private static Tag ANY_TAG => Arg.Any<Tag>();
+        private static IEnumerable<IElement> EMPTY_CHILDREN => Arg.Any<IEnumerable<IElement>>();
 
         private readonly IElementCollector collector;
         private readonly IUpwardElementVisitor upwardVisitor;
@@ -22,7 +27,7 @@ namespace Simple.Xml.Structure.UnitTests
             collector = Substitute.For<IElementCollector>();
             upwardVisitor = Substitute.For<IUpwardElementVisitor>();
             downwardVisitor = Substitute.For<IDownwardElementVisitor>();
-            sut = new Element(ANY_NAME, UNUSED_PARENT, collector);
+            sut = new Element(anElementName, UNUSED_PARENT, collector);
     }
 
         [Theory, AutoSubstituteData]
@@ -44,7 +49,7 @@ namespace Simple.Xml.Structure.UnitTests
         {
             sut.Accept(upwardVisitor);
 
-            upwardVisitor.Received(1).Visit(AName, AParent, AnElementsEnumerable);
+            upwardVisitor.Received(1).Visit(ANY_NAME, ANY_PARENT, EMPTY_CHILDREN);
         }
 
         [Theory, AutoSubstituteData]
@@ -52,7 +57,7 @@ namespace Simple.Xml.Structure.UnitTests
         {
             ElementWithName(name).Accept(upwardVisitor);
 
-            AssertUpwardVisitorIsVisitedWith(name, AParent, AnElementsEnumerable);
+            AssertUpwardVisitorIsVisitedWith(name, ANY_PARENT, EMPTY_CHILDREN);
         }
 
         [Theory, AutoSubstituteData]
@@ -60,7 +65,7 @@ namespace Simple.Xml.Structure.UnitTests
         {
             ElementWithParent(parent).Accept(upwardVisitor);
 
-            AssertUpwardVisitorIsVisitedWith(AName, parent, AnElementsEnumerable);
+            AssertUpwardVisitorIsVisitedWith(ANY_NAME, parent, EMPTY_CHILDREN);
         }
 
         [Theory, AutoSubstituteData]
@@ -76,7 +81,7 @@ namespace Simple.Xml.Structure.UnitTests
         {
             sut.Accept(downwardVisitor);
 
-            downwardVisitor.Received(1).Visit(AName, AnElementsEnumerable, AnAttributesEnumerable);
+            downwardVisitor.Received(1).Visit(ANY_TAG, EMPTY_CHILDREN);
         }
 
         [Theory, AutoSubstituteData]
@@ -84,7 +89,7 @@ namespace Simple.Xml.Structure.UnitTests
         {
             ElementWithName(name).Accept(downwardVisitor);
 
-            AssertDownwardVisitorIsVisitedWith(name, AnElementsEnumerable, AnAttributesEnumerable);
+            AssertDownwardVisitorIsVisitedWith(TagContentWithName(name), EMPTY_CHILDREN);
         }
 
         [Theory, AutoSubstituteData]
@@ -98,19 +103,16 @@ namespace Simple.Xml.Structure.UnitTests
         private void AssertUpwardVisitorIsVisitedWith(string name, IElement parent, IEnumerable<IElement> children)
             => upwardVisitor.Received().Visit(name, parent, children);
 
-        private void AssertDownwardVisitorIsVisitedWith(string name, IEnumerable<IElement> children, IEnumerable<Attribute> attributes)
-            => downwardVisitor.Received().Visit(name, children, attributes);
+        private void AssertDownwardVisitorIsVisitedWith(Tag tag, IEnumerable<IElement> children)
+            => downwardVisitor.Received().Visit(tag, children);
 
-        private static IElement ElementWithName(string name) => new Element(name, UNUSED_PARENT, UNUSED_COLLECTOR);
+        private static IElement ElementWithName(string name) => new Element(new ElementName(name), UNUSED_PARENT, UNUSED_COLLECTOR);
 
-        private static IElement ElementWithParent(IElement parent) => new Element(ANY_NAME, parent, UNUSED_COLLECTOR);
+        private static IElement ElementWithParent(IElement parent) => new Element(anElementName, parent, UNUSED_COLLECTOR);
 
-        private static string AName => Arg.Any<string>();
+        private static Tag TagContentWithName(string name)
+            => Arg.Is<Tag>(tagContent => tagContent.name.Equals(name));
 
-        private static IElement AParent => Arg.Any<IElement>();
-
-        private static IEnumerable<IElement> AnElementsEnumerable => Arg.Any<IEnumerable<IElement>>();
-
-        private static IEnumerable<Attribute> AnAttributesEnumerable => Arg.Any<IEnumerable<Attribute>>();
+        private static ElementName anElementName => new ElementName("any");
     }
 }

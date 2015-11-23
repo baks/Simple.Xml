@@ -12,7 +12,7 @@ namespace Simple.Xml.AcceptanceTests
         protected BaseTestFixtureWithOutput(ITestOutputHelper testOutputHelper)
         {
             this.testOutputHelper = testOutputHelper;
-            XmlBuilder.DecorateElement = element => new VerboseElement(element, output);
+            DynamicXmlBuilder.DecorateElement = element => new VerboseElement(element, output);
         }
 
         public void Dispose()

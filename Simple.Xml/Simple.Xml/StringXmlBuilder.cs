@@ -26,6 +26,11 @@ namespace Simple.Xml.Structure
             tagsStack.Push(name);
         }
 
+        public void WriteStartTagFor(Tag tag)
+        {
+            stringBuilder.Append($"<{tag}>");
+        }
+
         public void WriteEndTag()
         {
             if (tagsStack.Count == 0)
@@ -33,6 +38,11 @@ namespace Simple.Xml.Structure
                 throw new InvalidOperationException("Cannot write end tag without start tag");
             }
             EndTag(tagsStack.Pop());
+        }
+
+        public void WriteEndTagFor(Tag tag)
+        {
+            stringBuilder.Append($"</{tag}>");
         }
 
         public void WriteContent(string content)

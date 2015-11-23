@@ -11,11 +11,13 @@ namespace Simple.Xml.Structure.UnitTests
         private readonly RootElement sut;
         private readonly IDownwardElementVisitor downwardVisitor;
         private readonly IUpwardElementVisitor upwardVisitor;
+        private readonly Namespaces aNamespaces;
 
         public RootElementTests()
         {
+            aNamespaces = new Namespaces();
             collector = Substitute.For<IElementCollector>();
-            sut = new RootElement(collector);
+            sut = new RootElement(aNamespaces, collector);
             downwardVisitor = Substitute.For<IDownwardElementVisitor>();
             upwardVisitor = Substitute.For<IUpwardElementVisitor>();
         }
@@ -43,11 +45,11 @@ namespace Simple.Xml.Structure.UnitTests
             upwardVisitor.DidNotReceive().Visit(AName, AParent, AnElementsEnumerable);   
         }
 
-        private void AssertPassesDownwardVisitorToAllChildren(IEnumerable<string> childrenNames)
+        private void AssertPassesDownwardVisitorToAllChildren(Tag aTag, IEnumerable<string> childrenNames)
         {
             foreach (var name in childrenNames)
             {
-                downwardVisitor.Received(1).Visit(name, AnElementsEnumerable, AnAttributesEnumerable);
+                downwardVisitor.Received(1).Visit(aTag, AnElementsEnumerable);
             }
         }
 

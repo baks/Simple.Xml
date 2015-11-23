@@ -14,7 +14,10 @@ namespace Simple.Xml.Structure.UnitTests
     public class ForwardXmlStringProducerTests
     {
         private static readonly IEnumerable<IElement> EMPTY_CHILDREN = Enumerable.Empty<IElement>();
-        private static readonly IEnumerable<Attribute> EMPTY_ATTRIBUTES = Enumerable.Empty<Attribute>();
+
+        private static IEnumerable<Attribute> ANY_ATTRIBUTES => Arg.Any<IEnumerable<Attribute>>();
+
+        private static string ANY_NAME => Arg.Any<string>();
 
         private readonly ForwardXmlStringProducer sut;
         private readonly IXmlBuilder xmlBuilder;
@@ -26,28 +29,28 @@ namespace Simple.Xml.Structure.UnitTests
         }
 
         [Theory, AutoSubstituteData]
-        public void WritesStartTagAndEndTag(string name)
+        public void WritesStartTagAndEndTag(Tag tag)
         {
             xmlBuilder.WhenForAnyArgs(x => x.WriteStartTagFor(Arg.Any<string>(), Arg.Any<IEnumerable<Attribute>>()))
                 .Then("TagStarted");
             xmlBuilder.When(x => x.WriteEndTag()).Expect("TagStarted");
 
-            sut.Visit(name, EMPTY_CHILDREN, EMPTY_ATTRIBUTES);
+            sut.Visit(tag, EMPTY_CHILDREN);
 
-            xmlBuilder.Received(1).WriteStartTagFor(name, EMPTY_ATTRIBUTES);
+            xmlBuilder.Received(1).WriteStartTagFor(tag.name, ANY_ATTRIBUTES);
             xmlBuilder.Received(1).WriteEndTag();
         }
 
         [Theory, AutoSubstituteData]
-        public void WritesAttributes(string anyName, IEnumerable<Attribute> attributes)
+        public void WritesAttributes(Tag tag)
         {
             xmlBuilder.WhenForAnyArgs(x => x.WriteStartTagFor(Arg.Any<string>(), Arg.Any<IEnumerable<Attribute>>()))
                 .Then("TagStarted");
             xmlBuilder.When(x => x.WriteEndTag()).Expect("TagStarted");
 
-            sut.Visit(anyName, EMPTY_CHILDREN, attributes);
+            sut.Visit(tag, EMPTY_CHILDREN);
 
-            xmlBuilder.Received(1).WriteStartTagFor(anyName, attributes);
+            xmlBuilder.Received(1).WriteStartTagFor(ANY_NAME, tag.attributes);
             xmlBuilder.Received(1).WriteEndTag();
         }
 
@@ -60,10 +63,10 @@ namespace Simple.Xml.Structure.UnitTests
         }
 
         [Theory, AutoSubstituteData]
-        public void VisitsPassedChildren(string aName, IElement child)
+        public void VisitsPassedChildren(Tag aTag, IElement child)
         {
             var theChildren = new[] {child, child, child};
-            sut.Visit(aName, theChildren, EMPTY_ATTRIBUTES);
+            sut.Visit(aTag, theChildren);
 
             child.Received(3).Accept(sut);
         }
@@ -73,19 +76,11 @@ namespace Simple.Xml.Structure.UnitTests
         {
             guardClauseAssertion.Verify(typeof(ForwardXmlStringProducer).GetMethods().Where(mi => string.Equals("Visit", mi.Name)));
         }
-
-        [Fact]
-        public void GuardAgainstEmptyName()
-        {
-            var emptyName = string.Empty;
-
-            Assert.Throws<ArgumentNullException>(() => sut.Visit(emptyName, EMPTY_CHILDREN, EMPTY_ATTRIBUTES));
-        }
     }
 
     public static class WhenCalledExtensions
     {
-        private static string savedState = "undefined";
+        private static string savedState = "not changed by test";
 
         public static void Then<T>(this WhenCalled<T> whenCalled, string newState)
         {

@@ -36,12 +36,22 @@ namespace Simple.Xml.Structure
             IncreaseIndent();
         }
 
+        public void WriteStartTagFor(Tag tag)
+        {
+            throw new NotImplementedException();
+        }
+
         public void WriteEndTag()
         {
             AppendLine();
             DecreaseIndent();
             AppendIndent();
             xmlBuilder.WriteEndTag();
+        }
+
+        public void WriteEndTagFor(Tag tag)
+        {
+            throw new NotImplementedException();
         }
 
         public void WriteContent(string content)

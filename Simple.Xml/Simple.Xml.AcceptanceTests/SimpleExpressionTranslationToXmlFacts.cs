@@ -16,7 +16,7 @@ namespace Simple.Xml.AcceptanceTests
         [Fact]
         public void ShouldTranslatePropertyChain()
         {
-            var xml = XmlBuilder.NewDocument.Head.Body.Div.ToXml();
+            var xml = DynamicXmlBuilder.NewDocument.Head.Body.Div.ToXml();
 
             Assert.Equal(RemoveWhiteSpaces(@"<Head>
     <Body>
@@ -29,7 +29,7 @@ namespace Simple.Xml.AcceptanceTests
         [Fact]
         public void ShouldTranslateMoreThanOneElementForTheSameNode()
         {
-            var doc = XmlBuilder.NewDocument;
+            var doc = DynamicXmlBuilder.NewDocument;
             var body = doc.Head.Body;
             var firstDiv = body.Div.P1;
             var secondDiv = body.Div.P2;
@@ -53,7 +53,7 @@ namespace Simple.Xml.AcceptanceTests
         [Fact]
         public void ShouldAddContentToElement()
         {
-            var doc = XmlBuilder.NewDocument;
+            var doc = DynamicXmlBuilder.NewDocument;
 
             var body = doc.Head.Body;
             body.Div.P1 = "content";

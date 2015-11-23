@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Text;
 
 namespace Simple.Xml.Structure
 {
@@ -17,22 +17,18 @@ namespace Simple.Xml.Structure
             this.xmlBuilder = xmlBuilder;
         }
 
-        public void Visit(string name, IEnumerable<IElement> children, IEnumerable<Attribute> attributes)
+        public void Visit(Tag tag, IEnumerable<IElement> children)
         {
-            if (string.IsNullOrEmpty(name))
+            if (tag == null)
             {
-                throw new ArgumentNullException(nameof(name));
+                throw new ArgumentNullException(nameof(tag));
             }
             if (children == null)
             {
                 throw new ArgumentNullException(nameof(children));
             }
-            if (attributes == null)
-            {
-                throw new ArgumentNullException(nameof(attributes));
-            }
 
-            xmlBuilder.WriteStartTagFor(name, attributes);
+            xmlBuilder.WriteStartTagFor(tag.name, tag.attributes);
             ChildrenTags(children);
             xmlBuilder.WriteEndTag();
         }

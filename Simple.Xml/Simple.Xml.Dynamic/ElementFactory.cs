@@ -6,7 +6,7 @@ namespace Simple.Xml.Dynamic
     {
         public IElement CreateElementWithNameForParent(string name, IElement parent)
         {
-            return new Element(name, parent, new ElementCollector());
+            return new Element(new ElementName(name), parent, new ElementCollector());
         }
 
         public IElement CreateElementWithContentForParent(string content, IElement parent)
