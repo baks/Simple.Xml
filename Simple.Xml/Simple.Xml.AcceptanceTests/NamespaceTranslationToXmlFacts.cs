@@ -8,14 +8,15 @@ namespace Simple.Xml.AcceptanceTests
 {
     public class NamespaceTranslationToXmlFacts : BaseTestFixtureWithOutput
     {
-        public NamespaceTranslationToXmlFacts(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
+        public NamespaceTranslationToXmlFacts(ITestOutputHelper testOutputHelper)
+            : base(testOutputHelper)
         {
         }
 
         [Fact]
         public void ShouldAddNamespacePrefixToElement()
         {
-            var doc = DynamicXmlBuilder.NewDocument;
+            var doc = sut.NewDocument;
 
             var bodyWithNamespacePrefix = doc.Head.c_Body;
 
@@ -30,8 +31,8 @@ namespace Simple.Xml.AcceptanceTests
         [Fact]
         public void ShouldAddNamespaceDeclaration()
         { 
-            DynamicXmlBuilder.NamespaceDeclarations(new Namespaces { {"c", "http://www.w3.org/1999/xhtml" } });
-            var doc = DynamicXmlBuilder.NewDocument;
+            sut = new DynamicXmlBuilder(new Namespaces { { "c", "http://www.w3.org/1999/xhtml" } });
+            var doc = sut.NewDocument;
             var bodyWithNamespacePrefix = doc.Head.c_Body;
 
             var xml = doc.ToXml();

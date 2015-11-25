@@ -7,12 +7,15 @@ namespace Simple.Xml.AcceptanceTests
     public abstract class BaseTestFixtureWithOutput : IDisposable
     {
         private readonly ITestOutputHelper testOutputHelper;
-        private readonly IOutput output = new StringBuilderOutput();
+        protected readonly IOutput output;
+
+        protected DynamicXmlBuilder sut;
 
         protected BaseTestFixtureWithOutput(ITestOutputHelper testOutputHelper)
         {
             this.testOutputHelper = testOutputHelper;
-            DynamicXmlBuilder.DecorateElement = element => new VerboseElement(element, output);
+            this.output = new StringBuilderOutput();
+            this.sut = new DynamicXmlBuilder(element => new VerboseElement(element, output));
         }
 
         public void Dispose()

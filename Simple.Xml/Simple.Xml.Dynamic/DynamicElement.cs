@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Dynamic;
-using System.Linq;
 using Simple.Xml.Structure;
-using Attribute = Simple.Xml.Structure.Attribute;
 
 namespace Simple.Xml.Dynamic
 {
@@ -11,8 +8,10 @@ namespace Simple.Xml.Dynamic
     {
         private readonly IElement element;
         private readonly IElementFactory elementFactory;
+        private readonly Func<BaseDynamicElement, BaseDynamicElement> graphDecorator;
 
-        public DynamicElement(IElement element, IElementFactory elementFactory)
+        public DynamicElement(IElement element, IElementFactory elementFactory,
+            Func<BaseDynamicElement, BaseDynamicElement> graphDecorator)
         {
             if (element == null)
             {
@@ -22,8 +21,13 @@ namespace Simple.Xml.Dynamic
             {
                 throw new ArgumentNullException(nameof(elementFactory));
             }
+            if (graphDecorator == null)
+            {
+                throw new ArgumentNullException(nameof(graphDecorator));
+            }
             this.element = element;
             this.elementFactory = elementFactory;
+            this.graphDecorator = graphDecorator;
         }
 
         public override bool TryGetMember(GetMemberBinder binder, out object result)
@@ -31,8 +35,8 @@ namespace Simple.Xml.Dynamic
             var newElement = elementFactory.CreateElementWithNameForParent(binder.Name, element);
             element.AddChild(newElement);
             result =
-                DynamicXmlBuilder.DecorateElement(
-                    new DynamicToXmlBackwardHandler(new DynamicElement(newElement, elementFactory)));
+                graphDecorator(
+                    new DynamicToXmlBackwardHandler(new DynamicElement(newElement, elementFactory, graphDecorator)));
             return true;
         }
 

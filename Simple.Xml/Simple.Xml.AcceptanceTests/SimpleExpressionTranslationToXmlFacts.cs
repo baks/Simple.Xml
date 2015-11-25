@@ -1,6 +1,4 @@
 ﻿using System.Linq;
-using Simple.Xml.Dynamic;
-using Simple.Xml.Structure;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -9,14 +7,15 @@ namespace Simple.Xml.AcceptanceTests
     public class SimpleExpressionTranslationToXmlFacts : BaseTestFixtureWithOutput
     {
 
-        public SimpleExpressionTranslationToXmlFacts(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
+        public SimpleExpressionTranslationToXmlFacts(ITestOutputHelper testOutputHelper)
+            : base(testOutputHelper)
         {
         }
 
         [Fact]
         public void ShouldTranslatePropertyChain()
         {
-            var xml = DynamicXmlBuilder.NewDocument.Head.Body.Div.ToXml();
+            var xml = sut.NewDocument.Head.Body.Div.ToXml();
 
             Assert.Equal(RemoveWhiteSpaces(@"<Head>
     <Body>
@@ -29,7 +28,7 @@ namespace Simple.Xml.AcceptanceTests
         [Fact]
         public void ShouldTranslateMoreThanOneElementForTheSameNode()
         {
-            var doc = DynamicXmlBuilder.NewDocument;
+            var doc = sut.NewDocument;
             var body = doc.Head.Body;
             var firstDiv = body.Div.P1;
             var secondDiv = body.Div.P2;
@@ -53,7 +52,7 @@ namespace Simple.Xml.AcceptanceTests
         [Fact]
         public void ShouldAddContentToElement()
         {
-            var doc = DynamicXmlBuilder.NewDocument;
+            var doc = sut.NewDocument;
 
             var body = doc.Head.Body;
             body.Div.P1 = "content";

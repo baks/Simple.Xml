@@ -4,20 +4,46 @@ using Simple.Xml.Structure.Constructs;
 
 namespace Simple.Xml.Dynamic
 {
-    public static class DynamicXmlBuilder
+    public class DynamicXmlBuilder
     {
-        public static Func<BaseDynamicElement, BaseDynamicElement> DecorateElement = element => element;
-        public static Namespaces namespaces = Namespaces.EmptyNamespaces;
+        private static Func<BaseDynamicElement, BaseDynamicElement> DefaultGraphDecorator => element => element;
 
-        public static dynamic NewDocument
-            =>
-                DecorateElement(
-                    new DynamicToXmlForwardHandler(
-                        new DynamicElement(new RootElement(namespaces, new ElementCollector()), new ElementFactory())));
+        private static readonly Func<Namespaces, Func<BaseDynamicElement, BaseDynamicElement>, BaseDynamicElement>
+            DefaultGraph = (namespaces, graphDecorator) => new DynamicToXmlForwardHandler(
+                new DynamicElement(new RootElement(namespaces, new ElementCollector()), new ElementFactory(),
+                    graphDecorator));
 
-        public static void NamespaceDeclarations(Namespaces namespaces)
+        private readonly Func<BaseDynamicElement, BaseDynamicElement> graphDecorator;
+        private readonly Namespaces namespaces;
+
+        public DynamicXmlBuilder() : this(Namespaces.EmptyNamespaces, DefaultGraphDecorator)
         {
-            DynamicXmlBuilder.namespaces = namespaces;
+            
         }
+
+        public DynamicXmlBuilder(Namespaces namespaces) : this(namespaces, DefaultGraphDecorator)
+        {
+        }
+
+        public DynamicXmlBuilder(Func<BaseDynamicElement, BaseDynamicElement> graphDecorator)
+            : this(Namespaces.EmptyNamespaces, graphDecorator)
+        {
+        }
+
+        public DynamicXmlBuilder(Namespaces namespaces, Func<BaseDynamicElement, BaseDynamicElement> graphDecorator)
+        {
+            if (namespaces == null)
+            {
+                throw new ArgumentNullException(nameof(namespaces));
+            }
+            if (graphDecorator == null)
+            {
+                throw new ArgumentNullException(nameof(graphDecorator));
+            }
+            this.namespaces = namespaces;
+            this.graphDecorator = graphDecorator;
+        }
+
+        public dynamic NewDocument => graphDecorator(DefaultGraph(this.namespaces, graphDecorator));
     }
 }

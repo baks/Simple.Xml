@@ -1,16 +1,8 @@
 ﻿using System;
-using System.Diagnostics;
-using System.Linq;
-using FluentAssertions;
-using FluentAssertions.Execution;
 using NSubstitute;
-using NSubstitute.Core;
-using NSubstitute.Core.Arguments;
 using Ploeh.AutoFixture.Idioms;
 using Simple.Xml.Structure;
 using Xunit;
-using Xunit.Abstractions;
-using Xunit.Sdk;
 
 namespace Simple.Xml.Dynamic.UnitTests
 {
@@ -20,13 +12,15 @@ namespace Simple.Xml.Dynamic.UnitTests
         private readonly dynamic sut;
         private readonly IDynamicElementVisitor visitor;
         private readonly IElementFactory factory;
+        private readonly Func<BaseDynamicElement, BaseDynamicElement> graphDecorator; 
 
         public DynamicElementTests()
         {
             visitor = Substitute.For<IDynamicElementVisitor>();
             element = Substitute.For<IElement>();
             factory = Substitute.For<IElementFactory>();
-            sut = new DynamicElement(element, factory);
+            graphDecorator = Substitute.For<Func<BaseDynamicElement, BaseDynamicElement>>();
+            sut = new DynamicElement(element, factory, graphDecorator);
         }
 
         [Theory, AutoSubstituteData]
