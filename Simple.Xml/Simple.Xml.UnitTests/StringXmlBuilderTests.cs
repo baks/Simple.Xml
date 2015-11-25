@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using NSubstitute;
+using Simple.Xml.Structure.Constructs;
 using Simple.Xml.Structure.Output;
 using Xunit;
 
@@ -35,6 +36,15 @@ namespace Simple.Xml.Structure.UnitTests
             sut.WriteEndTag();
 
             Assert.Equal($"<{name}>{content}</{name}>", sut.ToString());
+        }
+
+        [Theory, AutoSubstituteData]
+        public void AddsNamespaceToOutput(Namespaces namespaces, Tag tag)
+        {
+            sut.UseNamespaces(namespaces);
+            sut.WriteStartTagFor(tag);
+
+            Assert.Equal($"<{tag} {namespaces}>", sut.ToString());
         }
 
         [Theory, AutoSubstituteData]

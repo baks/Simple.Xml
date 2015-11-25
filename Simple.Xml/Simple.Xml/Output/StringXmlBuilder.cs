@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Simple.Xml.Structure.Constructs;
 
 namespace Simple.Xml.Structure.Output
 {
@@ -9,6 +10,7 @@ namespace Simple.Xml.Structure.Output
     {
         private readonly StringBuilder stringBuilder;
         private readonly Stack<Tag> tagsStack;
+        private readonly Stack<Namespaces> namespacesStack; 
 
         public StringXmlBuilder(StringBuilder stringBuilder)
         {
@@ -18,11 +20,19 @@ namespace Simple.Xml.Structure.Output
             }
             this.stringBuilder = stringBuilder;
             this.tagsStack = new Stack<Tag>();
+            this.namespacesStack = new Stack<Namespaces>();
         }
 
         public void WriteStartTagFor(Tag tag)
         {
-            stringBuilder.Append($"<{tag}>");
+            if (namespacesStack.Count == 0)
+            {
+                stringBuilder.Append($"<{tag}>");
+            }
+            else
+            {
+                stringBuilder.Append($"<{tag} {namespacesStack.Pop()}>");
+            }
             tagsStack.Push(tag);
         }
 
@@ -44,15 +54,19 @@ namespace Simple.Xml.Structure.Output
             stringBuilder.Append(content);
         }
 
+        public void UseNamespaces(Namespaces namespaces)
+        {
+            if (namespaces == null)
+            {
+                throw new ArgumentNullException(nameof(namespaces));
+            }
+            if(namespaces != Namespaces.EmptyNamespaces)
+            namespacesStack.Push(namespaces);
+        }
+
         public override string ToString()
         {
             return stringBuilder.ToString();
-        }
-
-        private void StartTag(string tag, IEnumerable<Attribute> attributes)
-        {
-            var attributesString = attributes.Any() ? " " + string.Join(" ", attributes) : string.Empty;
-            stringBuilder.Append($"<{tag}{attributesString}>");
         }
 
         private void EndTag(Tag tag)

@@ -7,6 +7,7 @@ using NSubstitute.Core.Arguments;
 using NSubstitute.Exceptions;
 using NSubstitute.Routing;
 using Ploeh.AutoFixture.Idioms;
+using Simple.Xml.Structure.Constructs;
 using Simple.Xml.Structure.Output;
 using Xunit;
 
@@ -58,6 +59,14 @@ namespace Simple.Xml.Structure.UnitTests
             sut.Visit(content);
 
             xmlBuilder.Received(1).WriteContent(content);
+        }
+
+        [Theory, AutoSubstituteData]
+        public void InstructsBuilderToUseNamespaces(Namespaces namespaces)
+        {
+            sut.Visit(namespaces);
+
+            xmlBuilder.Received(1).UseNamespaces(namespaces);
         }
 
         [Theory, AutoSubstituteData]

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Simple.Xml.Structure.Constructs;
 
 namespace Simple.Xml.Structure.Output
 {
@@ -39,6 +40,15 @@ namespace Simple.Xml.Structure.Output
                 throw new ArgumentNullException(nameof(content));
             }
             xmlBuilder.WriteContent(content);
+        }
+
+        public void Visit(Namespaces namespaces)
+        {
+            if (namespaces == null)
+            {
+                throw new ArgumentNullException(nameof(namespaces));
+            }
+            xmlBuilder.UseNamespaces(namespaces);
         }
 
         public override string ToString()

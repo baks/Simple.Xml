@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Simple.Xml.Structure
+namespace Simple.Xml.Structure.Constructs
 {
     public class RootElement : IElement
     {
@@ -32,7 +32,7 @@ namespace Simple.Xml.Structure
 
         public void Accept(IDownwardElementVisitor visitor)
         {
-            //visitor.Visit(namespaces);
+            visitor.Visit(namespaces);
             foreach (var child in collector.ChildrenFor(this))
             {
                 child.Accept(visitor);

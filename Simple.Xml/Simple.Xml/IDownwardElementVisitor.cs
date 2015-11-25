@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Simple.Xml.Structure.Constructs;
 
 namespace Simple.Xml.Structure
 {
@@ -7,5 +8,7 @@ namespace Simple.Xml.Structure
         void Visit(Tag tag, IEnumerable<IElement> children);
 
         void Visit(string content);
+
+        void Visit(Namespaces namespaces);
     }
 }

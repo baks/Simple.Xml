@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using NSubstitute;
+using Simple.Xml.Structure.Constructs;
 using Xunit;
 
 namespace Simple.Xml.Structure.UnitTests
@@ -45,12 +46,12 @@ namespace Simple.Xml.Structure.UnitTests
             upwardVisitor.DidNotReceive().Visit(Arg.Any<Tag>(), AParent, AnElementsEnumerable);   
         }
 
-        private void AssertPassesDownwardVisitorToAllChildren(Tag aTag, IEnumerable<string> childrenNames)
+        [Fact]
+        public void VisitsNamespaces()
         {
-            foreach (var name in childrenNames)
-            {
-                downwardVisitor.Received(1).Visit(aTag, AnElementsEnumerable);
-            }
+            sut.Accept(downwardVisitor);
+
+            downwardVisitor.Received(1).Visit(aNamespaces);
         }
 
         private static string AName => Arg.Any<string>();

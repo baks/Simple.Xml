@@ -1,5 +1,6 @@
 ﻿using Simple.Xml.Dynamic;
 using Simple.Xml.Structure;
+using Simple.Xml.Structure.Constructs;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -28,10 +29,9 @@ namespace Simple.Xml.AcceptanceTests
 
         [Fact]
         public void ShouldAddNamespaceDeclaration()
-        {
-            var doc = DynamicXmlBuilder.NewDocument;
+        { 
             DynamicXmlBuilder.NamespaceDeclarations(new Namespaces { {"c", "http://www.w3.org/1999/xhtml" } });
-
+            var doc = DynamicXmlBuilder.NewDocument;
             var bodyWithNamespacePrefix = doc.Head.c_Body;
 
             var xml = doc.ToXml();
