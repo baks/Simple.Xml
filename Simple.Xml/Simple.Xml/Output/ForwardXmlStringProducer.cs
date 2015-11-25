@@ -1,8 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
 
-namespace Simple.Xml.Structure
+namespace Simple.Xml.Structure.Output
 {
     public class ForwardXmlStringProducer : IDownwardElementVisitor
     {
@@ -28,7 +27,7 @@ namespace Simple.Xml.Structure
                 throw new ArgumentNullException(nameof(children));
             }
 
-            xmlBuilder.WriteStartTagFor(tag.name, tag.attributes);
+            xmlBuilder.WriteStartTagFor(tag);
             ChildrenTags(children);
             xmlBuilder.WriteEndTag();
         }

@@ -1,8 +1,7 @@
 using System;
-using System.Collections.Generic;
 using System.Text;
 
-namespace Simple.Xml.Structure
+namespace Simple.Xml.Structure.Output
 {
     public class PrettyPrintStringXmlBuilder : IXmlBuilder
     {
@@ -28,17 +27,12 @@ namespace Simple.Xml.Structure
             this.stringBuilder = stringBuilder;
         }
 
-        public void WriteStartTagFor(string name, IEnumerable<Attribute> attributes)
+        public void WriteStartTagFor(Tag tag)
         {
             AppendLine();
             AppendIndent();
-            xmlBuilder.WriteStartTagFor(name, attributes);
+            xmlBuilder.WriteStartTagFor(tag);
             IncreaseIndent();
-        }
-
-        public void WriteStartTagFor(Tag tag)
-        {
-            throw new NotImplementedException();
         }
 
         public void WriteEndTag()
@@ -47,11 +41,6 @@ namespace Simple.Xml.Structure
             DecreaseIndent();
             AppendIndent();
             xmlBuilder.WriteEndTag();
-        }
-
-        public void WriteEndTagFor(Tag tag)
-        {
-            throw new NotImplementedException();
         }
 
         public void WriteContent(string content)

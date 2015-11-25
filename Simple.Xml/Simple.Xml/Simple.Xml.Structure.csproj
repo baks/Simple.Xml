@@ -39,26 +39,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Attribute.cs" />
-    <Compile Include="Attributes.cs" />
-    <Compile Include="BackwardXmlStringProducer.cs" />
-    <Compile Include="ContentElement.cs" />
-    <Compile Include="Element.cs" />
+    <Compile Include="Constructs\Attribute.cs" />
+    <Compile Include="Constructs\Attributes.cs" />
+    <Compile Include="Output\BackwardXmlStringProducer.cs" />
+    <Compile Include="Constructs\ContentElement.cs" />
+    <Compile Include="Constructs\Element.cs" />
     <Compile Include="ElementCollector.cs" />
-    <Compile Include="ForwardXmlStringProducer.cs" />
+    <Compile Include="Output\ForwardXmlStringProducer.cs" />
     <Compile Include="IDownwardElementVisitor.cs" />
     <Compile Include="IElement.cs" />
     <Compile Include="IElementCollector.cs" />
     <Compile Include="IUpwardElementVisitor.cs" />
-    <Compile Include="IXmlBuilder.cs" />
-    <Compile Include="NamespacePrefix.cs" />
-    <Compile Include="Namespaces.cs" />
-    <Compile Include="PrettyPrintStringXmlBuilder.cs" />
+    <Compile Include="Output\IXmlBuilder.cs" />
+    <Compile Include="Constructs\NamespacePrefix.cs" />
+    <Compile Include="Constructs\Namespaces.cs" />
+    <Compile Include="Output\PrettyPrintStringXmlBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RootElement.cs" />
-    <Compile Include="StringXmlBuilder.cs" />
-    <Compile Include="Tag.cs" />
+    <Compile Include="Constructs\RootElement.cs" />
+    <Compile Include="Output\StringXmlBuilder.cs" />
+    <Compile Include="Constructs\Tag.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

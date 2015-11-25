@@ -7,6 +7,7 @@ using NSubstitute.Core.Arguments;
 using NSubstitute.Exceptions;
 using NSubstitute.Routing;
 using Ploeh.AutoFixture.Idioms;
+using Simple.Xml.Structure.Output;
 using Xunit;
 
 namespace Simple.Xml.Structure.UnitTests
@@ -14,10 +15,7 @@ namespace Simple.Xml.Structure.UnitTests
     public class ForwardXmlStringProducerTests
     {
         private static readonly IEnumerable<IElement> EMPTY_CHILDREN = Enumerable.Empty<IElement>();
-
-        private static IEnumerable<Attribute> ANY_ATTRIBUTES => Arg.Any<IEnumerable<Attribute>>();
-
-        private static string ANY_NAME => Arg.Any<string>();
+        private static Tag ANY_TAG => Arg.Any<Tag>();
 
         private readonly ForwardXmlStringProducer sut;
         private readonly IXmlBuilder xmlBuilder;
@@ -31,26 +29,26 @@ namespace Simple.Xml.Structure.UnitTests
         [Theory, AutoSubstituteData]
         public void WritesStartTagAndEndTag(Tag tag)
         {
-            xmlBuilder.WhenForAnyArgs(x => x.WriteStartTagFor(Arg.Any<string>(), Arg.Any<IEnumerable<Attribute>>()))
+            xmlBuilder.WhenForAnyArgs(x => x.WriteStartTagFor(ANY_TAG))
                 .Then("TagStarted");
             xmlBuilder.When(x => x.WriteEndTag()).Expect("TagStarted");
 
             sut.Visit(tag, EMPTY_CHILDREN);
 
-            xmlBuilder.Received(1).WriteStartTagFor(tag.name, ANY_ATTRIBUTES);
+            xmlBuilder.Received(1).WriteStartTagFor(tag);
             xmlBuilder.Received(1).WriteEndTag();
         }
 
         [Theory, AutoSubstituteData]
         public void WritesAttributes(Tag tag)
         {
-            xmlBuilder.WhenForAnyArgs(x => x.WriteStartTagFor(Arg.Any<string>(), Arg.Any<IEnumerable<Attribute>>()))
+            xmlBuilder.WhenForAnyArgs(x => x.WriteStartTagFor(ANY_TAG))
                 .Then("TagStarted");
             xmlBuilder.When(x => x.WriteEndTag()).Expect("TagStarted");
 
             sut.Visit(tag, EMPTY_CHILDREN);
 
-            xmlBuilder.Received(1).WriteStartTagFor(ANY_NAME, tag.attributes);
+            xmlBuilder.Received(1).WriteStartTagFor(ANY_TAG);
             xmlBuilder.Received(1).WriteEndTag();
         }
 

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Simple.Xml.Structure
+namespace Simple.Xml.Structure.Output
 {
     public class BackwardXmlStringProducer : IUpwardElementVisitor
     {
@@ -12,6 +12,13 @@ namespace Simple.Xml.Structure
         {
             StartTag(name);
             EndTag(name);
+            parent.Accept(this);
+        }
+
+        public void Visit(Tag tag, IElement parent, IEnumerable<IElement> children)
+        {
+            StartTag(tag.tagName.name);
+            EndTag(tag.tagName.name);
             parent.Accept(this);
         }
 

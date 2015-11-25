@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using NSubstitute;
 using Ploeh.AutoFixture;
+using Simple.Xml.Structure.Output;
 using Xunit;
 
 namespace Simple.Xml.Structure.UnitTests

@@ -49,7 +49,7 @@ namespace Simple.Xml.Structure.UnitTests
         {
             sut.Accept(upwardVisitor);
 
-            upwardVisitor.Received(1).Visit(ANY_NAME, ANY_PARENT, EMPTY_CHILDREN);
+            upwardVisitor.Received(1).Visit(ANY_TAG, ANY_PARENT, EMPTY_CHILDREN);
         }
 
         [Theory, AutoSubstituteData]
@@ -57,7 +57,7 @@ namespace Simple.Xml.Structure.UnitTests
         {
             ElementWithName(name).Accept(upwardVisitor);
 
-            AssertUpwardVisitorIsVisitedWith(name, ANY_PARENT, EMPTY_CHILDREN);
+            AssertUpwardVisitorIsVisitedWith(ANY_TAG, ANY_PARENT, EMPTY_CHILDREN);
         }
 
         [Theory, AutoSubstituteData]
@@ -65,7 +65,7 @@ namespace Simple.Xml.Structure.UnitTests
         {
             ElementWithParent(parent).Accept(upwardVisitor);
 
-            AssertUpwardVisitorIsVisitedWith(ANY_NAME, parent, EMPTY_CHILDREN);
+            AssertUpwardVisitorIsVisitedWith(ANY_TAG, parent, EMPTY_CHILDREN);
         }
 
         [Theory, AutoSubstituteData]
@@ -100,8 +100,8 @@ namespace Simple.Xml.Structure.UnitTests
             collector.Received(1).ChildrenFor(sut);
         }
 
-        private void AssertUpwardVisitorIsVisitedWith(string name, IElement parent, IEnumerable<IElement> children)
-            => upwardVisitor.Received().Visit(name, parent, children);
+        private void AssertUpwardVisitorIsVisitedWith(Tag tag, IElement parent, IEnumerable<IElement> children)
+            => upwardVisitor.Received().Visit(tag, parent, children);
 
         private void AssertDownwardVisitorIsVisitedWith(Tag tag, IEnumerable<IElement> children)
             => downwardVisitor.Received().Visit(tag, children);
@@ -111,7 +111,7 @@ namespace Simple.Xml.Structure.UnitTests
         private static IElement ElementWithParent(IElement parent) => new Element(anElementName, parent, UNUSED_COLLECTOR);
 
         private static Tag TagContentWithName(string name)
-            => Arg.Is<Tag>(tagContent => tagContent.name.Equals(name));
+            => Arg.Is<Tag>(tagContent => tagContent.tagName.name.Equals(name));
 
         private static ElementName anElementName => new ElementName("any");
     }

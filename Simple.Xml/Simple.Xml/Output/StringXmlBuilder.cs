@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Simple.Xml.Structure
+namespace Simple.Xml.Structure.Output
 {
     public class StringXmlBuilder : IXmlBuilder
     {
         private readonly StringBuilder stringBuilder;
-        private readonly Stack<string> tagsStack;
+        private readonly Stack<Tag> tagsStack;
 
         public StringXmlBuilder(StringBuilder stringBuilder)
         {
@@ -17,18 +17,13 @@ namespace Simple.Xml.Structure
                 throw new ArgumentNullException(nameof(stringBuilder));
             }
             this.stringBuilder = stringBuilder;
-            this.tagsStack = new Stack<string>();
-        }
-
-        public void WriteStartTagFor(string name, IEnumerable<Attribute> attributes)
-        {
-            StartTag(name, attributes);
-            tagsStack.Push(name);
+            this.tagsStack = new Stack<Tag>();
         }
 
         public void WriteStartTagFor(Tag tag)
         {
             stringBuilder.Append($"<{tag}>");
+            tagsStack.Push(tag);
         }
 
         public void WriteEndTag()
@@ -38,11 +33,6 @@ namespace Simple.Xml.Structure
                 throw new InvalidOperationException("Cannot write end tag without start tag");
             }
             EndTag(tagsStack.Pop());
-        }
-
-        public void WriteEndTagFor(Tag tag)
-        {
-            stringBuilder.Append($"</{tag}>");
         }
 
         public void WriteContent(string content)
@@ -65,9 +55,9 @@ namespace Simple.Xml.Structure
             stringBuilder.Append($"<{tag}{attributesString}>");
         }
 
-        private void EndTag(string tag)
+        private void EndTag(Tag tag)
         {
-            stringBuilder.Append($"</{tag}>");
+            stringBuilder.Append($"</{tag.tagName}>");
         }
     }
 }

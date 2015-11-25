@@ -81,11 +81,14 @@ namespace Simple.Xml.Structure
         }
 
         public void Accept(IDownwardElementVisitor visitor)
-            =>
-                visitor.Visit(new Tag(elementName.Name(), elementName.NamespacePrefix(), collector.AttributesFor(this)),
-                    collector.ChildrenFor(this));
+            => visitor.Visit(ConvertElementNameToTag(), collector.ChildrenFor(this));
 
         public void Accept(IUpwardElementVisitor visitor)
-            => visitor.Visit(elementName.Name(), this.parent, collector.ChildrenFor(this));
+            => visitor.Visit(ConvertElementNameToTag(), this.parent, collector.ChildrenFor(this));
+
+        private Tag ConvertElementNameToTag()
+        {
+            return new Tag(new TagName(elementName.Name(), elementName.NamespacePrefix()), collector.AttributesFor(this));
+        }
     }
 }

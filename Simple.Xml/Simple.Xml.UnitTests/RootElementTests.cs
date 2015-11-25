@@ -42,7 +42,7 @@ namespace Simple.Xml.Structure.UnitTests
         {
             sut.Accept(upwardVisitor);
             
-            upwardVisitor.DidNotReceive().Visit(AName, AParent, AnElementsEnumerable);   
+            upwardVisitor.DidNotReceive().Visit(Arg.Any<Tag>(), AParent, AnElementsEnumerable);   
         }
 
         private void AssertPassesDownwardVisitorToAllChildren(Tag aTag, IEnumerable<string> childrenNames)

@@ -21,5 +21,10 @@ namespace Simple.Xml.Structure
             }
             this.prefix = prefix;
         }
+
+        public override string ToString()
+        {
+            return prefix;
+        }
     }
 }

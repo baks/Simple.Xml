@@ -2,20 +2,26 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using NSubstitute;
+using Simple.Xml.Structure.Output;
 using Xunit;
 
 namespace Simple.Xml.Structure.UnitTests
 {
     public class StringXmlBuilderTests
     {
-        private readonly IEnumerable<Attribute> EMPTY_ATTRIBUTES = Enumerable.Empty<Attribute>(); 
+        private static Tag ANY_TAG => Arg.Any<Tag>();
+
+        private static Tag TagFor(string name) => new Tag(new TagName(name, NamespacePrefix.EmptyNamespacePrefix), Enumerable.Empty<Attribute>());
+
+        private readonly IEnumerable<Attribute> EMPTY_ATTRIBUTES = Enumerable.Empty<Attribute>();
 
         private readonly StringXmlBuilder sut = new StringXmlBuilder(new StringBuilder());
 
         [Theory, AutoSubstituteData]
         public void AddsTagWithVisitedNameToString(string name)
         {
-            sut.WriteStartTagFor(name, EMPTY_ATTRIBUTES);
+            sut.WriteStartTagFor(TagFor(name));
             sut.WriteEndTag();
 
             Assert.Equal($"<{name}></{name}>", sut.ToString());
@@ -24,7 +30,7 @@ namespace Simple.Xml.Structure.UnitTests
         [Theory, AutoSubstituteData]
         public void AddsContentToOutput(string name, string content)
         {
-            sut.WriteStartTagFor(name, EMPTY_ATTRIBUTES);
+            sut.WriteStartTagFor(TagFor(name));
             sut.WriteContent(content);
             sut.WriteEndTag();
 
@@ -48,9 +54,9 @@ namespace Simple.Xml.Structure.UnitTests
         }
 
         [Theory, AutoSubstituteData]
-        public void DoesNotAllowToWriteContentAfterTag(string aTag, string aContent)
+        public void DoesNotAllowToWriteContentAfterTag(Tag aTag, string aContent)
         {
-            sut.WriteStartTagFor(aTag, EMPTY_ATTRIBUTES);
+            sut.WriteStartTagFor(aTag);
             sut.WriteEndTag();
 
             var exception = Record.Exception(()=> sut.WriteContent(aContent));
