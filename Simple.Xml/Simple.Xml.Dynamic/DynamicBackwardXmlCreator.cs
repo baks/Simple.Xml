@@ -1,14 +1,23 @@
+using System;
 using Simple.Xml.Structure;
-using Simple.Xml.Structure.Output;
 
 namespace Simple.Xml.Dynamic
 {
     public class DynamicBackwardXmlCreator : IDynamicElementVisitor
     {
-        private readonly BackwardXmlStringProducer producer = new BackwardXmlStringProducer();
+        private readonly IUpwardElementVisitor upwardVisitor;
 
-        public void Visit(IElement element) => element.Accept(producer);
+        public DynamicBackwardXmlCreator(IUpwardElementVisitor upwardVisitor)
+        {
+            if (upwardVisitor == null)
+            {
+                throw new ArgumentNullException(nameof(upwardVisitor));
+            }
+            this.upwardVisitor = upwardVisitor;
+        }
 
-        public override string ToString() => producer.ToString();
+        public void Visit(IElement element) => element.Accept(upwardVisitor);
+
+        public override string ToString() => upwardVisitor.ToString();
     }
 }

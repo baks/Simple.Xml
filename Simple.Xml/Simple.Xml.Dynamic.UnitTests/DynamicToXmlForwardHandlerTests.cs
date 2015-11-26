@@ -1,4 +1,5 @@
 ﻿using NSubstitute;
+using Simple.Xml.Dynamic.Output;
 using Xunit;
 
 namespace Simple.Xml.Dynamic.UnitTests
@@ -19,7 +20,7 @@ namespace Simple.Xml.Dynamic.UnitTests
         {
             sut.ToXml();
 
-            dynamicElement.Received(1).Accept(Arg.Any<DynamicForwardXmlStringCreator>());
+            dynamicElement.Received(1).Accept(Arg.Any<DynamicForwardXmlCreator>());
         }
 
         [Fact]
@@ -27,7 +28,7 @@ namespace Simple.Xml.Dynamic.UnitTests
         {
             ((dynamic) sut).ToXml();
 
-            dynamicElement.Received(1).Accept(Arg.Any<DynamicForwardXmlStringCreator>());
+            dynamicElement.Received(1).Accept(Arg.Any<DynamicForwardXmlCreator>());
         }
     }
 }

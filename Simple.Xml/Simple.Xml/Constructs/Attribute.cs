@@ -1,6 +1,7 @@
 ﻿using System;
+using System.Xml.Linq;
 
-namespace Simple.Xml.Structure
+namespace Simple.Xml.Structure.Constructs
 {
     public class Attribute
     {
@@ -25,6 +26,11 @@ namespace Simple.Xml.Structure
         public override string ToString()
         {
             return $"{Name}=\"{Value}\"";
+        }
+
+        public XAttribute ToXAttribute()
+        {
+            return new XAttribute(XName.Get(Name), Value);
         }
     }
 }

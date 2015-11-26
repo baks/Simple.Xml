@@ -1,3 +1,5 @@
+using Simple.Xml.Structure.Constructs;
+
 namespace Simple.Xml.Structure.UnitTests
 {
     public class NullObjectElement : IElement

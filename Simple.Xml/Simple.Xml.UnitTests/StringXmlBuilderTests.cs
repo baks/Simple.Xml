@@ -6,6 +6,7 @@ using NSubstitute;
 using Simple.Xml.Structure.Constructs;
 using Simple.Xml.Structure.Output;
 using Xunit;
+using Attribute = Simple.Xml.Structure.Constructs.Attribute;
 
 namespace Simple.Xml.Structure.UnitTests
 {

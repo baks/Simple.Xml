@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Simple.Xml.Structure
+namespace Simple.Xml.Structure.Constructs
 {
     public class Attributes : Dictionary<string, string>
     {
@@ -12,6 +12,11 @@ namespace Simple.Xml.Structure
                 elem.AddAttribute(new Attribute(pair.Key, pair.Value));
                 return elem;
             });
+        }
+
+        public IEnumerable<Attribute> Iterator()
+        {
+            return this.Select(pair => new Attribute(pair.Key, pair.Value));
         }
     }
 }

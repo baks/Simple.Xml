@@ -1,4 +1,5 @@
 using System;
+using Simple.Xml.Dynamic.Output;
 using Simple.Xml.Structure;
 using Simple.Xml.Structure.Constructs;
 
@@ -9,9 +10,9 @@ namespace Simple.Xml.Dynamic
         private static Func<BaseDynamicElement, BaseDynamicElement> DefaultGraphDecorator => element => element;
 
         private static readonly Func<Namespaces, Func<BaseDynamicElement, BaseDynamicElement>, BaseDynamicElement>
-            DefaultGraph = (namespaces, graphDecorator) => new DynamicToXmlForwardHandler(
-                new DynamicElement(new RootElement(namespaces, new ElementCollector()), new ElementFactory(),
-                    graphDecorator));
+            DefaultGraph = (namespaces, graphDecorator) => new DynamicToXElementForwardHandler(new DynamicToXElementBackwardHandler(new DynamicToXmlForwardHandler(
+                new DynamicElement(new RootElement(namespaces, new ElementCollector()), new ElementFactory(namespaces),
+                    graphDecorator))));
 
         private readonly Func<BaseDynamicElement, BaseDynamicElement> graphDecorator;
         private readonly Namespaces namespaces;

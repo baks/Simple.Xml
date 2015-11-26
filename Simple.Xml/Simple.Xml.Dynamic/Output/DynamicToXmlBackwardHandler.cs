@@ -1,6 +1,7 @@
 using System.Dynamic;
+using Simple.Xml.Structure.Output;
 
-namespace Simple.Xml.Dynamic
+namespace Simple.Xml.Dynamic.Output
 {
     public class DynamicToXmlBackwardHandler : DynamicElementDecorator
     {
@@ -22,7 +23,7 @@ namespace Simple.Xml.Dynamic
 
         public string ToXml()
         {
-            var creator = new DynamicBackwardXmlCreator();
+            var creator = new DynamicBackwardXmlCreator(new BackwardXmlStringProducer());
             Accept(creator);
 
             return creator.ToString();

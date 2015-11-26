@@ -1,21 +1,27 @@
 ﻿using System;
 
-namespace Simple.Xml.Structure
+namespace Simple.Xml.Structure.Constructs
 {
     public class ElementName
     {
         private readonly string name;
+        private readonly Namespaces namespaces;
 
         private string prefix;
         private string tagName;
 
-        public ElementName(string name)
+        public ElementName(string name, Namespaces namespaces)
         {
             if (name == null)
             {
                 throw new ArgumentNullException(nameof(name));
             }
+            if (namespaces == null)
+            {
+                throw new ArgumentNullException(nameof(namespaces));
+            }
             this.name = name;
+            this.namespaces = namespaces;
             Parse();
         }
 
@@ -27,8 +33,8 @@ namespace Simple.Xml.Structure
         public NamespacePrefix NamespacePrefix()
         {
             return string.IsNullOrEmpty(prefix)
-                ? Structure.NamespacePrefix.EmptyNamespacePrefix
-                : new NamespacePrefix(prefix);
+                ? Constructs.NamespacePrefix.EmptyNamespacePrefix
+                : new NamespacePrefix(prefix, namespaces);
         }
 
         private void Parse()

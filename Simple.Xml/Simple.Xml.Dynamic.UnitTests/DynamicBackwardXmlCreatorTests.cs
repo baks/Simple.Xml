@@ -7,7 +7,14 @@ namespace Simple.Xml.Dynamic.UnitTests
     public class DynamicBackwardXmlCreatorTests
     {
         private readonly IElement element = Substitute.For<IElement>();
-        private readonly DynamicBackwardXmlCreator sut = new DynamicBackwardXmlCreator();
+        private readonly IUpwardElementVisitor upwardVisitor;
+        private readonly DynamicBackwardXmlCreator sut;
+
+        public DynamicBackwardXmlCreatorTests()
+        {
+            upwardVisitor = Substitute.For<IUpwardElementVisitor>();
+            sut = new DynamicBackwardXmlCreator(upwardVisitor);
+        }
 
         [Fact]
         public void PassesUpwardVisitorToElement()

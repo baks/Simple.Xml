@@ -45,6 +45,8 @@
     <Compile Include="Constructs\ContentElement.cs" />
     <Compile Include="Constructs\Element.cs" />
     <Compile Include="ElementCollector.cs" />
+    <Compile Include="Output\BackwardXElementProducer.cs" />
+    <Compile Include="Output\ForwardXElementProducer.cs" />
     <Compile Include="Output\ForwardXmlStringProducer.cs" />
     <Compile Include="IDownwardElementVisitor.cs" />
     <Compile Include="IElement.cs" />

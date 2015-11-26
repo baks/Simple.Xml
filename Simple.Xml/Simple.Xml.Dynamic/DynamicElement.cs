@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Dynamic;
+using Simple.Xml.Dynamic.Output;
 using Simple.Xml.Structure;
+using Simple.Xml.Structure.Constructs;
 
 namespace Simple.Xml.Dynamic
 {
@@ -36,7 +38,8 @@ namespace Simple.Xml.Dynamic
             element.AddChild(newElement);
             result =
                 graphDecorator(
-                    new DynamicToXmlBackwardHandler(new DynamicElement(newElement, elementFactory, graphDecorator)));
+                    new DynamicToXElementBackwardHandler(
+                        new DynamicToXmlBackwardHandler(new DynamicElement(newElement, elementFactory, graphDecorator))));
             return true;
         }
 

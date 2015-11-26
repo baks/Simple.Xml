@@ -43,12 +43,14 @@
     <Compile Include="DynamicBackwardXmlCreator.cs" />
     <Compile Include="DynamicElement.cs" />
     <Compile Include="DynamicElementDecorator.cs" />
-    <Compile Include="DynamicForwardXmlStringCreator.cs" />
-    <Compile Include="DynamicToXmlBackwardHandler.cs" />
-    <Compile Include="DynamicToXmlForwardHandler.cs" />
+    <Compile Include="DynamicForwardXmlCreator.cs" />
+    <Compile Include="Output\DynamicToXElementForwardHandler.cs" />
+    <Compile Include="Output\DynamicToXmlBackwardHandler.cs" />
+    <Compile Include="Output\DynamicToXmlForwardHandler.cs" />
     <Compile Include="ElementFactory.cs" />
     <Compile Include="IDynamicElementVisitor.cs" />
     <Compile Include="IElementFactory.cs" />
+    <Compile Include="Output\DynamicToXElementBackwardHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DynamicXmlBuilder.cs" />
   </ItemGroup>

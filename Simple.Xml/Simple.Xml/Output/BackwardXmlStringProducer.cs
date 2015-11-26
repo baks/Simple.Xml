@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Text;
+using Simple.Xml.Structure.Constructs;
 
 namespace Simple.Xml.Structure.Output
 {

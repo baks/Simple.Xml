@@ -1,4 +1,5 @@
 ﻿using NSubstitute;
+using Simple.Xml.Dynamic.Output;
 using Xunit;
 
 namespace Simple.Xml.Dynamic.UnitTests

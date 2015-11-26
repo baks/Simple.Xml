@@ -1,4 +1,5 @@
 ﻿using System;
+using Attribute = Simple.Xml.Structure.Constructs.Attribute;
 
 namespace Simple.Xml.Structure
 {

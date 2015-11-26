@@ -30,5 +30,10 @@ namespace Simple.Xml.Dynamic
         {
             return this.dynamicElement.TrySetMember(binder, value);
         }
+
+        public override bool TryInvokeMember(InvokeMemberBinder binder, object[] args, out object result)
+        {
+            return this.dynamicElement.TryInvokeMember(binder, args, out result);
+        }
     }
 }

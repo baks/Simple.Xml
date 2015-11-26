@@ -2,6 +2,7 @@
 using System.Linq;
 using NSubstitute;
 using Ploeh.AutoFixture.Idioms;
+using Simple.Xml.Structure.Constructs;
 using Xunit;
 
 namespace Simple.Xml.Structure.UnitTests
@@ -106,13 +107,15 @@ namespace Simple.Xml.Structure.UnitTests
         private void AssertDownwardVisitorIsVisitedWith(Tag tag, IEnumerable<IElement> children)
             => downwardVisitor.Received().Visit(tag, children);
 
-        private static IElement ElementWithName(string name) => new Element(new ElementName(name), UNUSED_PARENT, UNUSED_COLLECTOR);
+        private static Namespaces ANY_NAMESPACES => new Namespaces();
+
+        private static IElement ElementWithName(string name) => new Element(new ElementName(name, ANY_NAMESPACES), UNUSED_PARENT, UNUSED_COLLECTOR);
 
         private static IElement ElementWithParent(IElement parent) => new Element(anElementName, parent, UNUSED_COLLECTOR);
 
         private static Tag TagContentWithName(string name)
             => Arg.Is<Tag>(tagContent => tagContent.tagName.name.Equals(name));
 
-        private static ElementName anElementName => new ElementName("any");
+        private static ElementName anElementName => new ElementName("any", ANY_NAMESPACES);
     }
 }

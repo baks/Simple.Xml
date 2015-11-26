@@ -69,6 +69,7 @@
     <Compile Include="SimpleExpressionTranslationToXmlFacts.cs" />
     <Compile Include="StringBuilderOutput.cs" />
     <Compile Include="VerboseElement.cs" />
+    <Compile Include="XElementGenerationTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

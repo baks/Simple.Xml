@@ -1,6 +1,8 @@
 using System.Dynamic;
+using System.Text;
+using Simple.Xml.Structure.Output;
 
-namespace Simple.Xml.Dynamic
+namespace Simple.Xml.Dynamic.Output
 {
     public class DynamicToXmlForwardHandler : DynamicElementDecorator
     {
@@ -22,7 +24,11 @@ namespace Simple.Xml.Dynamic
 
         public string ToXml()
         {
-            var creator = new DynamicForwardXmlStringCreator();
+            var stringBuilder = new StringBuilder();
+            var creator =
+                new DynamicForwardXmlCreator(
+                    new ForwardXmlStringProducer(new PrettyPrintStringXmlBuilder(new StringXmlBuilder(stringBuilder),
+                        stringBuilder)));
             Accept(creator);
 
             return creator.ToString();

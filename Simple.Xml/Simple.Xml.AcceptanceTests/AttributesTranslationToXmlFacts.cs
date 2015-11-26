@@ -1,4 +1,5 @@
 ﻿using Simple.Xml.Structure;
+using Simple.Xml.Structure.Constructs;
 using Xunit;
 using Xunit.Abstractions;
 

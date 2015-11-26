@@ -95,8 +95,10 @@
     <Compile Include="DynamicElementDecoratorTests.cs" />
     <Compile Include="DynamicElementTests.cs" />
     <Compile Include="DynamicForwardXmlStringCreatorTests.cs" />
+    <Compile Include="DynamicToXElementForwardHandlerTests.cs" />
     <Compile Include="DynamicToXmlBackwardHandlerTests.cs" />
     <Compile Include="DynamicToXmlForwardHandlerTests.cs" />
+    <Compile Include="DynamicToXElementBackwardHandlerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Simple.Xml.Structure.Constructs;
 
 namespace Simple.Xml.Structure
 {

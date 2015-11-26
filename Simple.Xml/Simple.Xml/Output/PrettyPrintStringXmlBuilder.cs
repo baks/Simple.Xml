@@ -30,7 +30,10 @@ namespace Simple.Xml.Structure.Output
 
         public void WriteStartTagFor(Tag tag)
         {
-            AppendLine();
+            if (stringBuilder.Length != 0)
+            {
+                stringBuilder.AppendLine();
+            }
             AppendIndent();
             xmlBuilder.WriteStartTagFor(tag);
             IncreaseIndent();

@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml.Linq;
 
-namespace Simple.Xml.Structure
+namespace Simple.Xml.Structure.Constructs
 {
     public class TagName
     {
@@ -26,6 +27,11 @@ namespace Simple.Xml.Structure
         public override string ToString()
         {
             return namespacePrefix != NamespacePrefix.EmptyNamespacePrefix ? $"{namespacePrefix}:{name}" : $"{name}";
+        }
+
+        public XName ToXName()
+        {
+            return XName.Get(name, namespacePrefix.NamespaceName());
         }
     }
 
@@ -51,6 +57,11 @@ namespace Simple.Xml.Structure
         public override string ToString()
         {
             return attributes.Any() ? $"{tagName} {string.Join(" ", attributes)}" : $"{tagName}";
+        }
+
+        public XElement ToXElement()
+        {
+            return new XElement(tagName.ToXName(), attributes.Select(attr => attr.ToXAttribute()));
         }
     }
 }
