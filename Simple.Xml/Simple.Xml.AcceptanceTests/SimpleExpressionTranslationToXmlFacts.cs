@@ -89,6 +89,27 @@ namespace Simple.Xml.AcceptanceTests
 </Head3>", xml);
         }
 
+        [Fact]
+        public void ShouldTranslateMethodInvocationsWhenUsedInDeeperLevels()
+        {
+            var doc = sut.NewDocument;
+
+            var body = doc.Head1.Body;
+            body.Element();
+            body.Element();
+
+            var xml = doc.ToXml();
+
+            Assert.Equal(@"<Head1>
+    <Body>
+        <Element>
+        </Element>
+        <Element>
+        </Element>
+    </Body>
+</Head1>", xml);
+        }
+
         private static string RemoveWhiteSpaces(string input)
             => new string(input.Where(c => !char.IsWhiteSpace(c)).ToArray());
     }

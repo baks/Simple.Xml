@@ -33,6 +33,25 @@ namespace Simple.Xml.AcceptanceTests
         }
 
         [Fact]
+        public void ShouldTranslateToXElementMoreAdvancedDocument()
+        {
+            var doc = sut.NewDocument;
+            doc.c_Head.c_Body.c_Div();
+            var xElement = doc.ToXElement() as XElement;
+
+            Assert.NotNull(xElement);
+            Assert.Equal(XName.Get("Head", "c"), xElement.Name);
+
+            Assert.Equal(1, xElement.Elements().Count());
+            var cBodyChild = xElement.Elements().First();
+            Assert.Equal(XName.Get("Body","c"), cBodyChild.Name);
+
+            Assert.Equal(1, cBodyChild.Elements().Count());
+            var cDivChild = cBodyChild.Elements().First();
+            Assert.Equal(XName.Get("Div", "c"), cDivChild.Name);
+        }
+
+        [Fact]
         public void ShouldUseNamespaceNameFromConfiguration()
         {
             sut = new DynamicXmlBuilder(new Namespaces{ {"c", "http://www.w3.org" } });
