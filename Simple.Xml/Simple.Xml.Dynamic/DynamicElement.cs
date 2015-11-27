@@ -62,7 +62,9 @@ namespace Simple.Xml.Dynamic
                 element.AddChild(newElement);
                 attributes.First().AddAttributesTo(newElement);
 
-                result = newElement;
+                result = graphDecorator(
+                    new DynamicToXElementBackwardHandler(
+                        new DynamicToXmlBackwardHandler(new DynamicElement(newElement, elementFactory, graphDecorator))));
                 return true;
             }
             return base.TryInvokeMember(binder, args, out result);
