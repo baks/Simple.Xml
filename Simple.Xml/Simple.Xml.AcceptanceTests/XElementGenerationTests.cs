@@ -68,7 +68,7 @@ namespace Simple.Xml.AcceptanceTests
             var attrName = "c";
             var attrValue = "0";
             var attributes = new Attributes {{attrName, attrValue}};
-            doc.Head = attributes;
+            doc.Head(attributes);
 
             var xElement = doc.ToXElement() as XElement;
 
@@ -78,6 +78,24 @@ namespace Simple.Xml.AcceptanceTests
             attributes.Iterator()
                 .Select(attr => attr.ToXAttribute())
                 .SequenceEqual(xElement.Attributes(), new XAttributeComparer());
+        }
+
+        [Fact]
+        public void ShouldConvertMoreAdvancedDocWithAttributes()
+        {
+            var doc = sut.NewDocument;
+            doc.m_head.m_body(new Attributes {{"val1", "1"}, {"val2", "2"}});
+
+            var result = doc.ToXElement() as XElement;
+
+            Assert.NotNull(result);
+            Assert.Equal(1, result.Elements().Count());
+
+            var mbody = result.Elements().First();
+
+            new Attributes {{"val1", "1"}, {"val2", "2"}}.Iterator()
+                .Select(attr => attr.ToXAttribute())
+                .SequenceEqual(mbody.Attributes(), new XAttributeComparer());
         }
 
         public class XAttributeComparer : IEqualityComparer<XAttribute>

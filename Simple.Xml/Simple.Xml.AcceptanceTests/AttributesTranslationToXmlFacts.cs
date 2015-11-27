@@ -17,7 +17,7 @@ namespace Simple.Xml.AcceptanceTests
         {
             var doc = sut.NewDocument;
 
-            doc.Head.Body = new Attributes { { "name", "body" }, { "style", "top:456px" } };
+            doc.Head.Body(new Attributes { { "name", "body" }, { "style", "top:456px" } });
 
             var xml = doc.ToXml();
 

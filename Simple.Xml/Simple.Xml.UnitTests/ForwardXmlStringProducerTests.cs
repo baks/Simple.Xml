@@ -58,7 +58,7 @@ namespace Simple.Xml.Structure.UnitTests
         {
             sut.Visit(content);
 
-            xmlBuilder.Received(1).WriteContent(content);
+            xmlBuilder.Received(1).WriteContent(Arg.Any<string>());
         }
 
         [Theory, AutoSubstituteData]

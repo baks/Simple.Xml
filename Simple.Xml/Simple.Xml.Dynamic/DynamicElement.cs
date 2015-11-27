@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Dynamic;
+using System.Linq;
 using Simple.Xml.Dynamic.Output;
 using Simple.Xml.Structure;
 using Simple.Xml.Structure.Constructs;
+using Attribute = Simple.Xml.Structure.Constructs.Attribute;
 
 namespace Simple.Xml.Dynamic
 {
@@ -47,15 +49,23 @@ namespace Simple.Xml.Dynamic
         {
             var newElement = elementFactory.CreateElementWithNameForParent(binder.Name, element);
             element.AddChild(newElement);
-            if (value is Attributes)
-            {
-                ((Attributes)value).AddAttributesTo(newElement);
-            }
-            else
-            {
-                newElement.AddChild(elementFactory.CreateElementWithContentForParent(value.ToString(), newElement));
-            }
+            newElement.AddChild(elementFactory.CreateElementWithContentForParent(value.ToString(), newElement));
             return true;
+        }
+
+        public override bool TryInvokeMember(InvokeMemberBinder binder, object[] args, out object result)
+        {
+            var attributes = args.Cast<Attributes>();
+            if (attributes.Any())
+            {
+                var newElement = elementFactory.CreateElementWithNameForParent(binder.Name, element);
+                element.AddChild(newElement);
+                attributes.First().AddAttributesTo(newElement);
+
+                result = newElement;
+                return true;
+            }
+            return base.TryInvokeMember(binder, args, out result);
         }
 
         public override void Accept(IDynamicElementVisitor visitor) => visitor.Visit(element);
