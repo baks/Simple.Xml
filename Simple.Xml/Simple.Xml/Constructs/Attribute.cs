@@ -5,21 +5,21 @@ namespace Simple.Xml.Structure.Constructs
 {
     public class Attribute
     {
-        public readonly string Name;
+        public readonly ElementName Name;
         public readonly string Value;
 
-        public Attribute(string name, string value)
+        public Attribute(ElementName elementName, string value)
         {
-            if (name == null)
+            if (elementName == null)
             {
-                throw new ArgumentNullException(nameof(name));
+                throw new ArgumentNullException(nameof(elementName));
             }
             if (value == null)
             {
                 throw new ArgumentNullException(nameof(value));
             }
 
-            Name = name;
+            Name = elementName;
             Value = value;
         }
 
@@ -30,7 +30,7 @@ namespace Simple.Xml.Structure.Constructs
 
         public XAttribute ToXAttribute()
         {
-            return new XAttribute(XName.Get(Name), Value);
+            return new XAttribute(XName.Get(Name.Name(), Name.NamespacePrefix().NamespaceName()), Value);
         }
     }
 }

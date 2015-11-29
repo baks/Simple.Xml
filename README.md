@@ -2,7 +2,7 @@
 Library for dynamically creating XML structure.
 
 # Motivation
-I've created this library because in one project I faced issue with creating many LinqToXml elements. It is influenced by [Simple.Data](https://github.com/markrendle/Simple.Data) great library.
+I've created this library because in one project I faced issue with creating many LinqToXml elements. It is inspired by [Simple.Data](https://github.com/markrendle/Simple.Data) great library.
 
 #Examples of usage
 

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 using Simple.Xml.Dynamic;
@@ -66,7 +67,7 @@ namespace Simple.Xml.AcceptanceTests
         {
             var doc = sut.NewDocument;
             var attrName = "c";
-            var attrValue = "0";
+            var attrValue = 0;
             var attributes = new Attributes {{attrName, attrValue}};
             doc.Head(attributes);
 
@@ -84,7 +85,7 @@ namespace Simple.Xml.AcceptanceTests
         public void ShouldConvertMoreAdvancedDocWithAttributes()
         {
             var doc = sut.NewDocument;
-            doc.m_head.m_body(new Attributes {{"val1", "1"}, {"val2", "2"}});
+            doc.m_head.m_body(new Attributes {{"val1", 1}, {"val2", 2}});
 
             var result = doc.ToXElement() as XElement;
 
@@ -93,9 +94,26 @@ namespace Simple.Xml.AcceptanceTests
 
             var mbody = result.Elements().First();
 
-            new Attributes {{"val1", "1"}, {"val2", "2"}}.Iterator()
+            new Attributes {{"val1", 1}, {"val2", 2}}.Iterator()
                 .Select(attr => attr.ToXAttribute())
                 .SequenceEqual(mbody.Attributes(), new XAttributeComparer());
+        }
+
+        [Fact]
+        public void ShouldProperlyConvertAttributesWithNamespaces()
+        {
+            sut = new DynamicXmlBuilder(new Namespaces { { "c", "http://www.w3.org" } });
+            var doc = sut.NewDocument;
+
+            doc.Head(new Attributes {{"c_attr", "w"}});
+
+            var result = doc.ToXElement() as XElement;
+
+            Assert.NotNull(result);
+            Assert.Equal(1, result.Attributes().Count());
+
+            var attr = result.Attributes().First();
+            Assert.Equal(attr.Name.NamespaceName, "c");
         }
 
         public class XAttributeComparer : IEqualityComparer<XAttribute>

@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="Constructs\Attribute.cs" />
     <Compile Include="Constructs\Attributes.cs" />
+    <Compile Include="Constructs\ElementName.cs" />
     <Compile Include="Output\BackwardXmlStringProducer.cs" />
     <Compile Include="Constructs\ContentElement.cs" />
     <Compile Include="Constructs\Element.cs" />
