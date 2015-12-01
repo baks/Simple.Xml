@@ -24,7 +24,7 @@ namespace Simple.Xml.Structure.Output
 
         public void Visit(string content)
         {
-            throw new System.NotImplementedException();
+            this.root.Value = content;
         }
 
         public XElement ToXElement()

@@ -30,19 +30,13 @@ namespace Simple.Xml.Structure.Constructs
             this.namespaces = namespaces;
         }
 
+        public string Prefix => prefix;
+
+        public string NamespaceName => namespaces.ContainsKey(prefix) ? namespaces[prefix] : prefix;
+
         public override string ToString()
         {
             return prefix;
-        }
-
-        public string Prefix()
-        {
-            return prefix;
-        }
-
-        public string NamespaceName()
-        {
-            return namespaces.ContainsKey(prefix) ? namespaces[prefix] : prefix;
         }
     }
 }

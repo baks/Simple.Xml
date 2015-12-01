@@ -12,11 +12,7 @@ namespace Simple.Xml.Structure.UnitTests
 {
     public class StringXmlBuilderTests
     {
-        private static Tag ANY_TAG => Arg.Any<Tag>();
-
         private static Tag TagFor(string name) => new Tag(new TagName(name, NamespacePrefix.EmptyNamespacePrefix), Enumerable.Empty<Attribute>());
-
-        private readonly IEnumerable<Attribute> EMPTY_ATTRIBUTES = Enumerable.Empty<Attribute>();
 
         private readonly StringXmlBuilder sut = new StringXmlBuilder(new StringBuilder());
 

@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Xml.Linq;
 using NSubstitute;
 using Simple.Xml.Structure.Constructs;
 using Simple.Xml.Structure.Output;
@@ -11,7 +10,8 @@ namespace Simple.Xml.Structure.UnitTests
     public class BackwardXElementProducerTests
     {
         private static IElement ANY_PARENT => Arg.Any<IElement>();
-        private static IEnumerable<IElement> SOME_CHILDREN => Arg.Any<IEnumerable<IElement>>(); 
+        private static IEnumerable<IElement> NO_CHILDREN => Enumerable.Empty<IElement>(); 
+
         private readonly BackwardXElementProducer sut = new BackwardXElementProducer();
 
         [Fact]
@@ -23,7 +23,7 @@ namespace Simple.Xml.Structure.UnitTests
         [Theory, AutoSubstituteData]
         public void CreatesXElementWithPassedTag(Tag tag)
         {
-            sut.Visit(tag, ANY_PARENT, SOME_CHILDREN);
+            sut.Visit(tag, ANY_PARENT, NO_CHILDREN);
 
             var result = sut.ToXElement();
 
@@ -33,18 +33,17 @@ namespace Simple.Xml.Structure.UnitTests
             Assert.True(tag.attributes.Select(attr => attr.ToXAttribute())
                 .SequenceEqual(result.Attributes(), new XAttributeComparer()));
         }
-    }
 
-    public class XAttributeComparer : IEqualityComparer<XAttribute>
-    {
-        public bool Equals(XAttribute x, XAttribute y)
+        [Theory, AutoSubstituteData]
+        public void CreatesXElementWithContent(Tag aTag, string content)
         {
-            return x.Name == y.Name && x.Value == y.Value;
-        }
+            sut.Visit(aTag, ANY_PARENT, NO_CHILDREN);
+            sut.Visit(content);
 
-        public int GetHashCode(XAttribute obj)
-        {
-            return obj.Name.GetHashCode() ^ obj.Value.GetHashCode();
+            var result = sut.ToXElement();
+
+            Assert.NotNull(result);
+            Assert.Equal(content, result.Value);
         }
     }
 }

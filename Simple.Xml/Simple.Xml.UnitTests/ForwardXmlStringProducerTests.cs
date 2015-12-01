@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using NSubstitute;
-using NSubstitute.Core;
-using NSubstitute.Core.Arguments;
-using NSubstitute.Exceptions;
-using NSubstitute.Routing;
 using Ploeh.AutoFixture.Idioms;
 using Simple.Xml.Structure.Constructs;
 using Simple.Xml.Structure.Output;
@@ -82,27 +77,6 @@ namespace Simple.Xml.Structure.UnitTests
         public void GuardsVisitPeers(GuardClauseAssertion guardClauseAssertion)
         {
             guardClauseAssertion.Verify(typeof(ForwardXmlStringProducer).GetMethods().Where(mi => string.Equals("Visit", mi.Name)));
-        }
-    }
-
-    public static class WhenCalledExtensions
-    {
-        private static string savedState = "not changed by test";
-
-        public static void Then<T>(this WhenCalled<T> whenCalled, string newState)
-        {
-            whenCalled.Do(info => savedState = newState);
-        }
-
-        public static void Expect<T>(this WhenCalled<T> whenCalled, string expectedState)
-        {
-            whenCalled.Do(info =>
-            {
-                if (!string.Equals(savedState, expectedState, StringComparison.Ordinal))
-                {
-                    throw new Exception(string.Format(" Expected {0}, but was {1}", expectedState, savedState));
-                }
-            });
         }
     }
 }

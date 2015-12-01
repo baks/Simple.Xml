@@ -30,7 +30,7 @@ namespace Simple.Xml.Structure.Constructs
 
         public XAttribute ToXAttribute()
         {
-            return new XAttribute(XName.Get(Name.Name(), Name.NamespacePrefix().NamespaceName()), Value);
+            return new XAttribute(Name.ToXName(), Value);
         }
     }
 }

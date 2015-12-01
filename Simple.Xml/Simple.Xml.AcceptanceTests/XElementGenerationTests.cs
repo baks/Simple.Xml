@@ -116,6 +116,19 @@ namespace Simple.Xml.AcceptanceTests
             Assert.Equal(attr.Name.NamespaceName, "c");
         }
 
+        [Fact]
+        public void ShouldAddContentToXElement()
+        {
+            var doc = sut.NewDocument;
+            var strContent = "content";
+            doc.Head = strContent;
+
+            var result = doc.ToXElement() as XElement;
+
+            Assert.NotNull(result);
+            Assert.Equal(strContent, result.Value);
+        }
+
         public class XAttributeComparer : IEqualityComparer<XAttribute>
         {
             public bool Equals(XAttribute x, XAttribute y)

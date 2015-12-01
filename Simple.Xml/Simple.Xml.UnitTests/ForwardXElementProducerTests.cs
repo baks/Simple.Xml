@@ -45,12 +45,21 @@ namespace Simple.Xml.Structure.UnitTests
             var result = sut.ToXElement();
 
             Assert.Equal(children.Count(), result.Elements().Count());
-            Assert.Equal(XName.Get(elementName.Name(), elementName.NamespacePrefix().prefix),
-                result.Elements().First().Name);
-            Assert.Equal(XName.Get(elementName.Name(), elementName.NamespacePrefix().prefix),
-                result.Elements().ElementAt(1).Name);
-            Assert.Equal(XName.Get(elementName.Name(), elementName.NamespacePrefix().prefix),
-                result.Elements().ElementAt(2).Name);
+            Assert.Equal(elementName.ToXName(), result.Elements().First().Name);
+            Assert.Equal(elementName.ToXName(), result.Elements().ElementAt(1).Name);
+            Assert.Equal(elementName.ToXName(), result.Elements().ElementAt(2).Name);
+        }
+
+        [Theory, AutoSubstituteData]
+        public void CreatesXElementWithContent(Tag aTag, string content)
+        {
+            sut.Visit(aTag, ANY_CHILDREN);
+            sut.Visit(content);
+
+            var result = sut.ToXElement();
+
+            Assert.NotNull(result);
+            Assert.Equal(content, result.Value);
         }
     }
 }

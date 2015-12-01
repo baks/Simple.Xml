@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Text;
 using Simple.Xml.Structure.Constructs;
@@ -6,41 +7,63 @@ namespace Simple.Xml.Structure.Output
 {
     public class BackwardXmlStringProducer : IUpwardElementVisitor
     {
-        private const int StartPosition = 0;
-        private readonly StringBuilder stringBuilder = new StringBuilder();
+        private readonly IXmlBuilder xmlBuilder;
+        private int parentCount = 0;
+        private int tagsCreated = 0;
 
-        public void Visit(string name, IElement parent, IEnumerable<IElement> children)
+        public BackwardXmlStringProducer(IXmlBuilder xmlBuilder)
         {
-            StartTag(name);
-            EndTag(name);
-            parent.Accept(this);
+            if (xmlBuilder == null)
+            {
+                throw new ArgumentNullException(nameof(xmlBuilder));
+            }
+            this.xmlBuilder = xmlBuilder;
         }
 
         public void Visit(Tag tag, IElement parent, IEnumerable<IElement> children)
         {
-            StartTag(tag.tagName.name);
-            EndTag(tag.tagName.name);
-            parent.Accept(this);
+            TraverseToRoot(parent);
+
+            StartTag(tag);
+
+            if (GotBackToStartElement())
+            {
+                CloseAllTagsCreated();
+            }
         }
 
         public void Visit(string content)
         {
-            throw new System.NotImplementedException();
         }
 
         public override string ToString()
         {
-            return stringBuilder.ToString();
+            return xmlBuilder.ToString();
         }
 
-        private void StartTag(string tag)
+        private void TraverseToRoot(IElement parent)
         {
-            stringBuilder.Insert(StartPosition, $"<{tag}>");
+            parentCount++;
+            parent.Accept(this);
         }
 
-        private void EndTag(string tag)
+        private void StartTag(Tag tag)
         {
-            stringBuilder.Append($"</{tag}>");
+            this.xmlBuilder.WriteStartTagFor(tag);
+            tagsCreated++;
+        }
+
+        private bool GotBackToStartElement()
+        {
+            return --parentCount == 0;
+        }
+
+        private void CloseAllTagsCreated()
+        {
+            while (tagsCreated-- > 0)
+            {
+                this.xmlBuilder.WriteEndTag();
+            }
         }
     }
 }

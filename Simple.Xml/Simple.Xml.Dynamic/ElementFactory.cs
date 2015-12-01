@@ -17,7 +17,7 @@ namespace Simple.Xml.Dynamic
             this.namespaces = namespaces;
         }
 
-        public IElement CreateElementWithNameForParent(string name, IElement parent)
+        public IElementContainer CreateElementWithNameForParent(string name, IElement parent)
         {
             return new Element(new ElementName(name, namespaces), parent, new ElementCollector());
         }

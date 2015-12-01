@@ -1,4 +1,5 @@
 using System;
+using System.Xml.Linq;
 
 namespace Simple.Xml.Structure.Constructs
 {
@@ -8,7 +9,6 @@ namespace Simple.Xml.Structure.Constructs
         private readonly Namespaces namespaces;
 
         private string prefix;
-        private string tagName;
 
         public ElementName(string name, Namespaces namespaces)
         {
@@ -25,17 +25,17 @@ namespace Simple.Xml.Structure.Constructs
             Parse();
         }
 
-        public string Name()
-        {
-            return tagName;
-        }
+        public string Name { get; private set; }
 
-        public NamespacePrefix NamespacePrefix()
-        {
-            return string.IsNullOrEmpty(prefix)
-                ? Constructs.NamespacePrefix.EmptyNamespacePrefix
-                : new NamespacePrefix(prefix, namespaces);
-        }
+        public NamespacePrefix NamespacePrefix => string.IsNullOrEmpty(prefix)
+            ? NamespacePrefix.EmptyNamespacePrefix
+            : new NamespacePrefix(prefix, namespaces);
+
+        public override string ToString() => string.IsNullOrEmpty(prefix) ? $"{Name}" : $"{prefix}:{Name}";
+
+        public XName ToXName() => XName.Get(Name, NamespacePrefix.NamespaceName);
+
+        public TagName ToTagName() => new TagName(Name, NamespacePrefix);
 
         private void Parse()
         {
@@ -43,17 +43,12 @@ namespace Simple.Xml.Structure.Constructs
             if (splitted.Length > 1)
             {
                 prefix = splitted[0];
-                tagName = splitted[1];
+                Name = splitted[1];
             }
             else
             {
-                tagName = splitted[0];
+                Name = splitted[0];
             }
-        }
-
-        public override string ToString()
-        {
-            return string.IsNullOrEmpty(prefix) ? $"{tagName}" : $"{prefix}:{tagName}";
         }
     }
 }

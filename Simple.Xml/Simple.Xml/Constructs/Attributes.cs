@@ -5,21 +5,21 @@ namespace Simple.Xml.Structure.Constructs
 {
     public class Attributes : Dictionary<string, object>
     {
-        public void AddAttributesTo(IElement element)
+        public void AddAttributesTo(IElementContainer element)
         {
             this.Aggregate(element, (elem, pair) =>
             {
-                elem.AddAttribute(new Attribute(new ElementName(pair.Key, Namespaces.EmptyNamespaces),
-                    pair.Value.ToString()));
+                elem.AddAttribute(Map(pair));
                 return elem;
             });
         }
 
         public IEnumerable<Attribute> Iterator()
         {
-            return
-                this.Select(
-                    pair => new Attribute(new ElementName(pair.Key, Namespaces.EmptyNamespaces), pair.Value.ToString()));
+            return this.Select(Map);
         }
+
+        private static Attribute Map(KeyValuePair<string, object> pair)
+            => new Attribute(new ElementName(pair.Key, Namespaces.EmptyNamespaces), pair.Value.ToString());
     }
 }

@@ -1,5 +1,6 @@
 ﻿using EqualityTests;
 using NSubstitute;
+using Simple.Xml.Structure.Constructs;
 using Xunit;
 
 namespace Simple.Xml.Structure.UnitTests

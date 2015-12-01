@@ -11,9 +11,6 @@ namespace Simple.Xml.Structure.UnitTests
     {
         private static readonly IElement UNUSED_PARENT = new NullObjectElement();
         private static readonly IElementCollector UNUSED_COLLECTOR = Substitute.For<IElementCollector>();
-        private static string ANY_NAME => Arg.Any<string>();
-
-        private static ElementName ANY_ELEMENT_NAME => Arg.Any<ElementName>();
         private static IElement ANY_PARENT => Arg.Any<IElement>();
         private static Tag ANY_TAG => Arg.Any<Tag>();
         private static IEnumerable<IElement> EMPTY_CHILDREN => Arg.Any<IEnumerable<IElement>>();

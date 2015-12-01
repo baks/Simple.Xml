@@ -1,5 +1,6 @@
 ﻿using NSubstitute;
 using Simple.Xml.Structure;
+using Simple.Xml.Structure.Constructs;
 using Xunit;
 
 namespace Simple.Xml.Dynamic.UnitTests

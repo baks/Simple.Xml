@@ -1,10 +1,10 @@
-﻿using Simple.Xml.Structure;
+﻿using Simple.Xml.Structure.Constructs;
 
 namespace Simple.Xml.Dynamic
 {
     public interface IElementFactory
     {
-        IElement CreateElementWithNameForParent(string name, IElement parent);
+        IElementContainer CreateElementWithNameForParent(string name, IElement parent);
         IElement CreateElementWithContentForParent(string content, IElement parent);
     }
 }

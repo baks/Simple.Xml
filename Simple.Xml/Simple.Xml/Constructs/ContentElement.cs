@@ -1,7 +1,6 @@
 ﻿using System;
-using Attribute = Simple.Xml.Structure.Constructs.Attribute;
 
-namespace Simple.Xml.Structure
+namespace Simple.Xml.Structure.Constructs
 {
     public class ContentElement : IElement, IEquatable<IElement>, IEquatable<ContentElement>
     {
@@ -14,14 +13,6 @@ namespace Simple.Xml.Structure
                 throw new ArgumentNullException(nameof(content));
             }
             this.content = content;
-        }
-
-        public void AddChild(IElement child)
-        {
-        }
-
-        public void AddAttribute(Attribute attr)
-        {
         }
 
         public void Accept(IUpwardElementVisitor visitor)

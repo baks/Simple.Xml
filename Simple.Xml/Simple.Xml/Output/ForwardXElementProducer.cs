@@ -15,6 +15,7 @@ namespace Simple.Xml.Structure.Output
             if (root == null)
             {
                 root = xElementFromTag;
+                this.actualElement = root;
             }
             else
             {
@@ -28,6 +29,7 @@ namespace Simple.Xml.Structure.Output
 
         public void Visit(string content)
         {
+            this.actualElement.Value = content;
         }
 
         public void Visit(Namespaces namespaces)

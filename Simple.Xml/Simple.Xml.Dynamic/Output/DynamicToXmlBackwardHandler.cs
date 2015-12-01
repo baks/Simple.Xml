@@ -1,4 +1,6 @@
 using System.Dynamic;
+using System.Linq.Expressions;
+using System.Text;
 using Simple.Xml.Structure.Output;
 
 namespace Simple.Xml.Dynamic.Output
@@ -23,7 +25,7 @@ namespace Simple.Xml.Dynamic.Output
 
         public string ToXml()
         {
-            var creator = new DynamicBackwardXmlCreator(new BackwardXmlStringProducer());
+            var creator = new DynamicBackwardXmlCreator(new BackwardXmlStringProducer(new StringXmlBuilder(new StringBuilder())));
             Accept(creator);
 
             return creator.ToString();

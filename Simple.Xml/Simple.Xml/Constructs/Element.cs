@@ -2,7 +2,7 @@
 
 namespace Simple.Xml.Structure.Constructs
 {
-    public class Element : IElement
+    public class Element : IElementContainer
     {
         private readonly ElementName elementName;
         private readonly IElement parent;
@@ -45,7 +45,7 @@ namespace Simple.Xml.Structure.Constructs
 
         private Tag ConvertElementNameToTag()
         {
-            return new Tag(new TagName(elementName.Name(), elementName.NamespacePrefix()), collector.AttributesFor(this));
+            return new Tag(elementName.ToTagName(), collector.AttributesFor(this));
         }
     }
 }

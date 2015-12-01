@@ -42,6 +42,9 @@
     <Compile Include="Constructs\Attribute.cs" />
     <Compile Include="Constructs\Attributes.cs" />
     <Compile Include="Constructs\ElementName.cs" />
+    <Compile Include="Constructs\IElement.cs" />
+    <Compile Include="Constructs\IElementContainer.cs" />
+    <Compile Include="Constructs\TagName.cs" />
     <Compile Include="Output\BackwardXmlStringProducer.cs" />
     <Compile Include="Constructs\ContentElement.cs" />
     <Compile Include="Constructs\Element.cs" />
@@ -50,7 +53,6 @@
     <Compile Include="Output\ForwardXElementProducer.cs" />
     <Compile Include="Output\ForwardXmlStringProducer.cs" />
     <Compile Include="IDownwardElementVisitor.cs" />
-    <Compile Include="IElement.cs" />
     <Compile Include="IElementCollector.cs" />
     <Compile Include="IUpwardElementVisitor.cs" />
     <Compile Include="Output\IXmlBuilder.cs" />

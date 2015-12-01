@@ -2,13 +2,14 @@
 using NSubstitute;
 using Ploeh.AutoFixture.Idioms;
 using Simple.Xml.Structure;
+using Simple.Xml.Structure.Constructs;
 using Xunit;
 
 namespace Simple.Xml.Dynamic.UnitTests
 {
     public class DynamicElementTests
     {
-        private readonly IElement element;
+        private readonly IElementContainer element;
         private readonly dynamic sut;
         private readonly IDynamicElementVisitor visitor;
         private readonly IElementFactory factory;
@@ -17,7 +18,7 @@ namespace Simple.Xml.Dynamic.UnitTests
         public DynamicElementTests()
         {
             visitor = Substitute.For<IDynamicElementVisitor>();
-            element = Substitute.For<IElement>();
+            element = Substitute.For<IElementContainer>();
             factory = Substitute.For<IElementFactory>();
             graphDecorator = Substitute.For<Func<BaseDynamicElement, BaseDynamicElement>>();
             sut = new DynamicElement(element, factory, graphDecorator);

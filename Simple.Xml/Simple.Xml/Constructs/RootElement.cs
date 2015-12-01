@@ -2,7 +2,7 @@
 
 namespace Simple.Xml.Structure.Constructs
 {
-    public class RootElement : IElement
+    public class RootElement : IElementContainer
     {
         private readonly Namespaces namespaces;
         private readonly IElementCollector collector;

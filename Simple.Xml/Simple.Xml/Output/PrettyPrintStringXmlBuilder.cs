@@ -6,7 +6,7 @@ namespace Simple.Xml.Structure.Output
 {
     public class PrettyPrintStringXmlBuilder : IXmlBuilder
     {
-        private const char INDENTATION_CHAR = ' ';
+        private const char IndentationCharacter = ' ';
 
         private readonly IXmlBuilder xmlBuilder;
         private readonly StringBuilder stringBuilder;
@@ -66,7 +66,7 @@ namespace Simple.Xml.Structure.Output
 
         private void AppendIndent()
         {
-            stringBuilder.Append(INDENTATION_CHAR, indentationLevel * 4);
+            stringBuilder.Append(IndentationCharacter, indentationLevel * 4);
         }
 
         private void AppendLine()
