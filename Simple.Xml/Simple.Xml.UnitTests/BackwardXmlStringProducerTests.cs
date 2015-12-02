@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using NSubstitute;
 using Ploeh.AutoFixture;
 using Simple.Xml.Structure.Constructs;
@@ -10,8 +11,9 @@ namespace Simple.Xml.Structure.UnitTests
     public class BackwardXmlStringProducerTests
     {
         private static readonly Tag ANY_TAG = new Fixture().Create<Tag>();
-        private static readonly IElement ANY_PARENT = Substitute.For<IElement>();
-        private static readonly IEnumerable<IElement> someChildren = Substitute.For<IEnumerable<IElement>>();
+        private static readonly IEnumerable<IElement> NO_CHILDREN = Enumerable.Empty<IElement>();
+
+        private readonly IElement ANY_PARENT = Substitute.For<IElement>();
 
         private readonly IXmlBuilder xmlBuilder;
         private readonly BackwardXmlStringProducer sut;
@@ -30,7 +32,7 @@ namespace Simple.Xml.Structure.UnitTests
                 .Then("TagStarted");
             xmlBuilder.When(x => x.WriteEndTag()).Expect("TagStarted");
 
-            sut.Visit(tag, ANY_PARENT, someChildren);
+            sut.Visit(tag, ANY_PARENT, NO_CHILDREN);
 
             xmlBuilder.Received(1).WriteStartTagFor(tag);
             xmlBuilder.Received(1).WriteEndTag();
@@ -39,7 +41,7 @@ namespace Simple.Xml.Structure.UnitTests
         [Theory, AutoSubstituteData]
         public void PassesItselfToParent(IElement parent)
         {
-            sut.Visit(ANY_TAG, parent, someChildren);
+            sut.Visit(ANY_TAG, parent, NO_CHILDREN);
 
             parent.Received(1).Accept(sut);
         }

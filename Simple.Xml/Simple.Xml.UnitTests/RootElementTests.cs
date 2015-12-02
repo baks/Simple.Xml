@@ -8,6 +8,9 @@ namespace Simple.Xml.Structure.UnitTests
 {
     public class RootElementTests
     {
+        private static readonly IEnumerable<IElement> ANY_CHILDREN = null; 
+        private static readonly IElement ANY_PARENT = new NullObjectElement();
+
         private readonly IElementCollector collector;
         private readonly RootElement sut;
         private readonly IDownwardElementVisitor downwardVisitor;
@@ -43,7 +46,7 @@ namespace Simple.Xml.Structure.UnitTests
         {
             sut.Accept(upwardVisitor);
             
-            upwardVisitor.DidNotReceive().Visit(Arg.Any<Tag>(), AParent, AnElementsEnumerable);   
+            upwardVisitor.DidNotReceive().Visit(Arg.Any<Tag>(), ANY_PARENT, ANY_CHILDREN);   
         }
 
         [Fact]
@@ -53,13 +56,5 @@ namespace Simple.Xml.Structure.UnitTests
 
             downwardVisitor.Received(1).Visit(aNamespaces);
         }
-
-        private static string AName => Arg.Any<string>();
-
-        private static IEnumerable<IElement> AnElementsEnumerable => Arg.Any<IEnumerable<IElement>>();
-
-        private static IEnumerable<Attribute> AnAttributesEnumerable => Arg.Any<IEnumerable<Attribute>>(); 
-
-        private static IElement AParent => Arg.Any<IElement>();
     }
 }

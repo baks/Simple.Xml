@@ -16,9 +16,9 @@ namespace Simple.Xml.Structure.Output
             }
             else
             {
-                var tagXElement = tag.ToXElement();
-                tagXElement.Add(this.root);
-                this.root = tagXElement;
+                var newRoot = tag.ToXElement();
+                newRoot.Add(this.root);
+                this.root = newRoot;
             }
         }
 

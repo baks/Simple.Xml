@@ -25,14 +25,7 @@ namespace Simple.Xml.Structure.Output
 
         public void WriteStartTagFor(Tag tag)
         {
-            if (namespacesStack.Count == 0)
-            {
-                stringBuilder.Append($"<{tag}>");
-            }
-            else
-            {
-                stringBuilder.Append($"<{tag} {namespacesStack.Pop()}>");
-            }
+            StartTag(tag);
             tagsStack.Push(tag);
         }
 
@@ -60,13 +53,20 @@ namespace Simple.Xml.Structure.Output
             {
                 throw new ArgumentNullException(nameof(namespaces));
             }
-            if(namespaces != Namespaces.EmptyNamespaces)
-            namespacesStack.Push(namespaces);
+            if (namespaces != Namespaces.EmptyNamespaces)
+            {
+                namespacesStack.Push(namespaces);
+            }
         }
 
         public override string ToString()
         {
             return stringBuilder.ToString();
+        }
+
+        private void StartTag(Tag tag)
+        {
+            stringBuilder.Append(namespacesStack.Count == 0 ? $"<{tag}>" : $"<{tag} {namespacesStack.Pop()}>");
         }
 
         private void EndTag(Tag tag)

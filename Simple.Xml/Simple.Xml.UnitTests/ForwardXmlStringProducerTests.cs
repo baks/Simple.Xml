@@ -10,8 +10,8 @@ namespace Simple.Xml.Structure.UnitTests
 {
     public class ForwardXmlStringProducerTests
     {
-        private static readonly IEnumerable<IElement> EMPTY_CHILDREN = Enumerable.Empty<IElement>();
-        private static Tag ANY_TAG => Arg.Any<Tag>();
+        private static readonly IEnumerable<IElement> NO_CHILDREN = Enumerable.Empty<IElement>();
+        private static readonly Tag ANY_TAG = null;
 
         private readonly ForwardXmlStringProducer sut;
         private readonly IXmlBuilder xmlBuilder;
@@ -29,7 +29,7 @@ namespace Simple.Xml.Structure.UnitTests
                 .Then("TagStarted");
             xmlBuilder.When(x => x.WriteEndTag()).Expect("TagStarted");
 
-            sut.Visit(tag, EMPTY_CHILDREN);
+            sut.Visit(tag, NO_CHILDREN);
 
             xmlBuilder.Received(1).WriteStartTagFor(tag);
             xmlBuilder.Received(1).WriteEndTag();
@@ -42,9 +42,9 @@ namespace Simple.Xml.Structure.UnitTests
                 .Then("TagStarted");
             xmlBuilder.When(x => x.WriteEndTag()).Expect("TagStarted");
 
-            sut.Visit(tag, EMPTY_CHILDREN);
+            sut.Visit(tag, NO_CHILDREN);
 
-            xmlBuilder.Received(1).WriteStartTagFor(ANY_TAG);
+            xmlBuilder.Received(1).WriteStartTagFor(tag);
             xmlBuilder.Received(1).WriteEndTag();
         }
 

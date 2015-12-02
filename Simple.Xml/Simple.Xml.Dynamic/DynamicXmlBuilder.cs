@@ -10,9 +10,9 @@ namespace Simple.Xml.Dynamic
         private static Func<BaseDynamicElement, BaseDynamicElement> DefaultGraphDecorator => element => element;
 
         private static readonly Func<Namespaces, Func<BaseDynamicElement, BaseDynamicElement>, BaseDynamicElement>
-            DefaultGraph = (namespaces, graphDecorator) => new DynamicToXElementForwardHandler(new DynamicToXElementBackwardHandler(new DynamicToXmlForwardHandler(
+            DefaultGraph = (namespaces, graphDecorator) => new DynamicToXElementForwardHandler(new DynamicToXmlForwardHandler(
                 new DynamicElement(new RootElement(namespaces, new ElementCollector()), new ElementFactory(namespaces),
-                    graphDecorator))));
+                    graphDecorator)));
 
         private readonly Func<BaseDynamicElement, BaseDynamicElement> graphDecorator;
         private readonly Namespaces namespaces;

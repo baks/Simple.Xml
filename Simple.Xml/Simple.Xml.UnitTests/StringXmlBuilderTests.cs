@@ -12,8 +12,6 @@ namespace Simple.Xml.Structure.UnitTests
 {
     public class StringXmlBuilderTests
     {
-        private static Tag TagFor(string name) => new Tag(new TagName(name, NamespacePrefix.EmptyNamespacePrefix), Enumerable.Empty<Attribute>());
-
         private readonly StringXmlBuilder sut = new StringXmlBuilder(new StringBuilder());
 
         [Theory, AutoSubstituteData]
@@ -70,5 +68,8 @@ namespace Simple.Xml.Structure.UnitTests
 
             Assert.IsAssignableFrom<InvalidOperationException>(exception);
         }
+
+        private static Tag TagFor(string name)
+            => new Tag(new TagName(name, NamespacePrefix.EmptyNamespacePrefix), Enumerable.Empty<Attribute>());
     }
 }

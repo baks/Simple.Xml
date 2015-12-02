@@ -1,4 +1,5 @@
-﻿using System.Dynamic;
+﻿using System;
+using System.Dynamic;
 using System.Xml.Linq;
 using Simple.Xml.Structure.Output;
 
@@ -12,7 +13,7 @@ namespace Simple.Xml.Dynamic.Output
 
         public override bool TryInvokeMember(InvokeMemberBinder binder, object[] args, out object result)
         {
-            var toXElementMethod = string.Equals("ToXElement", binder.Name);
+            var toXElementMethod = string.Equals("ToXElement", binder.Name, StringComparison.Ordinal);
             if (toXElementMethod)
             {
                 result = ToXElement();

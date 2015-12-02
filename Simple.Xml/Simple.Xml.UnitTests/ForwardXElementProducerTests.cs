@@ -11,7 +11,7 @@ namespace Simple.Xml.Structure.UnitTests
 {
     public class ForwardXElementProducerTests
     {
-        private static IEnumerable<IElement> ANY_CHILDREN => Substitute.For<IEnumerable<IElement>>();
+        private static readonly IEnumerable<IElement> NO_CHILDREN = Enumerable.Empty<IElement>();
         private readonly ForwardXElementProducer sut = new ForwardXElementProducer();
         
         [Fact]
@@ -23,7 +23,7 @@ namespace Simple.Xml.Structure.UnitTests
         [Theory, AutoSubstituteData]
         public void CreatesXElementWithPassedTag(Tag tag)
         {
-            sut.Visit(tag, ANY_CHILDREN);
+            sut.Visit(tag, NO_CHILDREN);
 
             var result = sut.ToXElement();
 
@@ -53,7 +53,7 @@ namespace Simple.Xml.Structure.UnitTests
         [Theory, AutoSubstituteData]
         public void CreatesXElementWithContent(Tag aTag, string content)
         {
-            sut.Visit(aTag, ANY_CHILDREN);
+            sut.Visit(aTag, NO_CHILDREN);
             sut.Visit(content);
 
             var result = sut.ToXElement();
