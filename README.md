@@ -1,4 +1,4 @@
-# Simple.Xml ![Build status](https://ci.appveyor.com/api/projects/status/v13ag0vi4gvijfeb?svg=true) [![Nuget version](https://img.shields.io/nuget/v/Nuget.Core.svg)](https://www.nuget.org/packages/Simple.Xml/) [![Nuget count](https://img.shields.io/nuget/dt/Simple.Xml.svg)](https://www.nuget.org/packages/Simple.Xml/)
+# Simple.Xml ![Build status](https://ci.appveyor.com/api/projects/status/v13ag0vi4gvijfeb?svg=true) [![Nuget version](https://img.shields.io/nuget/v/Simple.Xml.svg)](https://www.nuget.org/packages/Simple.Xml/) [![Nuget count](https://img.shields.io/nuget/dt/Simple.Xml.svg)](https://www.nuget.org/packages/Simple.Xml/)
 Library for dynamically creating XML structure.
 
 # Motivation
