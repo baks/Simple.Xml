@@ -51,6 +51,6 @@ is equivalent to:
 
 ```csharp
 var xElement = new XElement(XName.Get("Head", "http://www.w3.org"), 
-				new XAttribute(XName.Get("attr", "http://www.w3.org"), value)
+				new XAttribute(XName.Get("attr", "http://www.w3.org"), "value")
 				new XElement(XName.Get("Body", "http://www.w3.org"), "content"));
 ```
