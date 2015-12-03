@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+    <metadata>
+        <id>Simple.Xml</id>
+        <version>1.0.0.0</version>
+        <title>Simple.Xml</title>
+        <authors>Arkadiusz Komisarczuk</authors>
+        <owners>Arkadiusz Komisarczuk</owners>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>Leverage DLR for dynamically creating XML structure</description>
+        <copyright>Copyright ©  2015</copyright>
+    </metadata>
+    <files>
+		<file src="Simple.Xml.Structure.dll" target="lib\net40\Simple.Xml.Structure.dll" />
+        <file src="Simple.Xml.Dynamic.dll" target="lib\net40\Simple.Xml.Dynamic.dll" />
+    </files>
+</package>
